@@ -22,8 +22,6 @@ class ContactsList : NSObject, NSCoding {
     private var listOfContacts = SaveLoadCheckData.fromDrive()
     {
         didSet {
-            Notifications.postAddRemoveContact()
-            
             self.saveData()
         }
     }
@@ -51,7 +49,7 @@ class ContactsList : NSObject, NSCoding {
         didSet {
             SaveLoadCheckData.setUsersDefaultSortMethod(self.currentSortField)
             
-            Notifications.postAddRemoveContact()
+            Notifications.postChangedSortField()
         }
     }
     
@@ -78,10 +76,6 @@ class ContactsList : NSObject, NSCoding {
         return result.sorted(by: isFirstSmallerThanSecond)
     }
     
-    func addContact(_ newContact : Contact) {
-        self.listOfContacts.append(newContact)
-    }
-    
     func addContact(firstName : String, lastName : String, phoneNumber : String, email : String) {
         if "\(firstName)\(lastName)\(phoneNumber)\(email)" == "" {
             return
@@ -90,52 +84,8 @@ class ContactsList : NSObject, NSCoding {
         let newContact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
         
         self.listOfContacts.append(newContact)
-    }
-    
-    func addContact(firstName : String, lastName : String, phoneNumber : String, email : String, uuid : String) {
         
-        if "\(firstName)\(lastName)\(phoneNumber)\(email)" == "" {
-            return
-        }
-        
-        let newContact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, uuid: uuid)
-        
-        self.listOfContacts.append(newContact)
-
-    }
-    
-    func editContact(firstName : String, lastName : String, phoneNumber : String, email : String, uuid : String) {
-        if let contact = self.getByUuid(uuid) {
-            contact.firstName = firstName
-            
-            contact.lastName = lastName
-            
-            contact.phoneNumber = phoneNumber
-            
-            contact.email = email
-            
-            self.saveData()
-        }
-    }
-    
-    func editContact(_ contact : Contact, firstName : String, lastName : String, phoneNumber : String, email : String) {
-        contact.firstName = firstName
-        
-        contact.lastName = lastName
-        
-        contact.phoneNumber = phoneNumber
-        
-        contact.email = email
-        
-        self.saveData()
-    }
-    
-    func getByIndex(_ index : Int) -> Contact {
-        if index > self.count {
-            return Contact()
-        } else {
-            return self.getList()[index]
-        }
+        Notifications.postAddContact(newContact)
     }
     
     func getByUuid(_ uuid : String) -> Contact? {
@@ -152,44 +102,12 @@ class ContactsList : NSObject, NSCoding {
         return result
     }
     
-    func deleteByIndex(_ index : Int) {
-        self.deleteContact(self.getByIndex(index))
-    }
-    
-    public func deleteByUuid(_ uuid : String) {
-        if let contact = self.getByUuid(uuid) {
-            self.deleteContact(contact)
-        }
-    }
-    
     func deleteContact(_ contact : Contact) {
         if contact.uuid != "" {
             if let removeIndex = self.listOfContacts.index(where: { $0.uuid == contact.uuid }) {
-                    self.listOfContacts.remove(at: removeIndex)
+                self.listOfContacts.remove(at: removeIndex)
+                Notifications.postRemoveContact(contact)
             }
-        }
-    }
-    
-    private func getDictionary() -> [String : [String : String]] {
-        var result = [String : [String : String]]()
-        for contact in self.listOfContacts {
-            let data = [
-                "firstName" : contact.firstName,
-                "lastName" : contact.lastName,
-                "phoneNumber" : contact.phoneNumber,
-                "email" : contact.email
-            ]
-            
-            result.updateValue(data, forKey: contact.uuid)
-        }
-        
-        return result
-    }
-    
-    private func loadFromDictionary(_ dictionary : [String : [String : String]]) {
-        for uuidDictionary in dictionary {
-            let dictValue = uuidDictionary.value
-            self.addContact(firstName: dictValue["firstName"] ?? "", lastName: dictValue["lastName"] ?? "", phoneNumber: dictValue["phoneNumber"] ?? "", email: dictValue["email"] ?? "", uuid: uuidDictionary.key)
         }
     }
     

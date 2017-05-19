@@ -58,19 +58,7 @@ class Contact : NSObject, NSCoding{
         
         self.uuid = UUID().uuidString
     }
-    
-    init(firstName : String, lastName : String, phoneNumber : String, email : String, uuid: String) {
-        self.firstName = firstName
         
-        self.lastName = lastName
-        
-        self.phoneNumber = phoneNumber
-        
-        self.email = email
-        
-        self.uuid = uuid
-    }
-    
     override init() {
         self.firstName = ""
         

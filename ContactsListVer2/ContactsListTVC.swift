@@ -27,9 +27,13 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateContactList(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.addRemoveContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.addContact(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.addContact), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteContact(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.removeContact), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateContact(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.updateContact), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateContactList(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.changedSortFild), object: nil)
     }
     
     deinit {
@@ -73,8 +77,6 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "addContact" {
-            // QUESTION: in next else i can use let, in current - it is forbidden, WHY?
-            //if let toViewController = segue.destination as? ContactsListProtocol {
             if var toViewController = segue.destination as? ContactsListProtocol {
                 toViewController.contactList = contactList
             }
@@ -95,10 +97,10 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
     }
     
     func updateContact(_ notification: NSNotification) {
-        if let contact = notification.userInfo?["contact"] as? Contact, let contactListValue = contactList {
+        if let contact = notification.userInfo?["contact"] as? Contact {
             let oldIndex = contactListArray.index(of: contact)
             
-            contactListArray = contactListValue.getList()
+            readContactList()
             
             let newIndex = contactListArray.index(of: contact)
             
@@ -109,11 +111,43 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
                 
                 contactsListTableView.moveRow(at: indexPathAt, to: indexPathTo)
                 
-                if let cell = contactsListTableView.cellForRow(at: indexPathTo) as? ContactsTVCell {
-                    cell.fillCellByContact(contact)
-                }
+                contactsListTableView.reloadRows(at: [indexPathTo], with: .bottom)
             }
         }
+    }
+    
+    func deleteContact(_ notification: NSNotification) {
+        if let contact = notification.userInfo?["contact"] as? Contact {
+            let index = contactListArray.index(of: contact)
+            
+            if let indexValue = index {
+                // delete cell for contact
+                let indexPath = IndexPath(row: indexValue, section: 0)
+                
+                readContactList()
+                
+                contactsListTableView.deleteRows(at: [indexPath], with: .top)
+            }
+        }
+        
+        setAvailability()
+    }
+    
+    func addContact(_ notification: NSNotification) {
+        readContactList()
+        
+        if let contact = notification.userInfo?["contact"] as? Contact {
+            let index = contactListArray.index(of: contact)
+            
+            if let indexValue = index {
+                // add cell for contact
+                let indexPath = IndexPath(row: indexValue, section: 0)
+                
+                contactsListTableView.insertRows(at: [indexPath], with: .top)
+            }
+        }
+        
+        setAvailability()
     }
     
     func setAvailabilityAndReloadData() {

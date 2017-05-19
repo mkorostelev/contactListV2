@@ -166,7 +166,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="YH7-yp-Wmj">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="LR9-ja-n5v">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="LR9-ja-n5v">
                             <connections>
                                 <action selector="saveContact:" destination="Xq3-Gg-ihZ" id="qLO-tJ-dla"/>
                             </connections>

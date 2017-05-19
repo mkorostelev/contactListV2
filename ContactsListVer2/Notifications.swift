@@ -9,11 +9,19 @@
 import Foundation
 
 struct Notifications {
-    static func postAddRemoveContact() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.notificationsNames.addRemoveContact), object: nil)
+    static func postAddContact(_ contact: Contact) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.notificationsNames.addContact), object: nil, userInfo: ["contact" : contact])
+    }
+    
+    static func postRemoveContact(_ contact: Contact) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.notificationsNames.removeContact), object: nil, userInfo: ["contact" : contact])
     }
     
     static func postUpdateContact(_ contact: Contact) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.notificationsNames.updateContact), object: nil, userInfo: ["contact" : contact])
+    }
+    
+    static func postChangedSortField() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.notificationsNames.changedSortFild), object: nil)
     }
 }

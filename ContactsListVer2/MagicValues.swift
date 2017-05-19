@@ -10,9 +10,13 @@ import Foundation
 
 struct Constants {
     struct notificationsNames {
-        static let addRemoveContact = "addRemoveContact"
+        static let addContact = "addContact"
+        
+        static let removeContact = "removeContact"
         
         static let updateContact = "updateContact"
+        
+        static let changedSortFild = "changedSortFild"
     }
     
     struct usersDefaultsKeys {
