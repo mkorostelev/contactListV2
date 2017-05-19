@@ -19,7 +19,7 @@ class ContactsList : NSObject, NSCoding {
         case email
     }
     
-    private var listOfContacts = SaveLoadData.fromDrive()
+    private var listOfContacts = SaveLoadCheckData.fromDrive()
     {
         didSet {
             Notifications.postAddRemoveContact()
@@ -31,7 +31,7 @@ class ContactsList : NSObject, NSCoding {
     override init() {
         super.init()
         
-        if let savedSortField = SaveLoadData.getUsersDefaultSortMethod() {
+        if let savedSortField = SaveLoadCheckData.getUsersDefaultSortMethod() {
             self.currentSortField = savedSortField
         }
         
@@ -49,7 +49,7 @@ class ContactsList : NSObject, NSCoding {
     var currentSortField : SortField = .lastName
     {
         didSet {
-            SaveLoadData.setUsersDefaultSortMethod(self.currentSortField)
+            SaveLoadCheckData.setUsersDefaultSortMethod(self.currentSortField)
             
             Notifications.postAddRemoveContact()
         }
@@ -202,7 +202,7 @@ class ContactsList : NSObject, NSCoding {
     }
     
     func saveData() {
-        SaveLoadData.toDrive(self.listOfContacts)
+        SaveLoadCheckData.toDrive(self.listOfContacts)
     }
     
     private func isFirstSmallerThanSecond(contact1 : Contact, contact2 : Contact) -> Bool {

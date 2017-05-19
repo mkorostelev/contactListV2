@@ -20,7 +20,7 @@
 		A0F049491ECDDD7500E5CF40 /* ContactsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F049481ECDDD7500E5CF40 /* ContactsTVCell.swift */; };
 		A0F0494C1ECDDEC200E5CF40 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0494B1ECDDEC200E5CF40 /* Extensions.swift */; };
 		A0F0494E1ECDE49400E5CF40 /* MagicValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0494D1ECDE49400E5CF40 /* MagicValues.swift */; };
-		A0F049501ECDE8C200E5CF40 /* SaveLoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0494F1ECDE8C200E5CF40 /* SaveLoadData.swift */; };
+		A0F049501ECDE8C200E5CF40 /* SaveLoadCheckData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0494F1ECDE8C200E5CF40 /* SaveLoadCheckData.swift */; };
 		A0F049531ECDEDAE00E5CF40 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F049521ECDEDAE00E5CF40 /* Notifications.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +40,7 @@
 		A0F049481ECDDD7500E5CF40 /* ContactsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTVCell.swift; sourceTree = "<group>"; };
 		A0F0494B1ECDDEC200E5CF40 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A0F0494D1ECDE49400E5CF40 /* MagicValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicValues.swift; sourceTree = "<group>"; };
-		A0F0494F1ECDE8C200E5CF40 /* SaveLoadData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveLoadData.swift; sourceTree = "<group>"; };
+		A0F0494F1ECDE8C200E5CF40 /* SaveLoadCheckData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveLoadCheckData.swift; sourceTree = "<group>"; };
 		A0F049521ECDEDAE00E5CF40 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,7 +120,7 @@
 				A01ACC921ECCB0DE00AB61BB /* Protocols.swift */,
 				A0F0494B1ECDDEC200E5CF40 /* Extensions.swift */,
 				A0F0494D1ECDE49400E5CF40 /* MagicValues.swift */,
-				A0F0494F1ECDE8C200E5CF40 /* SaveLoadData.swift */,
+				A0F0494F1ECDE8C200E5CF40 /* SaveLoadCheckData.swift */,
 				A0F049521ECDEDAE00E5CF40 /* Notifications.swift */,
 			);
 			name = Helpers;
@@ -205,7 +205,7 @@
 				A0F0494C1ECDDEC200E5CF40 /* Extensions.swift in Sources */,
 				A01ACC8B1ECCAEB800AB61BB /* ContactClass.swift in Sources */,
 				84CD7A971ECEFBF70039CFA3 /* ContactViewVC.swift in Sources */,
-				A0F049501ECDE8C200E5CF40 /* SaveLoadData.swift in Sources */,
+				A0F049501ECDE8C200E5CF40 /* SaveLoadCheckData.swift in Sources */,
 				A01ACC771ECCAE7400AB61BB /* AppDelegate.swift in Sources */,
 				A01ACC8C1ECCAEB800AB61BB /* ContactsListClass.swift in Sources */,
 				A0F0494E1ECDE49400E5CF40 /* MagicValues.swift in Sources */,

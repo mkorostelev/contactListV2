@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SaveLoadData {
+struct SaveLoadCheckData {
     static let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     
     static let fileURL = DocumentDirURL.appendingPathComponent("ContactsList")
@@ -49,5 +49,12 @@ struct SaveLoadData {
         }
         
         return nil
+    }
+    
+    static func validatePhoneNumber(value: String) -> Bool {
+        let PHONE_REGEX = "[\\d,.#*+()]{0,}"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        let result =  phoneTest.evaluate(with: value)
+        return result
     }
 }

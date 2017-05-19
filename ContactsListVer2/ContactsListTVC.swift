@@ -23,6 +23,7 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
         
         readContactList()
     }
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         
@@ -82,6 +83,8 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
                 if let toViewController = segue.destination as? ContactViewVC {
                     toViewController.contactList = contactList
                     toViewController.contact = selectedContact
+                    
+                    self.navigationItem.backBarButtonItem?.title = " "
                 }
             }
         }
@@ -131,7 +134,7 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
         if contactListArray.count == 0 {
             self.navigationItem.leftBarButtonItem = nil
             // QUESTION: What is wrong?
-            contactsListTableView.setEditing(false, animated: true)
+            contactsListTableView.setEditing(false, animated: false)
         } else {
             self.navigationItem.leftBarButtonItem = self.editButtonItem
         }

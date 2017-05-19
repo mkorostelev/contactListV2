@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol {
+class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol, UITextFieldDelegate {
+    
     var contactList: ContactsList?
     
     var contact: Contact?
@@ -19,10 +20,22 @@ class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol 
     @IBOutlet weak var emailOutlet: UITextField!
     @IBOutlet weak var deleteContactOutlet: UIButton!
     
+    @IBOutlet weak var saveContactOutlet: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fillDataFromContact()
+        
+        phoneNumberOutlet.delegate = self
+        
+        firstNameOutlet.delegate = self
+        
+        lastNameOutlet.delegate = self
+        
+        emailOutlet.delegate = self
+        
+        checkEnabledOfSaveButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,5 +93,38 @@ class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol 
             }
         }
         self.performSegueToReturnBack()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        var result = true
+        if textField == phoneNumberOutlet {
+            result = SaveLoadCheckData.validatePhoneNumber(value: string)
+        }
+        
+        if result {
+            checkEnabledOfSaveButton(notInOutletString: string, range: range)
+        }
+        
+        return result
+    }
+    
+    
+    private func checkEnabledOfSaveButton(notInOutletString : String = "", range: NSRange? = nil) {
+        var countOfDeleted = 0
+        
+        if let rangeValue = range {
+            if notInOutletString.isEmpty {
+                countOfDeleted = rangeValue.length - rangeValue.location
+            }
+        }
+        
+        let firstName = firstNameOutlet.text ?? ""
+        let lastName = lastNameOutlet.text ?? ""
+        let phoneNumber = phoneNumberOutlet.text ?? ""
+        let email = emailOutlet.text ?? ""
+        
+        
+        saveContactOutlet.isEnabled = "\(firstName)\(lastName)\(phoneNumber)\(email)\(notInOutletString)".characters.count - countOfDeleted > 0
     }
 }
