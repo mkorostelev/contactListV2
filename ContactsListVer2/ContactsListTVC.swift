@@ -76,6 +76,8 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        var backButtonTitle = "Cancel"
+        
         if segue.identifier == "addContact" {
             if var toViewController = segue.destination as? ContactsListProtocol {
                 toViewController.contactList = contactList
@@ -86,10 +88,12 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
                     toViewController.contactList = contactList
                     toViewController.contact = selectedContact
                     
-                    self.navigationItem.backBarButtonItem?.title = " "
+                    backButtonTitle = " "
                 }
             }
         }
+        
+        self.navigationItem.backBarButtonItem?.title = backButtonTitle
     }
     
     func updateContactList(_ notification: NSNotification) {

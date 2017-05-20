@@ -58,7 +58,7 @@ class Contact : NSObject, NSCoding{
         
         self.uuid = UUID().uuidString
     }
-        
+    
     override init() {
         self.firstName = ""
         
