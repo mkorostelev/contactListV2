@@ -62,7 +62,7 @@ class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol,
         let phoneNumber = phoneNumberOutlet.text ?? ""
         let email = emailOutlet.text ?? ""
         
-        if "\(firstName)\(lastName)\(phoneNumber)\(email)" != "" {
+        if !("\(firstName)\(lastName)\(phoneNumber)\(email)".isEmpty) {
             if let contactListValue = contactList {
                 if let contactValue = contact {
                     // change contact
@@ -123,7 +123,6 @@ class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol,
         let lastName = lastNameOutlet.text ?? ""
         let phoneNumber = phoneNumberOutlet.text ?? ""
         let email = emailOutlet.text ?? ""
-        
         
         saveContactOutlet.isEnabled = "\(firstName)\(lastName)\(phoneNumber)\(email)\(notInOutletString)".characters.count - countOfDeleted > 0
     }

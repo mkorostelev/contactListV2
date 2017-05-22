@@ -39,16 +39,20 @@ struct SaveLoadCheckData {
         return result        
     }
     
-    static func setUsersDefaultSortMethod(_ sortMethod : ContactsList.SortField){
-        UserDefaults.standard.setValue(sortMethod.rawValue, forKey: Constants.usersDefaultsKeys.sortFieldCode)
+    static func setUsersDefaultSortMethod(_ sortMethod : AdditionalData.SortFields.Values){
+        UserDefaults.standard.setValue(sortMethod.rawValue, forKey: Constants.UsersDefaultsKeys.sortFieldCode)
     }
     
-    static func getUsersDefaultSortMethod() -> ContactsList.SortField? {
-        if let savedSortFieldCode = UserDefaults.standard.value(forKey: Constants.usersDefaultsKeys.sortFieldCode) {
-            return ContactsList.SortField(rawValue: savedSortFieldCode as! Int)
+    static func getUsersDefaultSortMethod() -> AdditionalData.SortFields.Values {
+        var result = AdditionalData.SortFields.Values.lastName
+        
+        if let savedSortFieldCode = UserDefaults.standard.value(forKey: Constants.UsersDefaultsKeys.sortFieldCode) {
+            if let savedSortFieldValue = AdditionalData.SortFields.Values(rawValue: savedSortFieldCode as! Int) {
+                result = savedSortFieldValue
+            }
         }
         
-        return nil
+        return result
     }
     
     static func validatePhoneNumber(value: String) -> Bool {

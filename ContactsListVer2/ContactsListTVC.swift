@@ -13,13 +13,22 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
 
     var contactListArray = [Contact]()
     
-    var selectedContact : Contact?
+    var selectedContact: Contact?
 
+    var currentSortField: AdditionalData.SortFields.Values = SaveLoadCheckData.getUsersDefaultSortMethod()
+    {
+        didSet {
+            SaveLoadCheckData.setUsersDefaultSortMethod(self.currentSortField)
+            
+            Notifications.postChangedSortField()
+        }
+    }
+    
     @IBOutlet var contactsListTableView: UITableView!
     @IBOutlet weak var changeSortMethodOutlet: UISegmentedControl!
     
     @IBAction func changeSortMethod(_ sender: UISegmentedControl) {
-        contactList?.setSortFieldFromIndex(changeSortMethodOutlet.selectedSegmentIndex)
+        currentSortField = AdditionalData.SortFields.Values(rawValue: changeSortMethodOutlet.selectedSegmentIndex) ?? .lastName
         
         readContactList()
     }
@@ -27,13 +36,13 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.addContact(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.addContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.addContact(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.addContact), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteContact(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.removeContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteContact(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.removeContact), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateContact(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.updateContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateContact(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateContactList(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.changedSortFild), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateContactList(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.changedSortFild), object: nil)
     }
     
     deinit {
@@ -43,7 +52,7 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        changeSortMethodOutlet.selectedSegmentIndex = contactList?.currentSortField.rawValue ?? 0
+        changeSortMethodOutlet.selectedSegmentIndex = currentSortField.rawValue
         
         readContactList()
         
@@ -77,6 +86,8 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         var backButtonTitle = "Cancel"
+        
+        self.isEditing = false
         
         if segue.identifier == "addContact" {
             if var toViewController = segue.destination as? ContactsListProtocol {
@@ -164,15 +175,15 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
     
     private func readContactList() {
         if let contactListValue = contactList {
-            contactListArray = contactListValue.getList()
+            contactListArray = contactListValue.getList(currentSortField: currentSortField)
         }
     }
     
     func setAvailability() {
         if contactListArray.count == 0 {
             self.navigationItem.leftBarButtonItem = nil
-            // QUESTION: What is wrong?
-            contactsListTableView.setEditing(false, animated: false)
+            
+            self.isEditing = false
         } else {
             self.navigationItem.leftBarButtonItem = self.editButtonItem
         }

@@ -29,11 +29,7 @@ class ContactsList : NSObject, NSCoding {
     override init() {
         super.init()
         
-        if let savedSortField = SaveLoadCheckData.getUsersDefaultSortMethod() {
-            self.currentSortField = savedSortField
-        }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.contactWasUpdated(_:)), name: NSNotification.Name(rawValue: Constants.notificationsNames.updateContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.contactWasUpdated(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
     }
     
     @objc private func contactWasUpdated(_ notification: NSNotification) {
@@ -44,22 +40,7 @@ class ContactsList : NSObject, NSCoding {
         return self.listOfContacts.count
     }
     
-    var currentSortField : SortField = .lastName
-    {
-        didSet {
-            SaveLoadCheckData.setUsersDefaultSortMethod(self.currentSortField)
-            
-            Notifications.postChangedSortField()
-        }
-    }
-    
-    public func setSortFieldFromIndex(_ index : Int) {
-        if let newSortFieldName = SortField(rawValue: index) {
-            self.currentSortField = newSortFieldName
-        }
-    }
-    
-    func getList(searchString : String = "") -> [Contact] {
+    func getList(currentSortField: AdditionalData.SortFields.Values ,searchString : String = "") -> [Contact] {
         let result : [Contact]
         
         let searchStringLowercased = searchString.lowercased().trimmingCharacters(in: .whitespaces)
@@ -73,7 +54,7 @@ class ContactsList : NSObject, NSCoding {
             })
         }
         
-        return result.sorted(by: isFirstSmallerThanSecond)
+        return result.sorted(by: { isFirstSmallerThanSecond(contact1: $0, contact2: $1, currentSortField: currentSortField) })
     }
     
     func addContact(firstName : String, lastName : String, phoneNumber : String, email : String) {
@@ -123,12 +104,12 @@ class ContactsList : NSObject, NSCoding {
         SaveLoadCheckData.toDrive(self.listOfContacts)
     }
     
-    private func isFirstSmallerThanSecond(contact1 : Contact, contact2 : Contact) -> Bool {
+    private func isFirstSmallerThanSecond(contact1 : Contact, contact2 : Contact, currentSortField: AdditionalData.SortFields.Values) -> Bool {
         let firstCompareResult : ComparisonResult
         
         let secondCompareResult : ComparisonResult
         
-        switch self.currentSortField {
+        switch currentSortField {
         case .firstName:
             firstCompareResult = contact1.firstName.compare(contact2.firstName)
             secondCompareResult = contact1.lastName.compare(contact2.lastName)

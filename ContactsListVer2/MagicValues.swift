@@ -9,7 +9,7 @@
 import Foundation
 
 struct Constants {
-    struct notificationsNames {
+    struct NotificationsNames {
         static let addContact = "addContact"
         
         static let removeContact = "removeContact"
@@ -19,7 +19,7 @@ struct Constants {
         static let changedSortFild = "changedSortFild"
     }
     
-    struct usersDefaultsKeys {
+    struct UsersDefaultsKeys {
         static let sortFieldCode = "sortFieldCode"
     }
 }
