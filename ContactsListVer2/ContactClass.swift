@@ -8,46 +8,46 @@
 
 import Foundation
 
-class Contact : NSObject, NSCoding{
-    var firstName : String
+class Contact: NSObject, NSCoding{
+    var firstName: String
     {
         didSet {
             Notifications.postUpdateContact(self)
         }
     }
     
-    var lastName : String
+    var lastName: String
     {
         didSet {
             Notifications.postUpdateContact(self)
         }
     }
     
-    var phoneNumber : String
+    var phoneNumber: String
     {
         didSet {
             Notifications.postUpdateContact(self)
         }
     }
     
-    var email : String
+    var email: String
     {
         didSet {
             Notifications.postUpdateContact(self)
         }
     }
     
-    var uuid : String
+    var uuid: String
     
-    var searchString : String {
+    var searchString: String {
         return "\(self.firstName) \(self.lastName) \(self.phoneNumber) \(self.email)"
     }
     
-    var fullName : String {
+    var fullName: String {
         return "\(self.firstName) \(self.lastName)"
     }
     
-    init(firstName : String, lastName : String, phoneNumber : String, email : String) {
+    init(firstName: String, lastName: String, phoneNumber: String, email: String) {
         self.firstName = firstName
         
         self.lastName = lastName

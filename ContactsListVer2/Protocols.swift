@@ -9,9 +9,9 @@
 import UIKit
 
 protocol ContactsListProtocol {
-    var contactList : ContactsList? {get set}
+    var contactList: ContactsList? {get set}
 }
 
 protocol ContactProtocol {
-    var contact : Contact? {get set}
+    var contactUuid: String? {get set}
 }

@@ -12,6 +12,8 @@ class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol,
     
     var contactList: ContactsList?
     
+    var contactUuid: String?
+    
     var contact: Contact?
     
     @IBOutlet weak var firstNameOutlet: UITextField!
@@ -24,6 +26,8 @@ class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        contact = contactList?.getByUuid(contactUuid)
         
         fillDataFromContact()
         
@@ -63,34 +67,31 @@ class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol,
         let email = emailOutlet.text ?? ""
         
         if !("\(firstName)\(lastName)\(phoneNumber)\(email)".isEmpty) {
-            if let contactListValue = contactList {
-                if let contactValue = contact {
-                    // change contact
-                    if contactValue.firstName != firstName {
-                        contactValue.firstName = firstName
-                    }
-                    if contactValue.lastName != lastName {
-                        contactValue.lastName = lastName
-                    }
-                    if contactValue.phoneNumber != phoneNumber {
-                        contactValue.phoneNumber = phoneNumber
-                    }
-                    if contactValue.email != email {
-                        contactValue.email = email
-                    }
-                } else {
-                    // add new contact
-                    contactListValue.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+            if let contactValue = contact {
+                // change contact
+                if contactValue.firstName != firstName {
+                    contactValue.firstName = firstName
                 }
+                if contactValue.lastName != lastName {
+                    contactValue.lastName = lastName
+                }
+                if contactValue.phoneNumber != phoneNumber {
+                    contactValue.phoneNumber = phoneNumber
+                }
+                if contactValue.email != email {
+                    contactValue.email = email
+                }
+            } else {
+                // add new contact
+                contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
             }
+            
             self.performSegueToReturnBack()
         }
     }
     @IBAction func deleteContact(_ sender: UIButton) {
         if let contactValue = contact {
-            if let contactListValue = contactList{
-                contactListValue.deleteContact(contactValue)
-            }
+                contactList?.deleteContact(contactValue)
         }
         self.performSegueToReturnBack()
     }
@@ -110,7 +111,7 @@ class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol,
     }
     
     
-    private func checkEnabledOfSaveButton(notInOutletString : String = "", range: NSRange? = nil) {
+    private func checkEnabledOfSaveButton(notInOutletString: String = "", range: NSRange? = nil) {
         var countOfDeleted = 0
         
         if let rangeValue = range {
@@ -124,6 +125,6 @@ class ContactAddEditVC: UIViewController, ContactsListProtocol, ContactProtocol,
         let phoneNumber = phoneNumberOutlet.text ?? ""
         let email = emailOutlet.text ?? ""
         
-        saveContactOutlet.isEnabled = "\(firstName)\(lastName)\(phoneNumber)\(email)\(notInOutletString)".characters.count - countOfDeleted > 0
+        saveContactOutlet.isEnabled = ("\(firstName)\(lastName)\(phoneNumber)\(email)\(notInOutletString)".characters.count - countOfDeleted) > 0
     }
 }

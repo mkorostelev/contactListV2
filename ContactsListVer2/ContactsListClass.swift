@@ -10,9 +10,9 @@ import Foundation
 
 import UIKit
 
-class ContactsList : NSObject, NSCoding {
+class ContactsList: NSObject, NSCoding {
 
-    enum SortField : Int{
+    enum SortField: Int{
         case firstName
         case lastName
         case phoneNumber
@@ -32,16 +32,20 @@ class ContactsList : NSObject, NSCoding {
         NotificationCenter.default.addObserver(self, selector: #selector(self.contactWasUpdated(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @objc private func contactWasUpdated(_ notification: NSNotification) {
         self.saveData()
     }
     
-    var count : Int {
+    var count: Int {
         return self.listOfContacts.count
     }
     
-    func getList(currentSortField: AdditionalData.SortFields.Values ,searchString : String = "") -> [Contact] {
-        let result : [Contact]
+    func getList(currentSortField: AdditionalData.SortFields.Values ,searchString: String = "") -> [Contact] {
+        let result: [Contact]
         
         let searchStringLowercased = searchString.lowercased().trimmingCharacters(in: .whitespaces)
         
@@ -49,7 +53,7 @@ class ContactsList : NSObject, NSCoding {
             result = self.listOfContacts
         } else {
             result = self.listOfContacts.filter({
-                (contact : Contact) -> Bool in
+                (contact: Contact) -> Bool in
                 return contact.searchString.range(of: searchStringLowercased) != nil
             })
         }
@@ -57,7 +61,7 @@ class ContactsList : NSObject, NSCoding {
         return result.sorted(by: { isFirstSmallerThanSecond(contact1: $0, contact2: $1, currentSortField: currentSortField) })
     }
     
-    func addContact(firstName : String, lastName : String, phoneNumber : String, email : String) {
+    func addContact(firstName: String, lastName: String, phoneNumber: String, email: String) {
         if "\(firstName)\(lastName)\(phoneNumber)\(email)" == "" {
             return
         }
@@ -69,21 +73,21 @@ class ContactsList : NSObject, NSCoding {
         Notifications.postAddContact(newContact)
     }
     
-    func getByUuid(_ uuid : String) -> Contact? {
-        let filteredArray = self.listOfContacts.filter({ $0.uuid == uuid })
+    func getByUuid(_ uuid: String?) -> Contact? {
+        var result: Contact? = nil
         
-        let result : Contact?
-        
-        if filteredArray.count > 0 {
-            result = filteredArray[0]
-        } else {
-            result = nil
+        if let uuidValue = uuid {
+            let filteredArray = self.listOfContacts.filter({ $0.uuid == uuidValue })
+            
+            if filteredArray.count > 0 {
+                result = filteredArray[0]
+            }
         }
         
         return result
     }
     
-    func deleteContact(_ contact : Contact) {
+    func deleteContact(_ contact: Contact) {
         if contact.uuid != "" {
             if let removeIndex = self.listOfContacts.index(where: { $0.uuid == contact.uuid }) {
                 self.listOfContacts.remove(at: removeIndex)
@@ -104,24 +108,24 @@ class ContactsList : NSObject, NSCoding {
         SaveLoadCheckData.toDrive(self.listOfContacts)
     }
     
-    private func isFirstSmallerThanSecond(contact1 : Contact, contact2 : Contact, currentSortField: AdditionalData.SortFields.Values) -> Bool {
-        let firstCompareResult : ComparisonResult
+    private func isFirstSmallerThanSecond(contact1: Contact, contact2: Contact, currentSortField: AdditionalData.SortFields.Values) -> Bool {
+        let firstCompareResult: ComparisonResult
         
-        let secondCompareResult : ComparisonResult
+        let secondCompareResult: ComparisonResult
         
         switch currentSortField {
         case .firstName:
-            firstCompareResult = contact1.firstName.compare(contact2.firstName)
-            secondCompareResult = contact1.lastName.compare(contact2.lastName)
+            firstCompareResult = contact1.firstName.localizedCaseInsensitiveCompare(contact2.firstName)
+            secondCompareResult = contact1.lastName.localizedCaseInsensitiveCompare(contact2.lastName)
         case .lastName:
-            firstCompareResult = contact1.lastName.compare(contact2.lastName)
-            secondCompareResult = contact1.firstName.compare(contact2.firstName)
+            firstCompareResult = contact1.lastName.localizedCaseInsensitiveCompare(contact2.lastName)
+            secondCompareResult = contact1.firstName.localizedCaseInsensitiveCompare(contact2.firstName)
         case .phoneNumber:
-            firstCompareResult = contact1.phoneNumber.compare(contact2.phoneNumber)
-            secondCompareResult = contact1.fullName.compare(contact2.fullName)
+            firstCompareResult = contact1.phoneNumber.localizedCaseInsensitiveCompare(contact2.phoneNumber)
+            secondCompareResult = contact1.fullName.localizedCaseInsensitiveCompare(contact2.fullName)
         case .email:
-            firstCompareResult = contact1.email.compare(contact2.email)
-            secondCompareResult = contact1.fullName.compare(contact2.fullName)
+            firstCompareResult = contact1.email.localizedCaseInsensitiveCompare(contact2.email)
+            secondCompareResult = contact1.fullName.localizedCaseInsensitiveCompare(contact2.fullName)
         }
         
         if firstCompareResult == .orderedSame {

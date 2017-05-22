@@ -97,7 +97,7 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
             if segue.identifier == "viewContact" {
                 if let toViewController = segue.destination as? ContactViewVC {
                     toViewController.contactList = contactList
-                    toViewController.contact = selectedContact
+                    toViewController.contactUuid = selectedContact?.uuid
                     
                     backButtonTitle = " "
                 }
@@ -188,7 +188,7 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
             self.navigationItem.leftBarButtonItem = self.editButtonItem
         }
         
-        changeSortMethodOutlet.isHidden = contactListArray.count == 0
+        changeSortMethodOutlet.isHidden = contactList?.count ?? 0 <= 1
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

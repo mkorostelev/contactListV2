@@ -21,18 +21,18 @@ class ContactsTVCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    public func fillCellByContact(_ contact : Contact) {
+    public func fillCellByContact(_ contact: Contact) {
         self.fullName?.text = contact.fullName
         
         self.phoneNumber?.text = contact.phoneNumber
     }
     
-    public static var nibName : String {
-        return "ContactsTVCell"//String(describing: ContactsTVCell().self)
+    public static var nibName: String {
+        return String(describing: self)
     }
     
-    public static var reuseIdentifier : String {
-        return "ContactsTVCell"//String(describing: ContactsTVCell().self)
+    public static var reuseIdentifier: String {
+        return String(describing: self)
     }
     
 }

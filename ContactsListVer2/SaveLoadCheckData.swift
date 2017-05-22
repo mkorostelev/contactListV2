@@ -13,7 +13,7 @@ struct SaveLoadCheckData {
     
     static let fileURL = DocumentDirURL.appendingPathComponent("ContactsList")
     
-    static func toDrive(_ listOfContacts : [Contact]) {
+    static func toDrive(_ listOfContacts: [Contact]) {
         let encodedData = NSKeyedArchiver.archivedData(withRootObject: listOfContacts)
         
         do {
@@ -39,7 +39,7 @@ struct SaveLoadCheckData {
         return result        
     }
     
-    static func setUsersDefaultSortMethod(_ sortMethod : AdditionalData.SortFields.Values){
+    static func setUsersDefaultSortMethod(_ sortMethod: AdditionalData.SortFields.Values){
         UserDefaults.standard.setValue(sortMethod.rawValue, forKey: Constants.UsersDefaultsKeys.sortFieldCode)
     }
     

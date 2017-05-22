@@ -9,9 +9,9 @@
 import UIKit
 
 class ContactViewVC: UIViewController, ContactsListProtocol,ContactProtocol {
+    var contactUuid: String?
+
     var contactList: ContactsList?
-    
-    var contact: Contact?
     
     @IBOutlet weak var emailOutlet: UITextField!
     @IBOutlet weak var phoneNumberOutlet: UITextField!
@@ -26,7 +26,7 @@ class ContactViewVC: UIViewController, ContactsListProtocol,ContactProtocol {
     }
     
     private func fillDataFromContact() {
-        if let contactValue = contact {
+        if let contactValue = contactList?.getByUuid(contactUuid) {
             self.navigationItem.title = contactValue.fullName
             
             phoneNumberOutlet.text = contactValue.phoneNumber
@@ -39,7 +39,7 @@ class ContactViewVC: UIViewController, ContactsListProtocol,ContactProtocol {
         if segue.identifier == "editContact" {
             if let toViewController = segue.destination as? ContactAddEditVC {
                 toViewController.contactList = contactList
-                toViewController.contact = contact
+                toViewController.contactUuid = contactUuid
             }
         }
     }
