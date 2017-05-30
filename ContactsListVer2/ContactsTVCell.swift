@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactsTVCell: UITableViewCell {
+class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
 
     @IBOutlet weak var fullName: UILabel!
     
@@ -20,13 +20,7 @@ class ContactsTVCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    public func fillCellByContact(_ contact: Contact) {
-        self.fullName?.text = contact.fullName
         
-        self.phoneNumber?.text = contact.phoneNumber
-    }
-    
     public static var nibName: String {
         return String(describing: self)
     }
@@ -35,4 +29,9 @@ class ContactsTVCell: UITableViewCell {
         return String(describing: self)
     }
     
+    func fillCell(fullName: String, phoneNumber: String) {
+        self.fullName?.text = fullName
+        
+        self.phoneNumber?.text = phoneNumber
+    }
 }

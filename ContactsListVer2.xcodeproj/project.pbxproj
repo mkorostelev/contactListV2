@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8435F6C31EDD54DF00A26A3E /* TVCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6C21EDD54DF00A26A3E /* TVCellProtocol.swift */; };
+		8435F6C61EDD555800A26A3E /* TVCellPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6C51EDD555800A26A3E /* TVCellPresenterProtocol.swift */; };
+		8435F6C81EDD672A00A26A3E /* ContactTVCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6C71EDD672A00A26A3E /* ContactTVCellPresenter.swift */; };
+		8435F6CB1EDD6FEA00A26A3E /* ContactViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6CA1EDD6FEA00A26A3E /* ContactViewProtocol.swift */; };
+		8435F6CD1EDD700800A26A3E /* ContactViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6CC1EDD700800A26A3E /* ContactViewPresenterProtocol.swift */; };
 		84CD7A971ECEFBF70039CFA3 /* ContactViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD7A961ECEFBF70039CFA3 /* ContactViewVC.swift */; };
 		A01ACC771ECCAE7400AB61BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01ACC761ECCAE7400AB61BB /* AppDelegate.swift */; };
 		A01ACC7C1ECCAE7400AB61BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A01ACC7A1ECCAE7400AB61BB /* Main.storyboard */; };
@@ -26,6 +31,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8435F6C21EDD54DF00A26A3E /* TVCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVCellProtocol.swift; sourceTree = "<group>"; };
+		8435F6C51EDD555800A26A3E /* TVCellPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVCellPresenterProtocol.swift; sourceTree = "<group>"; };
+		8435F6C71EDD672A00A26A3E /* ContactTVCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCellPresenter.swift; sourceTree = "<group>"; };
+		8435F6CA1EDD6FEA00A26A3E /* ContactViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewProtocol.swift; sourceTree = "<group>"; };
+		8435F6CC1EDD700800A26A3E /* ContactViewPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		84CD7A961ECEFBF70039CFA3 /* ContactViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewVC.swift; sourceTree = "<group>"; };
 		A01ACC731ECCAE7400AB61BB /* ContactsListVer2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsListVer2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01ACC761ECCAE7400AB61BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +67,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8435F6BF1EDD544F00A26A3E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8435F6C91EDD6FC500A26A3E /* ContactView */,
+				8435F6C41EDD553B00A26A3E /* TVCell */,
+				A01ACC921ECCB0DE00AB61BB /* Protocols.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		8435F6C01EDD548700A26A3E /* MVP Views */ = {
+			isa = PBXGroup;
+			children = (
+				A0F049481ECDDD7500E5CF40 /* ContactsTVCell.swift */,
+				84CD7A961ECEFBF70039CFA3 /* ContactViewVC.swift */,
+			);
+			name = "MVP Views";
+			sourceTree = "<group>";
+		};
+		8435F6C11EDD549C00A26A3E /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				8435F6C71EDD672A00A26A3E /* ContactTVCellPresenter.swift */,
+			);
+			name = Presenters;
+			sourceTree = "<group>";
+		};
+		8435F6C41EDD553B00A26A3E /* TVCell */ = {
+			isa = PBXGroup;
+			children = (
+				8435F6C21EDD54DF00A26A3E /* TVCellProtocol.swift */,
+				8435F6C51EDD555800A26A3E /* TVCellPresenterProtocol.swift */,
+			);
+			name = TVCell;
+			sourceTree = "<group>";
+		};
+		8435F6C91EDD6FC500A26A3E /* ContactView */ = {
+			isa = PBXGroup;
+			children = (
+				8435F6CA1EDD6FEA00A26A3E /* ContactViewProtocol.swift */,
+				8435F6CC1EDD700800A26A3E /* ContactViewPresenterProtocol.swift */,
+			);
+			name = ContactView;
+			sourceTree = "<group>";
+		};
 		A01ACC6A1ECCAE7400AB61BB = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +131,8 @@
 		A01ACC751ECCAE7400AB61BB /* ContactsListVer2 */ = {
 			isa = PBXGroup;
 			children = (
+				8435F6C11EDD549C00A26A3E /* Presenters */,
+				8435F6BF1EDD544F00A26A3E /* Protocols */,
 				A01ACC941ECCB99400AB61BB /* Helpers */,
 				A01ACC881ECCAE9E00AB61BB /* Supporting Files */,
 				A01ACC8E1ECCAED800AB61BB /* ViewControllers */,
@@ -108,10 +165,9 @@
 		A01ACC8E1ECCAED800AB61BB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				A0F049481ECDDD7500E5CF40 /* ContactsTVCell.swift */,
+				8435F6C01EDD548700A26A3E /* MVP Views */,
 				A01ACC8F1ECCAF5200AB61BB /* ContactsListTVC.swift */,
 				A0F049461ECDD43A00E5CF40 /* ContactAddEditVC.swift */,
-				84CD7A961ECEFBF70039CFA3 /* ContactViewVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -119,7 +175,6 @@
 		A01ACC941ECCB99400AB61BB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				A01ACC921ECCB0DE00AB61BB /* Protocols.swift */,
 				A0F0494B1ECDDEC200E5CF40 /* Extensions.swift */,
 				A0F0494D1ECDE49400E5CF40 /* MagicValues.swift */,
 				A0F0494F1ECDE8C200E5CF40 /* SaveLoadCheckData.swift */,
@@ -206,7 +261,10 @@
 				A0F049531ECDEDAE00E5CF40 /* Notifications.swift in Sources */,
 				A0F049471ECDD43A00E5CF40 /* ContactAddEditVC.swift in Sources */,
 				A0F0494C1ECDDEC200E5CF40 /* Extensions.swift in Sources */,
+				8435F6C81EDD672A00A26A3E /* ContactTVCellPresenter.swift in Sources */,
+				8435F6CD1EDD700800A26A3E /* ContactViewPresenterProtocol.swift in Sources */,
 				A0A903D81ED323690037E2F1 /* AdditionalDataStruct.swift in Sources */,
+				8435F6C61EDD555800A26A3E /* TVCellPresenterProtocol.swift in Sources */,
 				A01ACC8B1ECCAEB800AB61BB /* ContactClass.swift in Sources */,
 				84CD7A971ECEFBF70039CFA3 /* ContactViewVC.swift in Sources */,
 				A0F049501ECDE8C200E5CF40 /* SaveLoadCheckData.swift in Sources */,
@@ -214,6 +272,8 @@
 				A01ACC8C1ECCAEB800AB61BB /* ContactsListClass.swift in Sources */,
 				A0F0494E1ECDE49400E5CF40 /* MagicValues.swift in Sources */,
 				A01ACC901ECCAF5200AB61BB /* ContactsListTVC.swift in Sources */,
+				8435F6C31EDD54DF00A26A3E /* TVCellProtocol.swift in Sources */,
+				8435F6CB1EDD6FEA00A26A3E /* ContactViewProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

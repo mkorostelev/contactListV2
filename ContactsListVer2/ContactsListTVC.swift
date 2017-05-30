@@ -75,7 +75,11 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
         if let cell = tableView.dequeueReusableCell(withIdentifier: ContactsTVCell.reuseIdentifier, for: indexPath) as? ContactsTVCell {
             let contact = contactListArray[indexPath.row]
             
-            cell.fillCellByContact(contact)
+            let presenter = ContactTVCellPresenter(view: cell, contact: contact)
+            
+            presenter.fillCellByContact()
+            
+//            cell.fillCellByContact(contact)
             
             return cell
         } else {
