@@ -8,39 +8,30 @@
 
 import UIKit
 
-class ContactViewVC: UIViewController, ContactsListProtocol,ContactProtocol {
-    var contactUuid: String?
-
-    var contactList: ContactsList?
+class ContactViewVC: UIViewController, ContactViewProtocol {
+    var presenter: ContactViewPresenterProtocol!
     
     @IBOutlet weak var emailOutlet: UITextField!
     @IBOutlet weak var phoneNumberOutlet: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fillDataFromContact()
+        presenter.viewDidLoad()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    private func fillDataFromContact() {
-        if let contactValue = contactList?.getByUuid(contactUuid) {
-            self.navigationItem.title = contactValue.fullName
-            
-            phoneNumberOutlet.text = contactValue.phoneNumber
-            
-            emailOutlet.text = contactValue.email
-        }
+    func fillDataFromContact(title: String, phoneNumber: String, email: String) {
+        self.navigationItem.title = title
+        
+        phoneNumberOutlet.text = phoneNumber
+        
+        emailOutlet.text = email
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editContact" {
-            if let toViewController = segue.destination as? ContactAddEditVC {
-                toViewController.contactList = contactList
-                toViewController.contactUuid = contactUuid
-            }
-        }
+        presenter.prepare(for: segue, sender: sender)
     }
 }

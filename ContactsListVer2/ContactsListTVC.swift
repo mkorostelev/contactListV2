@@ -78,9 +78,7 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
             let presenter = ContactTVCellPresenter(view: cell, contact: contact)
             
             presenter.fillCellByContact()
-            
-//            cell.fillCellByContact(contact)
-            
+                   
             return cell
         } else {
             return UITableViewCell()
@@ -100,8 +98,10 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
         } else {
             if segue.identifier == "viewContact" {
                 if let toViewController = segue.destination as? ContactViewVC {
-                    toViewController.contactList = contactList
-                    toViewController.contactUuid = selectedContact?.uuid
+
+                    let presenter = ContactViewPresenter(view: toViewController, contactList: contactList, contactUuid: selectedContact?.uuid)
+                    
+                    toViewController.presenter = presenter
                     
                     backButtonTitle = " "
                 }

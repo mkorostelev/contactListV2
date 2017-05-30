@@ -8,6 +8,12 @@
 
 import Foundation
 
+protocol ContactTVCellPresenterProtocol {
+    init(view: ContactTVCellProtocol, contact: Contact)
+    
+    func fillCellByContact()
+}
+
 class ContactTVCellPresenter: ContactTVCellPresenterProtocol {
     unowned let view: ContactTVCellProtocol
     
