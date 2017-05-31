@@ -19,13 +19,9 @@ protocol ContactAddEditProtocol: class {
     
     var emailTextField: UITextField { get }
     
-    func fillDataFromContact(firstName: String, lastName: String, phoneNumber: String, email: String)
+    var deleteContactButton: UIButton { get }
     
-    func setDeleteContactOutletIsHidden(_ value: Bool)
-    
-    func setSaveContactOutletIsEnabled(_ value: Bool)
-    
-    func setTextFieldsDelegate(delegate: UITextFieldDelegate)
+    var saveContactButton: UIBarButtonItem { get }
 }
 
 

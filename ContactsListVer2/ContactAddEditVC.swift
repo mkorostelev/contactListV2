@@ -35,6 +35,14 @@ class ContactAddEditVC: UIViewController, ContactAddEditProtocol {
         return emailOutlet
     }
     
+    var deleteContactButton: UIButton {
+        return deleteContactOutlet
+    }
+    
+    var saveContactButton: UIBarButtonItem {
+        return saveContactOutlet
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,35 +51,6 @@ class ContactAddEditVC: UIViewController, ContactAddEditProtocol {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    func setDeleteContactOutletIsHidden(_ value: Bool) {
-        deleteContactOutlet.isHidden = value
-    }
-    
-    func setSaveContactOutletIsEnabled(_ value: Bool) {
-        saveContactOutlet.isEnabled = value
-    }
-    
-    func setTextFieldsDelegate(delegate: UITextFieldDelegate) {
-        
-        phoneNumberOutlet.delegate = delegate
-        
-        firstNameOutlet.delegate = delegate
-        
-        lastNameOutlet.delegate = delegate
-        
-        emailOutlet.delegate = delegate
-    }
-    
-    func fillDataFromContact(firstName: String, lastName: String, phoneNumber: String, email: String) {
-        firstNameOutlet.text = firstName
-        
-        lastNameOutlet.text = lastName
-        
-        phoneNumberOutlet.text = phoneNumber
-        
-        emailOutlet.text = email
     }
     
     @IBAction func saveContact(_ sender: UIBarButtonItem) {

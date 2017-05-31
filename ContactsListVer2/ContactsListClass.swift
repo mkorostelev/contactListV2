@@ -116,15 +116,19 @@ class ContactsList: NSObject, NSCoding {
         switch currentSortField {
         case .firstName:
             firstCompareResult = contact1.firstName.localizedCaseInsensitiveCompare(contact2.firstName)
+            
             secondCompareResult = contact1.lastName.localizedCaseInsensitiveCompare(contact2.lastName)
         case .lastName:
             firstCompareResult = contact1.lastName.localizedCaseInsensitiveCompare(contact2.lastName)
+            
             secondCompareResult = contact1.firstName.localizedCaseInsensitiveCompare(contact2.firstName)
         case .phoneNumber:
             firstCompareResult = contact1.phoneNumber.localizedCaseInsensitiveCompare(contact2.phoneNumber)
+            
             secondCompareResult = contact1.fullName.localizedCaseInsensitiveCompare(contact2.fullName)
         case .email:
             firstCompareResult = contact1.email.localizedCaseInsensitiveCompare(contact2.email)
+            
             secondCompareResult = contact1.fullName.localizedCaseInsensitiveCompare(contact2.fullName)
         }
         

@@ -13,8 +13,6 @@ import UIKit
 protocol ContactAddEditPresenterProtocol {
     init(view: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?)
     
-    func fillDataFromContact()
-    
     func viewDidLoad()
     
     func saveContact()
@@ -58,27 +56,31 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
     }
     
     func viewDidLoad() {
-        self.view.setTextFieldsDelegate(delegate: self)
+        self.view.firstNameTextField.delegate = self
         
-        self.fillDataFromContact()
+        self.view.lastNameTextField.delegate = self
+        
+        self.view.phoneNumberTextField.delegate = self
+        
+        self.view.emailTextField.delegate = self
+        
+        if self.contact != nil {
+            self.fillDataFromContact(self.contact!)
+        } else {
+            self.view.deleteContactButton.isHidden = true
+        }
         
         self.checkEnabledOfSaveButton()
     }
     
-    func fillDataFromContact() {
-        if let contact = contactList?.getByUuid(contactUuid) {
-            let firstName = contact.firstName
-            
-            let lastName = contact.lastName
-            
-            let phoneNumber = contact.phoneNumber
-            
-            let email = contact.email
-            
-            self.view.fillDataFromContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
-        } else {
-            self.view.setDeleteContactOutletIsHidden(true)
-        }
+    func fillDataFromContact(_ contact: Contact) {
+        self.view.firstNameTextField.text = contact.firstName
+        
+        self.view.lastNameTextField.text = contact.lastName
+        
+        self.view.phoneNumberTextField.text = contact.phoneNumber
+        
+        self.view.emailTextField.text = contact.email
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -106,7 +108,7 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
         
         let saveContactOutletisEnabled = ("\(self.viewFirstNameText)\(self.viewLastNameText)\(self.viewPhoneNumberText)\(self.viewEmailText)\(notInOutletString)".characters.count - countOfDeleted) > 0
         
-        self.view.setSaveContactOutletIsEnabled(saveContactOutletisEnabled)
+        self.view.saveContactButton.isEnabled = saveContactOutletisEnabled
     }
     
     func saveContact() {
