@@ -31,6 +31,22 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
     
     let contact: Contact?
     
+    var viewFirstNameText: String {
+        return self.view.firstNameTextField.text ?? ""
+    }
+    
+    var viewLastNameText: String {
+        return self.view.lastNameTextField.text ?? ""
+    }
+    
+    var viewPhoneNumberText: String {
+        return self.view.phoneNumberTextField.text ?? ""
+    }
+    
+    var viewEmailText: String {
+        return self.view.emailTextField.text ?? ""
+    }
+    
     required init(view: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?) {
         self.view = view
         
@@ -87,28 +103,20 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
                 countOfDeleted = rangeValue.length - rangeValue.location
             }
         }
-
-        let firstName = self.view.firstNameTextField.text ?? ""
         
-        let lastName = self.view.lastNameTextField.text ?? ""
-        
-        let phoneNumber = self.view.phoneNumberTextField.text ?? ""
-        
-        let email = self.view.emailTextField.text ?? ""
-        
-        let saveContactOutletisEnabled = ("\(firstName)\(lastName)\(phoneNumber)\(email)\(notInOutletString)".characters.count - countOfDeleted) > 0
+        let saveContactOutletisEnabled = ("\(self.viewFirstNameText)\(self.viewLastNameText)\(self.viewPhoneNumberText)\(self.viewEmailText)\(notInOutletString)".characters.count - countOfDeleted) > 0
         
         self.view.setSaveContactOutletIsEnabled(saveContactOutletisEnabled)
     }
     
     func saveContact() {
-        let firstName = self.view.firstNameTextField.text ?? ""
+        let firstName = self.viewFirstNameText
         
-        let lastName = self.view.lastNameTextField.text ?? ""
+        let lastName = self.viewLastNameText
         
-        let phoneNumber = self.view.phoneNumberTextField.text ?? ""
+        let phoneNumber = self.viewPhoneNumberText
         
-        let email = self.view.emailTextField.text ?? ""
+        let email = self.viewEmailText
         
         if !("\(firstName)\(lastName)\(phoneNumber)\(email)".isEmpty) {
             if let contactValue = self.contact {
