@@ -54,8 +54,9 @@ class ContactViewPresenter: ContactViewPresenterProtocol {
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editContact" {
             if let toViewController = segue.destination as? ContactAddEditVC {
-                toViewController.contactList = contactList
-                toViewController.contactUuid = contactUuid
+                let presenter = ContactAddEditPresenter(view: toViewController, contactList: contactList, contactUuid: contactUuid)
+                
+                toViewController.presenter = presenter
             }
         }
     }

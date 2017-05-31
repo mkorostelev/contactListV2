@@ -92,8 +92,10 @@ class ContactsListTVC: UITableViewController, ContactsListProtocol {
         self.isEditing = false
         
         if segue.identifier == "addContact" {
-            if var toViewController = segue.destination as? ContactsListProtocol {
-                toViewController.contactList = contactList
+            if let toViewController = segue.destination as? ContactAddEditVC {
+                let presenter = ContactAddEditPresenter(view: toViewController, contactList: contactList, contactUuid: nil)
+                
+                toViewController.presenter = presenter
             }
         } else {
             if segue.identifier == "viewContact" {
