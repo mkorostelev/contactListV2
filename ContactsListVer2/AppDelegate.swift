@@ -18,8 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let nc = st.instantiateInitialViewController() as? UINavigationController
         
-        if var vc = nc?.viewControllers.first as? ContactsListProtocol {
-            vc.contactList = ContactsList()
+        if let vc = nc?.viewControllers.first as? ContactsListTVC {
+            let presenter = ContactListTVCPresenter(view: vc, contactList: ContactsList())
+            
+            vc.presenter = presenter
         }
         
         self.window = UIWindow()

@@ -20,6 +20,8 @@
 		A01ACC8C1ECCAEB800AB61BB /* ContactsListClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01ACC8A1ECCAEB800AB61BB /* ContactsListClass.swift */; };
 		A01ACC901ECCAF5200AB61BB /* ContactsListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01ACC8F1ECCAF5200AB61BB /* ContactsListTVC.swift */; };
 		A01ACC931ECCB0DE00AB61BB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01ACC921ECCB0DE00AB61BB /* Protocols.swift */; };
+		A02DB40B1EDF2CD900A96299 /* ContactListTVCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02DB40A1EDF2CD900A96299 /* ContactListTVCProtocol.swift */; };
+		A02DB40D1EDF2D0500A96299 /* ContactListTVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02DB40C1EDF2D0500A96299 /* ContactListTVCPresenter.swift */; };
 		A031DAB61EDDA105006170C4 /* ContactAddEditProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031DAB51EDDA105006170C4 /* ContactAddEditProtocol.swift */; };
 		A031DAB81EDDA375006170C4 /* ContactAddEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031DAB71EDDA375006170C4 /* ContactAddEditPresenter.swift */; };
 		A0A903D81ED323690037E2F1 /* AdditionalDataStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A903D71ED323690037E2F1 /* AdditionalDataStruct.swift */; };
@@ -47,6 +49,8 @@
 		A01ACC8A1ECCAEB800AB61BB /* ContactsListClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsListClass.swift; sourceTree = "<group>"; };
 		A01ACC8F1ECCAF5200AB61BB /* ContactsListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsListTVC.swift; sourceTree = "<group>"; };
 		A01ACC921ECCB0DE00AB61BB /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		A02DB40A1EDF2CD900A96299 /* ContactListTVCProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTVCProtocol.swift; sourceTree = "<group>"; };
+		A02DB40C1EDF2D0500A96299 /* ContactListTVCPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTVCPresenter.swift; sourceTree = "<group>"; };
 		A031DAB51EDDA105006170C4 /* ContactAddEditProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditProtocol.swift; sourceTree = "<group>"; };
 		A031DAB71EDDA375006170C4 /* ContactAddEditPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditPresenter.swift; sourceTree = "<group>"; };
 		A0A903D71ED323690037E2F1 /* AdditionalDataStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalDataStruct.swift; sourceTree = "<group>"; };
@@ -76,6 +80,7 @@
 				8435F6CA1EDD6FEA00A26A3E /* ContactViewProtocol.swift */,
 				A01ACC921ECCB0DE00AB61BB /* Protocols.swift */,
 				A031DAB51EDDA105006170C4 /* ContactAddEditProtocol.swift */,
+				A02DB40A1EDF2CD900A96299 /* ContactListTVCProtocol.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -86,6 +91,7 @@
 				A0F049481ECDDD7500E5CF40 /* ContactsTVCell.swift */,
 				84CD7A961ECEFBF70039CFA3 /* ContactViewVC.swift */,
 				A0F049461ECDD43A00E5CF40 /* ContactAddEditVC.swift */,
+				A01ACC8F1ECCAF5200AB61BB /* ContactsListTVC.swift */,
 			);
 			name = "MVP Views";
 			sourceTree = "<group>";
@@ -96,6 +102,7 @@
 				8435F6C71EDD672A00A26A3E /* ContactTVCellPresenter.swift */,
 				8435F6CE1EDD72A500A26A3E /* ContactViewPresenter.swift */,
 				A031DAB71EDDA375006170C4 /* ContactAddEditPresenter.swift */,
+				A02DB40C1EDF2D0500A96299 /* ContactListTVCPresenter.swift */,
 			);
 			name = Presenters;
 			sourceTree = "<group>";
@@ -154,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				8435F6C01EDD548700A26A3E /* MVP Views */,
-				A01ACC8F1ECCAF5200AB61BB /* ContactsListTVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -249,6 +255,7 @@
 				A0F049471ECDD43A00E5CF40 /* ContactAddEditVC.swift in Sources */,
 				8435F6CF1EDD72A500A26A3E /* ContactViewPresenter.swift in Sources */,
 				A0F0494C1ECDDEC200E5CF40 /* Extensions.swift in Sources */,
+				A02DB40D1EDF2D0500A96299 /* ContactListTVCPresenter.swift in Sources */,
 				8435F6C81EDD672A00A26A3E /* ContactTVCellPresenter.swift in Sources */,
 				A0A903D81ED323690037E2F1 /* AdditionalDataStruct.swift in Sources */,
 				A01ACC8B1ECCAEB800AB61BB /* ContactClass.swift in Sources */,
@@ -261,6 +268,7 @@
 				A01ACC901ECCAF5200AB61BB /* ContactsListTVC.swift in Sources */,
 				8435F6C31EDD54DF00A26A3E /* TVCellProtocol.swift in Sources */,
 				A031DAB61EDDA105006170C4 /* ContactAddEditProtocol.swift in Sources */,
+				A02DB40B1EDF2CD900A96299 /* ContactListTVCProtocol.swift in Sources */,
 				8435F6CB1EDD6FEA00A26A3E /* ContactViewProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
