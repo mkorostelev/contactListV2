@@ -15,7 +15,7 @@ protocol ContactAddEditPresenterProtocol {
     
     func viewDidLoad()
     
-    func saveContact()
+    func checkSaveContact()
     
     func deleteContact()
 }
@@ -44,6 +44,8 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
     var viewEmailText: String {
         return self.view.emailTextField.text ?? ""
     }
+    
+    var validationError = false
     
     required init(view: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?) {
         self.view = view
@@ -87,7 +89,7 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
         var result = true
         
         if textField == self.view.phoneNumberTextField {
-            result = SaveLoadCheckData.validatePhoneNumber(value: string)
+            result = DataValidators.validatePhoneNumberInput(value: string)
         }
         
         if result {
@@ -111,7 +113,7 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
         self.view.saveContactButton.isEnabled = saveContactOutletisEnabled
     }
     
-    func saveContact() {
+    func checkSaveContact() {
         let firstName = self.viewFirstNameText
         
         let lastName = self.viewLastNameText
@@ -121,28 +123,52 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
         let email = self.viewEmailText
         
         if !("\(firstName)\(lastName)\(phoneNumber)\(email)".isEmpty) {
-            if let contactValue = self.contact {
-                // change contact
-                if contactValue.firstName != firstName {
-                    contactValue.firstName = firstName
-                }
-                if contactValue.lastName != lastName {
-                    contactValue.lastName = lastName
-                }
-                if contactValue.phoneNumber != phoneNumber {
-                    contactValue.phoneNumber = phoneNumber
-                }
-                if contactValue.email != email {
-                    contactValue.email = email
-                }
-            } else {
-                // add new contact
-                contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
-            }
-            
             if let view = self.view as? UIViewController {
-                view.performSegueToReturnBack()
+                if !DataValidators.validateEmail(value: email) {
+                    let ac = UIAlertController(title: "Email", message: "Email not valid", preferredStyle: .alert)
+                    
+                    ac.addAction(UIAlertAction(title: "Save", style: .cancel) { _ in self.saveContact()})
+                    
+                    ac.addAction(UIAlertAction(title: "Check", style: .destructive))
+                    
+                    view.present(ac, animated: true, completion:nil)
+                } else {
+                    saveContact()
+                }
             }
+        }
+    }
+    
+    private func saveContact() {
+        let firstName = self.viewFirstNameText
+        
+        let lastName = self.viewLastNameText
+        
+        let phoneNumber = self.viewPhoneNumberText
+        
+        let email = self.viewEmailText
+        
+        if let contactValue = self.contact {
+            // change contact
+            if contactValue.firstName != firstName {
+                contactValue.firstName = firstName
+            }
+            if contactValue.lastName != lastName {
+                contactValue.lastName = lastName
+            }
+            if contactValue.phoneNumber != phoneNumber {
+                contactValue.phoneNumber = phoneNumber
+            }
+            if contactValue.email != email {
+                contactValue.email = email
+            }
+        } else {
+            // add new contact
+            contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+        }
+        
+        if let view = self.view as? UIViewController {
+            view.performSegueToReturnBack()
         }
     }
     

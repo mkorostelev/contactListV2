@@ -25,10 +25,10 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
     
     var selectedContact: Contact?
 
-    var currentSortField: AdditionalData.SortFields.Values = SaveLoadCheckData.getUsersDefaultSortMethod()
+    var currentSortField: AdditionalData.SortFields.Values = SaveLoadData.getUsersDefaultSortMethod()
     {
         didSet {
-            SaveLoadCheckData.setUsersDefaultSortMethod(self.currentSortField)
+            SaveLoadData.setUsersDefaultSortMethod(self.currentSortField)
             
             Notifications.postChangedSortField()
         }

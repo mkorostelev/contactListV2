@@ -19,3 +19,13 @@ extension UIViewController {
         }
     }
 }
+
+extension UITableViewCell {
+    public static var nibName: String {
+        return String(describing: self)
+    }
+    
+    public static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}

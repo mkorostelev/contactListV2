@@ -19,7 +19,7 @@ class ContactsList: NSObject, NSCoding {
         case email
     }
     
-    private var listOfContacts = SaveLoadCheckData.fromDrive()
+    private var listOfContacts = SaveLoadData.fromDrive()
     {
         didSet {
             self.saveData()
@@ -105,7 +105,7 @@ class ContactsList: NSObject, NSCoding {
     }
     
     func saveData() {
-        SaveLoadCheckData.toDrive(self.listOfContacts)
+        SaveLoadData.toDrive(self.listOfContacts)
     }
     
     private func isFirstSmallerThanSecond(contact1: Contact, contact2: Contact, currentSortField: AdditionalData.SortFields.Values) -> Bool {

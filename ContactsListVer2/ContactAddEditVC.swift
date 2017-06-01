@@ -54,7 +54,7 @@ class ContactAddEditVC: UIViewController, ContactAddEditProtocol {
     }
     
     @IBAction func saveContact(_ sender: UIBarButtonItem) {
-        presenter.saveContact()
+        presenter.checkSaveContact()
     }
     @IBAction func deleteContact(_ sender: UIButton) {
         presenter.deleteContact()

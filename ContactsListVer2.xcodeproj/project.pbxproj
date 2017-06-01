@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84207B321EE01F4D004BE838 /* DataValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84207B311EE01F4D004BE838 /* DataValidators.swift */; };
 		8435F6C31EDD54DF00A26A3E /* TVCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6C21EDD54DF00A26A3E /* TVCellProtocol.swift */; };
 		8435F6C81EDD672A00A26A3E /* ContactTVCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6C71EDD672A00A26A3E /* ContactTVCellPresenter.swift */; };
 		8435F6CB1EDD6FEA00A26A3E /* ContactViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6CA1EDD6FEA00A26A3E /* ContactViewProtocol.swift */; };
@@ -27,13 +28,14 @@
 		A0A903D81ED323690037E2F1 /* AdditionalDataStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A903D71ED323690037E2F1 /* AdditionalDataStruct.swift */; };
 		A0F049471ECDD43A00E5CF40 /* ContactAddEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F049461ECDD43A00E5CF40 /* ContactAddEditVC.swift */; };
 		A0F049491ECDDD7500E5CF40 /* ContactsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F049481ECDDD7500E5CF40 /* ContactsTVCell.swift */; };
-		A0F0494C1ECDDEC200E5CF40 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0494B1ECDDEC200E5CF40 /* Extensions.swift */; };
+		A0F0494C1ECDDEC200E5CF40 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0494B1ECDDEC200E5CF40 /* CommonExtensions.swift */; };
 		A0F0494E1ECDE49400E5CF40 /* MagicValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0494D1ECDE49400E5CF40 /* MagicValues.swift */; };
 		A0F049501ECDE8C200E5CF40 /* SaveLoadCheckData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0494F1ECDE8C200E5CF40 /* SaveLoadCheckData.swift */; };
 		A0F049531ECDEDAE00E5CF40 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F049521ECDEDAE00E5CF40 /* Notifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84207B311EE01F4D004BE838 /* DataValidators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataValidators.swift; sourceTree = "<group>"; };
 		8435F6C21EDD54DF00A26A3E /* TVCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVCellProtocol.swift; sourceTree = "<group>"; };
 		8435F6C71EDD672A00A26A3E /* ContactTVCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCellPresenter.swift; sourceTree = "<group>"; };
 		8435F6CA1EDD6FEA00A26A3E /* ContactViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewProtocol.swift; sourceTree = "<group>"; };
@@ -56,7 +58,7 @@
 		A0A903D71ED323690037E2F1 /* AdditionalDataStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalDataStruct.swift; sourceTree = "<group>"; };
 		A0F049461ECDD43A00E5CF40 /* ContactAddEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditVC.swift; sourceTree = "<group>"; };
 		A0F049481ECDDD7500E5CF40 /* ContactsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTVCell.swift; sourceTree = "<group>"; };
-		A0F0494B1ECDDEC200E5CF40 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A0F0494B1ECDDEC200E5CF40 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 		A0F0494D1ECDE49400E5CF40 /* MagicValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicValues.swift; sourceTree = "<group>"; };
 		A0F0494F1ECDE8C200E5CF40 /* SaveLoadCheckData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveLoadCheckData.swift; sourceTree = "<group>"; };
 		A0F049521ECDEDAE00E5CF40 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
@@ -168,11 +170,12 @@
 		A01ACC941ECCB99400AB61BB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				A0F0494B1ECDDEC200E5CF40 /* Extensions.swift */,
+				A0F0494B1ECDDEC200E5CF40 /* CommonExtensions.swift */,
 				A0F0494D1ECDE49400E5CF40 /* MagicValues.swift */,
 				A0F0494F1ECDE8C200E5CF40 /* SaveLoadCheckData.swift */,
 				A0F049521ECDEDAE00E5CF40 /* Notifications.swift */,
 				A0A903D71ED323690037E2F1 /* AdditionalDataStruct.swift */,
+				84207B311EE01F4D004BE838 /* DataValidators.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -253,8 +256,9 @@
 				A01ACC931ECCB0DE00AB61BB /* Protocols.swift in Sources */,
 				A0F049531ECDEDAE00E5CF40 /* Notifications.swift in Sources */,
 				A0F049471ECDD43A00E5CF40 /* ContactAddEditVC.swift in Sources */,
+				84207B321EE01F4D004BE838 /* DataValidators.swift in Sources */,
 				8435F6CF1EDD72A500A26A3E /* ContactViewPresenter.swift in Sources */,
-				A0F0494C1ECDDEC200E5CF40 /* Extensions.swift in Sources */,
+				A0F0494C1ECDDEC200E5CF40 /* CommonExtensions.swift in Sources */,
 				A02DB40D1EDF2D0500A96299 /* ContactListTVCPresenter.swift in Sources */,
 				8435F6C81EDD672A00A26A3E /* ContactTVCellPresenter.swift in Sources */,
 				A0A903D81ED323690037E2F1 /* AdditionalDataStruct.swift in Sources */,

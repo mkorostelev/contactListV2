@@ -20,14 +20,6 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-        
-    public static var nibName: String {
-        return String(describing: self)
-    }
-    
-    public static var reuseIdentifier: String {
-        return String(describing: self)
-    }
     
     func fillCell(fullName: String, phoneNumber: String) {
         self.fullName?.text = fullName
