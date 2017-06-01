@@ -157,11 +157,23 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
 // tableView functions
 extension ContactListTVCPresenter {
     func deleteContactForRow(_ row: Int) {
-        contactList?.deleteContact(contactListArray[row])
+        let contact = contactListArray[row]
+        
+        let ac = AlertsCreator.getDeleteContactAlert(contact, deleteAction: deleteContactConfirmed)
+        
+        if let view = self.view as? UIViewController {
+            view.present(ac, animated: true)
+        } else {
+            contactList?.deleteContact(contact)
+        }
     }
     
     func selectContactForRow(_ row: Int) {
         selectedContact = contactListArray[row]
+    }
+    
+    private func deleteContactConfirmed(_ contact: Contact) {
+        contactList?.deleteContact(contact)
     }
 }
 

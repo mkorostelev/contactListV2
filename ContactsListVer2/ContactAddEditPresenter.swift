@@ -114,17 +114,11 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
     }
     
     func checkSaveContact() {
-        let firstName = self.viewFirstNameText
-        
-        let lastName = self.viewLastNameText
-        
-        let phoneNumber = self.viewPhoneNumberText
-        
-        let email = self.viewEmailText
-        
-        if !("\(firstName)\(lastName)\(phoneNumber)\(email)".isEmpty) {
+        if !("\(viewFirstNameText)\(viewLastNameText)\(viewPhoneNumberText)\(viewEmailText)".isEmpty) {
             if let view = self.view as? UIViewController {
-                if !DataValidators.validateEmail(value: email) {
+                if DataValidators.validateEmail(value: viewEmailText) {
+                    saveContact()
+                } else {
                     let ac = UIAlertController(title: "Email", message: "not valid", preferredStyle: .alert)
                     
                     ac.addAction(UIAlertAction(title: "Save", style: .cancel) { _ in self.saveContact()})
@@ -132,39 +126,29 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
                     ac.addAction(UIAlertAction(title: "Check", style: .destructive))
                     
                     view.present(ac, animated: true, completion:nil)
-                } else {
-                    saveContact()
                 }
             }
         }
     }
     
     private func saveContact() {
-        let firstName = self.viewFirstNameText
-        
-        let lastName = self.viewLastNameText
-        
-        let phoneNumber = self.viewPhoneNumberText
-        
-        let email = self.viewEmailText
-        
         if let contactValue = self.contact {
             // change contact
-            if contactValue.firstName != firstName {
-                contactValue.firstName = firstName
+            if contactValue.firstName != viewFirstNameText {
+                contactValue.firstName = viewFirstNameText
             }
-            if contactValue.lastName != lastName {
-                contactValue.lastName = lastName
+            if contactValue.lastName != viewLastNameText {
+                contactValue.lastName = viewLastNameText
             }
-            if contactValue.phoneNumber != phoneNumber {
-                contactValue.phoneNumber = phoneNumber
+            if contactValue.phoneNumber != viewPhoneNumberText {
+                contactValue.phoneNumber = viewPhoneNumberText
             }
-            if contactValue.email != email {
-                contactValue.email = email
+            if contactValue.email != viewEmailText {
+                contactValue.email = viewEmailText
             }
         } else {
             // add new contact
-            contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+            contactList?.addContact(firstName: viewFirstNameText, lastName: viewLastNameText, phoneNumber: viewPhoneNumberText, email: viewEmailText)
         }
         
         if let view = self.view as? UIViewController {
@@ -173,9 +157,15 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
     }
     
     func deleteContact() {
-        if let contactValue = contact {
-            contactList?.deleteContact(contactValue)
+        if let view = self.view as? UIViewController {
+            let ac = AlertsCreator.getDeleteContactAlert(contact!, deleteAction: deleteContactConfirmed)
+            
+            view.present(ac, animated: true)
         }
+    }
+    
+    func deleteContactConfirmed(_ contact: Contact) {
+        contactList?.deleteContact(contact)
         
         if let view = self.view as? UIViewController {
             view.performSegueToReturnBack()
