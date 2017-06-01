@@ -125,7 +125,7 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
         if !("\(firstName)\(lastName)\(phoneNumber)\(email)".isEmpty) {
             if let view = self.view as? UIViewController {
                 if !DataValidators.validateEmail(value: email) {
-                    let ac = UIAlertController(title: "Email", message: "Email not valid", preferredStyle: .alert)
+                    let ac = UIAlertController(title: "Email", message: "not valid", preferredStyle: .alert)
                     
                     ac.addAction(UIAlertAction(title: "Save", style: .cancel) { _ in self.saveContact()})
                     
