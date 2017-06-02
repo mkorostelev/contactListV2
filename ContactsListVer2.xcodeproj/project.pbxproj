@@ -25,6 +25,8 @@
 		A031DAB61EDDA105006170C4 /* ContactAddEditProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031DAB51EDDA105006170C4 /* ContactAddEditProtocol.swift */; };
 		A031DAB81EDDA375006170C4 /* ContactAddEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031DAB71EDDA375006170C4 /* ContactAddEditPresenter.swift */; };
 		A03B8E371EE06DC80025EFC4 /* AlertsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B8E361EE06DC80025EFC4 /* AlertsCreator.swift */; };
+		A0422C941EE1B22B001B7012 /* ContactView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0422C931EE1B22B001B7012 /* ContactView.storyboard */; };
+		A04E42321EE1B60A00BA84B4 /* ContactAddEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A04E42311EE1B60A00BA84B4 /* ContactAddEdit.storyboard */; };
 		A0A903D81ED323690037E2F1 /* AdditionalDataStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A903D71ED323690037E2F1 /* AdditionalDataStruct.swift */; };
 		A0F049471ECDD43A00E5CF40 /* ContactAddEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F049461ECDD43A00E5CF40 /* ContactAddEditVC.swift */; };
 		A0F049491ECDDD7500E5CF40 /* ContactsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F049481ECDDD7500E5CF40 /* ContactsTVCell.swift */; };
@@ -55,6 +57,8 @@
 		A031DAB51EDDA105006170C4 /* ContactAddEditProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditProtocol.swift; sourceTree = "<group>"; };
 		A031DAB71EDDA375006170C4 /* ContactAddEditPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditPresenter.swift; sourceTree = "<group>"; };
 		A03B8E361EE06DC80025EFC4 /* AlertsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertsCreator.swift; sourceTree = "<group>"; };
+		A0422C931EE1B22B001B7012 /* ContactView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ContactView.storyboard; sourceTree = "<group>"; };
+		A04E42311EE1B60A00BA84B4 /* ContactAddEdit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ContactAddEdit.storyboard; sourceTree = "<group>"; };
 		A0A903D71ED323690037E2F1 /* AdditionalDataStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalDataStruct.swift; sourceTree = "<group>"; };
 		A0F049461ECDD43A00E5CF40 /* ContactAddEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditVC.swift; sourceTree = "<group>"; };
 		A0F049481ECDDD7500E5CF40 /* ContactsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTVCell.swift; sourceTree = "<group>"; };
@@ -132,7 +136,7 @@
 				A01ACC941ECCB99400AB61BB /* Helpers */,
 				A01ACC881ECCAE9E00AB61BB /* Supporting Files */,
 				A01ACC8E1ECCAED800AB61BB /* ViewControllers */,
-				A01ACC7A1ECCAE7400AB61BB /* Main.storyboard */,
+				A0422C921EE1B1CB001B7012 /* Storyboards */,
 				A01ACC8D1ECCAECA00AB61BB /* Models */,
 			);
 			path = ContactsListVer2;
@@ -178,6 +182,16 @@
 				A03B8E361EE06DC80025EFC4 /* AlertsCreator.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		A0422C921EE1B1CB001B7012 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				A01ACC7A1ECCAE7400AB61BB /* Main.storyboard */,
+				A0422C931EE1B22B001B7012 /* ContactView.storyboard */,
+				A04E42311EE1B60A00BA84B4 /* ContactAddEdit.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,8 +253,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A04E42321EE1B60A00BA84B4 /* ContactAddEdit.storyboard in Resources */,
 				A01ACC811ECCAE7400AB61BB /* LaunchScreen.storyboard in Resources */,
 				A01ACC7E1ECCAE7400AB61BB /* Assets.xcassets in Resources */,
+				A0422C941EE1B22B001B7012 /* ContactView.storyboard in Resources */,
 				A01ACC7C1ECCAE7400AB61BB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
