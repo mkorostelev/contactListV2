@@ -11,12 +11,3 @@ import Foundation
 protocol  ContactTVCellProtocol: class {
     func fillCell(fullName: String, phoneNumber: String)
 }
-
-
-
-
-
-
-
-
-

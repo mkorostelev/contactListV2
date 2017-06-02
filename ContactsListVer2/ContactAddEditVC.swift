@@ -12,9 +12,13 @@ class ContactAddEditVC: UIViewController, ContactAddEditProtocol {
     var presenter: ContactAddEditPresenterProtocol!
         
     @IBOutlet weak var firstNameOutlet: UITextField!
+    
     @IBOutlet weak var lastNameOutlet: UITextField!
+    
     @IBOutlet weak var phoneNumberOutlet: UITextField!
+    
     @IBOutlet weak var emailOutlet: UITextField!
+    
     @IBOutlet weak var deleteContactOutlet: UIButton!
     
     @IBOutlet weak var saveContactOutlet: UIBarButtonItem!

@@ -12,7 +12,9 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
     var presenter: ContactViewPresenterProtocol!
     
     @IBOutlet weak var emailOutlet: UITextField!
+    
     @IBOutlet weak var phoneNumberOutlet: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,15 +25,18 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
         super.didReceiveMemoryWarning()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        presenter.prepare(for: segue, sender: sender)
+    }
+}
+
+// ContactViewProtocol implementation
+extension ContactViewVC {
     func fillDataFromContact(title: String, phoneNumber: String, email: String) {
         self.navigationItem.title = title
         
         phoneNumberOutlet.text = phoneNumber
         
         emailOutlet.text = email
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        presenter.prepare(for: segue, sender: sender)
     }
 }

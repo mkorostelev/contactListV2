@@ -87,23 +87,3 @@ class Contact: NSObject, NSCoding{
         coder.encode(self.uuid, forKey: "uuid")
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

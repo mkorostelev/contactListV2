@@ -15,11 +15,3 @@ protocol ContactListTVCProtocol: class {
     
     var sortMethodSegmentControl: UISegmentedControl { get }
 }
-
-
-
-
-
-
-
-

@@ -11,9 +11,7 @@ import Foundation
 import UIKit
 
 protocol ContactViewPresenterProtocol {
-    init(view: ContactViewProtocol, contactList: ContactsList?, contactUuid: String?)
-    
-    func fillDataFromContact()
+    init(contactViewVC: ContactViewProtocol, contactList: ContactsList?, contactUuid: String?)
     
     func viewDidLoad()
     
@@ -21,14 +19,14 @@ protocol ContactViewPresenterProtocol {
 }
 
 class ContactViewPresenter: ContactViewPresenterProtocol {
-    unowned let view: ContactViewProtocol
+    unowned let contactViewVC: ContactViewProtocol
     
     let contactList: ContactsList?
     
     let contactUuid: String?
     
-    required init(view: ContactViewProtocol, contactList: ContactsList?, contactUuid: String?) {
-        self.view = view
+    required init(contactViewVC: ContactViewProtocol, contactList: ContactsList?, contactUuid: String?) {
+        self.contactViewVC = contactViewVC
         
         self.contactList = contactList
         
@@ -39,7 +37,7 @@ class ContactViewPresenter: ContactViewPresenterProtocol {
         self.fillDataFromContact()
     }
     
-    func fillDataFromContact() {
+    private func fillDataFromContact() {
         if let contact = contactList?.getByUuid(contactUuid) {
             let title = contact.fullName
             
@@ -47,24 +45,17 @@ class ContactViewPresenter: ContactViewPresenterProtocol {
             
             let email = contact.email
             
-            self.view.fillDataFromContact(title: title, phoneNumber: phoneNumber, email: email)
+            self.contactViewVC.fillDataFromContact(title: title, phoneNumber: phoneNumber, email: email)
         }
     }
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editContact" {
             if let toViewController = segue.destination as? ContactAddEditVC {
-                let presenter = ContactAddEditPresenter(view: toViewController, contactList: contactList, contactUuid: contactUuid)
+                let presenter = ContactAddEditPresenter(contactAddEditVC: toViewController, contactList: contactList, contactUuid: contactUuid)
                 
                 toViewController.presenter = presenter
             }
         }
     }
 }
-
-
-
-
-
-
-

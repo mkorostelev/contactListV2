@@ -9,10 +9,10 @@
 import UIKit
 
 class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
-
     @IBOutlet weak var fullName: UILabel!
     
     @IBOutlet weak var phoneNumber: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -20,7 +20,10 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+}
+
+// ContactTVCellProtocol implementation
+extension ContactsTVCell {
     func fillCell(fullName: String, phoneNumber: String) {
         self.fullName?.text = fullName
         

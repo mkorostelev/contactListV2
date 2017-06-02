@@ -9,18 +9,18 @@
 import Foundation
 
 protocol ContactTVCellPresenterProtocol {
-    init(view: ContactTVCellProtocol, contact: Contact)
+    init(contactsTVCell: ContactTVCellProtocol, contact: Contact)
     
     func fillCellByContact()
 }
 
 class ContactTVCellPresenter: ContactTVCellPresenterProtocol {
-    unowned let view: ContactTVCellProtocol
+    unowned let contactsTVCell: ContactTVCellProtocol
     
-    let contact: Contact
+    private let contact: Contact
     
-    required init(view: ContactTVCellProtocol, contact: Contact) {
-        self.view = view
+    required init(contactsTVCell: ContactTVCellProtocol, contact: Contact) {
+        self.contactsTVCell = contactsTVCell
         
         self.contact = contact
     }
@@ -30,14 +30,6 @@ class ContactTVCellPresenter: ContactTVCellPresenterProtocol {
         
         let phoneNumber = self.contact.phoneNumber
         
-        view.fillCell(fullName: fullName, phoneNumber: phoneNumber)
+        contactsTVCell.fillCell(fullName: fullName, phoneNumber: phoneNumber)
     }
 }
-
-
-
-
-
-
-
-

@@ -23,9 +23,3 @@ protocol ContactAddEditProtocol: class {
     
     var saveContactButton: UIBarButtonItem { get }
 }
-
-
-
-
-
-

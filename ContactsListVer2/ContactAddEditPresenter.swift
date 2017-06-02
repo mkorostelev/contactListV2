@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 protocol ContactAddEditPresenterProtocol {
-    init(view: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?)
+    init(contactAddEditVC: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?)
     
     func viewDidLoad()
     
@@ -21,34 +21,32 @@ protocol ContactAddEditPresenterProtocol {
 }
 
 class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UITextFieldDelegate {
-    unowned let view: ContactAddEditProtocol
+    unowned let contactAddEditVC: ContactAddEditProtocol
     
     let contactList: ContactsList?
     
     let contactUuid: String?
     
-    let contact: Contact?
+    private let contact: Contact?
     
-    var viewFirstNameText: String {
-        return self.view.firstNameTextField.text ?? ""
+    private var viewFirstNameText: String {
+        return self.contactAddEditVC.firstNameTextField.text ?? ""
     }
     
-    var viewLastNameText: String {
-        return self.view.lastNameTextField.text ?? ""
+    private var viewLastNameText: String {
+        return self.contactAddEditVC.lastNameTextField.text ?? ""
     }
     
-    var viewPhoneNumberText: String {
-        return self.view.phoneNumberTextField.text ?? ""
+    private var viewPhoneNumberText: String {
+        return self.contactAddEditVC.phoneNumberTextField.text ?? ""
     }
     
-    var viewEmailText: String {
-        return self.view.emailTextField.text ?? ""
+    private var viewEmailText: String {
+        return self.contactAddEditVC.emailTextField.text ?? ""
     }
     
-    var validationError = false
-    
-    required init(view: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?) {
-        self.view = view
+    required init(contactAddEditVC: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?) {
+        self.contactAddEditVC = contactAddEditVC
         
         self.contactList = contactList
         
@@ -58,37 +56,37 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
     }
     
     func viewDidLoad() {
-        self.view.firstNameTextField.delegate = self
+        self.contactAddEditVC.firstNameTextField.delegate = self
         
-        self.view.lastNameTextField.delegate = self
+        self.contactAddEditVC.lastNameTextField.delegate = self
         
-        self.view.phoneNumberTextField.delegate = self
+        self.contactAddEditVC.phoneNumberTextField.delegate = self
         
-        self.view.emailTextField.delegate = self
+        self.contactAddEditVC.emailTextField.delegate = self
         
         if self.contact != nil {
             self.fillDataFromContact(self.contact!)
         } else {
-            self.view.deleteContactButton.isHidden = true
+            self.contactAddEditVC.deleteContactButton.isHidden = true
         }
         
         self.checkEnabledOfSaveButton()
     }
     
-    func fillDataFromContact(_ contact: Contact) {
-        self.view.firstNameTextField.text = contact.firstName
+    private func fillDataFromContact(_ contact: Contact) {
+        self.contactAddEditVC.firstNameTextField.text = contact.firstName
         
-        self.view.lastNameTextField.text = contact.lastName
+        self.contactAddEditVC.lastNameTextField.text = contact.lastName
         
-        self.view.phoneNumberTextField.text = contact.phoneNumber
+        self.contactAddEditVC.phoneNumberTextField.text = contact.phoneNumber
         
-        self.view.emailTextField.text = contact.email
+        self.contactAddEditVC.emailTextField.text = contact.email
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var result = true
         
-        if textField == self.view.phoneNumberTextField {
+        if textField == self.contactAddEditVC.phoneNumberTextField {
             result = DataValidators.validatePhoneNumberInput(value: string)
         }
         
@@ -110,12 +108,12 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
         
         let saveContactOutletisEnabled = ("\(self.viewFirstNameText)\(self.viewLastNameText)\(self.viewPhoneNumberText)\(self.viewEmailText)\(notInOutletString)".characters.count - countOfDeleted) > 0
         
-        self.view.saveContactButton.isEnabled = saveContactOutletisEnabled
+        self.contactAddEditVC.saveContactButton.isEnabled = saveContactOutletisEnabled
     }
     
     func checkSaveContact() {
         if !("\(viewFirstNameText)\(viewLastNameText)\(viewPhoneNumberText)\(viewEmailText)".isEmpty) {
-            if let view = self.view as? UIViewController {
+            if let view = self.contactAddEditVC as? UIViewController {
                 if DataValidators.validateEmail(value: viewEmailText) {
                     saveContact()
                 } else {
@@ -151,40 +149,24 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
             contactList?.addContact(firstName: viewFirstNameText, lastName: viewLastNameText, phoneNumber: viewPhoneNumberText, email: viewEmailText)
         }
         
-        if let view = self.view as? UIViewController {
+        if let view = self.contactAddEditVC as? UIViewController {
             view.performSegueToReturnBack()
         }
     }
     
     func deleteContact() {
-        if let view = self.view as? UIViewController {
+        if let view = self.contactAddEditVC as? UIViewController {
             let ac = AlertsCreator.getDeleteContactAlert(contact!, deleteAction: deleteContactConfirmed)
             
             view.present(ac, animated: true)
         }
     }
     
-    func deleteContactConfirmed(_ contact: Contact) {
+    private func deleteContactConfirmed(_ contact: Contact) {
         contactList?.deleteContact(contact)
         
-        if let view = self.view as? UIViewController {
+        if let view = self.contactAddEditVC as? UIViewController {
             view.performSegueToReturnBack()
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

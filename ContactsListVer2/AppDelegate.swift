@@ -13,20 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
         
-        let st = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+        let navigationController = storyboard.instantiateInitialViewController() as? UINavigationController
         
-        let nc = st.instantiateInitialViewController() as? UINavigationController
-        
-        if let vc = nc?.viewControllers.first as? ContactsListTVC {
-            let presenter = ContactListTVCPresenter(view: vc, contactList: ContactsList())
+        if let viewController = navigationController?.viewControllers.first as? ContactsListTVC {
+            let presenter = ContactListTVCPresenter(contactsListTVC: viewController, contactList: ContactsList())
             
-            vc.presenter = presenter
+            viewController.presenter = presenter
         }
         
         self.window = UIWindow()
         
-        self.window?.rootViewController = nc
+        self.window?.rootViewController = navigationController
         
         self.window?.makeKeyAndVisible()
         
@@ -48,4 +47,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
     }
 }
-
