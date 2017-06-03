@@ -8,10 +8,24 @@
 
 import Foundation
 
-import UIKit
-
 protocol ContactListTVCProtocol: class {
-    var contactsListTV: UITableView { get }
+    var viewIsEditing: Bool { get set }
     
-    var sortMethodSegmentControl: UISegmentedControl { get }
+    var viewBackButtonIsEnabled: Bool { get set }
+    
+    var viewBackButtonTitle: String { get set }
+    
+    var sortMethodSegmentControlIsHidden: Bool { get set }
+    
+    var sortMethodSegmentControlSelectedSegmentIndex: Int { get set }
+    
+    func moveRow(at rowAt: Int, to rowTo: Int)
+    
+    func deleteRow(at row: Int)
+    
+    func insertRow(at row: Int)
+    
+    func reloadData()
+    
+    func presentDeletionAlert(contactFullName: String, deleteAction: @escaping (() -> Void))
 }

@@ -8,14 +8,18 @@
 
 import Foundation
 
-import UIKit
-
-protocol ContactListTVCPresenterProtocol {
+protocol ContactListTVCPresenterProtocol: class {
     init(contactsListTVC: ContactListTVCProtocol, contactList: ContactsList?)
+    
+    var router: ContactListTVCRouterProtocol! { get set }
     
     var numberOfSections: Int { get }
     
     var numberOfRowsInSection: Int { get }
+    
+    var contactList: ContactsList? { get }
+    
+    var selectedContact: Contact? { get }
     
     func configureCell(_ cell: ContactsTVCell, forRow row: Int)
     
@@ -23,15 +27,19 @@ protocol ContactListTVCPresenterProtocol {
     
     func changeSortMethod()
     
-    func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    
     func deleteContactForRow(_ row: Int)
     
     func selectContactForRow(_ row: Int)
+    
+    func setViewBackButtonTitle(_ title: String)
+    
+    func setViewIsEditing(_ value: Bool)
 }
 
 class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
     unowned let contactsListTVC: ContactListTVCProtocol
+    
+    var router: ContactListTVCRouterProtocol!
     
     let contactList: ContactsList?
     
@@ -83,7 +91,7 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
     }
     
     func viewDidLoad() {
-        contactsListTVC.sortMethodSegmentControl.selectedSegmentIndex = currentSortField.rawValue
+        self.contactsListTVC.sortMethodSegmentControlSelectedSegmentIndex = currentSortField.rawValue
         
         readContactList()
         
@@ -91,7 +99,7 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
     }
 
     func changeSortMethod() {
-        currentSortField = AdditionalData.SortFields.Values(rawValue: contactsListTVC.sortMethodSegmentControl.selectedSegmentIndex) ?? .lastName
+        currentSortField = AdditionalData.SortFields.Values(rawValue: self.contactsListTVC.sortMethodSegmentControlSelectedSegmentIndex) ?? .lastName
         
         readContactList()
     }
@@ -103,77 +111,47 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
     }
     
     func setAvailability() {
-        if let view = contactsListTVC as? UITableViewController {
-            if contactListArray.count == 0 {
-                view.navigationItem.leftBarButtonItem = nil
-                
-                view.isEditing = false
-            } else {
-                view.navigationItem.leftBarButtonItem = view.editButtonItem
-            }
+        
+        if contactListArray.count == 0 {
+            self.contactsListTVC.viewBackButtonIsEnabled = false
+            
+            self.contactsListTVC.viewIsEditing = false
+        } else {
+            self.contactsListTVC.viewBackButtonIsEnabled = true
         }
-    
-        contactsListTVC.sortMethodSegmentControl.isHidden = contactList?.count ?? 0 <= 1
+        
+        self.contactsListTVC.sortMethodSegmentControlIsHidden = contactList?.count ?? 0 <= 1
     }
 
     func setAvailabilityAndReloadData() {
         readContactList()
         
         setAvailability()
-        
-        contactsListTVC.contactsListTV.reloadData()
+
+        self.contactsListTVC.reloadData()
     }
     
-    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var backButtonTitle = "Cancel"
-        
-        if let view = contactsListTVC as? UITableViewController {
-            view.isEditing = false
-            
-            if segue.identifier == "addContact" {
-                if let toViewController = segue.destination as? ContactAddEditVC {
-                    let presenter = ContactAddEditPresenter(contactAddEditVC: toViewController, contactList: contactList, contactUuid: nil)
-                    
-                    toViewController.presenter = presenter
-                }
-            } else {
-                if segue.identifier == "viewContact" {
-                    if let toViewController = segue.destination as? ContactViewVC {
-                        
-                        let presenter = ContactViewPresenter(contactViewVC: toViewController, contactList: contactList, contactUuid: selectedContact?.uuid)
-                        
-                        toViewController.presenter = presenter
-                        
-                        backButtonTitle = " "
-                    }
-                }
-            }
-            
-            view.navigationItem.backBarButtonItem?.title = backButtonTitle
-        }
+    func setViewBackButtonTitle(_ title: String) {
+        self.contactsListTVC.viewBackButtonTitle = title
+    }
+    
+    func setViewIsEditing(_ value: Bool) {
+        self.contactsListTVC.viewIsEditing = value
     }
 }
 
 // tableView functions
 extension ContactListTVCPresenter {
     func deleteContactForRow(_ row: Int) {
-        let contact = contactListArray[row]
+        selectedContact = contactListArray[row]
         
-        let ac = AlertsCreator.getDeleteContactAlert(contact, deleteAction: deleteContactConfirmed)
-        
-        if let view = self.contactsListTVC as? UIViewController {
-            view.present(ac, animated: true)
-        } else {
-            contactList?.deleteContact(contact)
+        self.contactsListTVC.presentDeletionAlert(contactFullName: selectedContact?.fullName ?? "Contact") {
+            self.contactList?.deleteContact(self.selectedContact!)
         }
     }
     
     func selectContactForRow(_ row: Int) {
         selectedContact = contactListArray[row]
-    }
-    
-    private func deleteContactConfirmed(_ contact: Contact) {
-        contactList?.deleteContact(contact)
     }
 }
 
@@ -188,13 +166,7 @@ extension ContactListTVCPresenter {
             let newIndex = contactListArray.index(of: contact)
             
             if let newIndexValue = newIndex, let oldIndexValue = oldIndex {
-                let indexPathAt = IndexPath(row: oldIndexValue, section: 0)
-                
-                let indexPathTo = IndexPath(row: newIndexValue, section: 0)
-                
-                self.contactsListTVC.contactsListTV.moveRow(at: indexPathAt, to: indexPathTo)
-                
-                self.contactsListTVC.contactsListTV.reloadRows(at: [indexPathTo], with: .bottom)
+                self.contactsListTVC.moveRow(at: oldIndexValue, to: newIndexValue)
             }
         }
     }
@@ -205,11 +177,9 @@ extension ContactListTVCPresenter {
             
             if let indexValue = index {
                 // delete cell for contact
-                let indexPath = IndexPath(row: indexValue, section: 0)
-                
                 readContactList()
                 
-                self.contactsListTVC.contactsListTV.deleteRows(at: [indexPath], with: .top)
+                self.contactsListTVC.deleteRow(at: indexValue)
             }
         }
         
@@ -224,9 +194,7 @@ extension ContactListTVCPresenter {
             
             if let indexValue = index {
                 // add cell for contact
-                let indexPath = IndexPath(row: indexValue, section: 0)
-                
-                self.contactsListTVC.contactsListTV.insertRows(at: [indexPath], with: .top)
+                self.contactsListTVC.insertRow(at: indexValue)
             }
         }
         

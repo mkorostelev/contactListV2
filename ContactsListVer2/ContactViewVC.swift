@@ -26,7 +26,7 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        presenter.prepare(for: segue, sender: sender)
+        presenter.router.prepare(for: segue, sender: sender)
     }
 }
 

@@ -11,12 +11,22 @@ import Foundation
 import UIKit
 
 struct AlertsCreator {
-    static func getDeleteContactAlert(_ contact: Contact, deleteAction: @escaping ((_ contact: Contact) -> Void)) -> UIAlertController {
-        let alertController = UIAlertController(title: contact.fullName, message: "will be deleted", preferredStyle: .actionSheet)
+    static func getDeleteContactAlert(contactFullName: String, deleteAction: @escaping (() -> Void)) -> UIAlertController {
+        let alertController = UIAlertController(title: contactFullName, message: "will be deleted", preferredStyle: .actionSheet)
         
-        alertController.addAction(UIAlertAction(title: "Confirm", style: .destructive) { _ in deleteAction(contact)})
+        alertController.addAction(UIAlertAction(title: "Confirm", style: .destructive) { _ in deleteAction()})
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        return alertController
+    }
+    
+    static func getEmailValidationAlert(email: String, saveAction: @escaping (() -> Void)) -> UIAlertController {
+        let alertController = UIAlertController(title: email, message: "not valid email", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Save", style: .cancel) { _ in saveAction()})
+        
+        alertController.addAction(UIAlertAction(title: "Check", style: .destructive))
         
         return alertController
     }

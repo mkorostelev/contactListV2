@@ -37,7 +37,7 @@ class Contact: NSObject, NSCoding{
         }
     }
     
-    var uuid: String
+    private(set) var uuid: String
     
     var searchString: String {
         return "\(self.firstName) \(self.lastName) \(self.phoneNumber) \(self.email)"

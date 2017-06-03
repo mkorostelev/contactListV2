@@ -8,18 +8,22 @@
 
 import Foundation
 
-import UIKit
-
-protocol ContactViewPresenterProtocol {
+protocol ContactViewPresenterProtocol: class {
     init(contactViewVC: ContactViewProtocol, contactList: ContactsList?, contactUuid: String?)
     
     func viewDidLoad()
     
-    func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    var contactList: ContactsList? { get }
+    
+    var contactUuid: String? { get }
+    
+    var router: ContactViewRouterProtocol! { get set }
 }
 
 class ContactViewPresenter: ContactViewPresenterProtocol {
     unowned let contactViewVC: ContactViewProtocol
+    
+    var router: ContactViewRouterProtocol!
     
     let contactList: ContactsList?
     
@@ -46,16 +50,6 @@ class ContactViewPresenter: ContactViewPresenterProtocol {
             let email = contact.email
             
             self.contactViewVC.fillDataFromContact(title: title, phoneNumber: phoneNumber, email: email)
-        }
-    }
-    
-    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editContact" {
-            if let toViewController = segue.destination as? ContactAddEditVC {
-                let presenter = ContactAddEditPresenter(contactAddEditVC: toViewController, contactList: contactList, contactUuid: contactUuid)
-                
-                toViewController.presenter = presenter
-            }
         }
     }
 }

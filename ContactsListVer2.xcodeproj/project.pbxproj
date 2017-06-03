@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		84207B321EE01F4D004BE838 /* DataValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84207B311EE01F4D004BE838 /* DataValidators.swift */; };
+		842CCAA11EE2D00500A3E6EF /* ContactListTVCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CCAA01EE2D00500A3E6EF /* ContactListTVCRouter.swift */; };
+		8431BCF51EE2CA5400E68E9F /* ViewRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431BCF41EE2CA5400E68E9F /* ViewRouterProtocol.swift */; };
+		8431BCF71EE2CAA900E68E9F /* ContactViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431BCF61EE2CAA900E68E9F /* ContactViewRouter.swift */; };
 		8435F6C31EDD54DF00A26A3E /* TVCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6C21EDD54DF00A26A3E /* TVCellProtocol.swift */; };
 		8435F6C81EDD672A00A26A3E /* ContactTVCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6C71EDD672A00A26A3E /* ContactTVCellPresenter.swift */; };
 		8435F6CB1EDD6FEA00A26A3E /* ContactViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435F6CA1EDD6FEA00A26A3E /* ContactViewProtocol.swift */; };
@@ -38,6 +41,9 @@
 
 /* Begin PBXFileReference section */
 		84207B311EE01F4D004BE838 /* DataValidators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataValidators.swift; sourceTree = "<group>"; };
+		842CCAA01EE2D00500A3E6EF /* ContactListTVCRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTVCRouter.swift; sourceTree = "<group>"; };
+		8431BCF41EE2CA5400E68E9F /* ViewRouterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRouterProtocol.swift; sourceTree = "<group>"; };
+		8431BCF61EE2CAA900E68E9F /* ContactViewRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewRouter.swift; sourceTree = "<group>"; };
 		8435F6C21EDD54DF00A26A3E /* TVCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVCellProtocol.swift; sourceTree = "<group>"; };
 		8435F6C71EDD672A00A26A3E /* ContactTVCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCellPresenter.swift; sourceTree = "<group>"; };
 		8435F6CA1EDD6FEA00A26A3E /* ContactViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewProtocol.swift; sourceTree = "<group>"; };
@@ -79,6 +85,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8431BCF31EE2CA2700E68E9F /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+				8431BCF41EE2CA5400E68E9F /* ViewRouterProtocol.swift */,
+				8431BCF61EE2CAA900E68E9F /* ContactViewRouter.swift */,
+				842CCAA01EE2D00500A3E6EF /* ContactListTVCRouter.swift */,
+			);
+			name = Routers;
+			sourceTree = "<group>";
+		};
 		8435F6BF1EDD544F00A26A3E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +147,7 @@
 		A01ACC751ECCAE7400AB61BB /* ContactsListVer2 */ = {
 			isa = PBXGroup;
 			children = (
+				8431BCF31EE2CA2700E68E9F /* Routers */,
 				8435F6C11EDD549C00A26A3E /* Presenters */,
 				8435F6BF1EDD544F00A26A3E /* Protocols */,
 				A01ACC941ECCB99400AB61BB /* Helpers */,
@@ -272,6 +289,7 @@
 				A0F049531ECDEDAE00E5CF40 /* Notifications.swift in Sources */,
 				A0F049471ECDD43A00E5CF40 /* ContactAddEditVC.swift in Sources */,
 				84207B321EE01F4D004BE838 /* DataValidators.swift in Sources */,
+				842CCAA11EE2D00500A3E6EF /* ContactListTVCRouter.swift in Sources */,
 				8435F6CF1EDD72A500A26A3E /* ContactViewPresenter.swift in Sources */,
 				A0F0494C1ECDDEC200E5CF40 /* CommonExtensions.swift in Sources */,
 				A02DB40D1EDF2D0500A96299 /* ContactListTVCPresenter.swift in Sources */,
@@ -282,9 +300,11 @@
 				84CD7A971ECEFBF70039CFA3 /* ContactViewVC.swift in Sources */,
 				A0F049501ECDE8C200E5CF40 /* SaveLoadData.swift in Sources */,
 				A01ACC771ECCAE7400AB61BB /* AppDelegate.swift in Sources */,
+				8431BCF51EE2CA5400E68E9F /* ViewRouterProtocol.swift in Sources */,
 				A01ACC8C1ECCAEB800AB61BB /* ContactsListClass.swift in Sources */,
 				A0F0494E1ECDE49400E5CF40 /* MagicValues.swift in Sources */,
 				A031DAB81EDDA375006170C4 /* ContactAddEditPresenter.swift in Sources */,
+				8431BCF71EE2CAA900E68E9F /* ContactViewRouter.swift in Sources */,
 				A01ACC901ECCAF5200AB61BB /* ContactsListTVC.swift in Sources */,
 				8435F6C31EDD54DF00A26A3E /* TVCellProtocol.swift in Sources */,
 				A031DAB61EDDA105006170C4 /* ContactAddEditProtocol.swift in Sources */,

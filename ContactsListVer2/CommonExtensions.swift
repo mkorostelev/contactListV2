@@ -29,3 +29,32 @@ extension UITableViewCell {
         return String(describing: self)
     }
 }
+
+extension UITableView {
+    var indexPathForEditingRow: IndexPath? {
+        return indexPathsForEditingRows.first
+    }
+    
+    var indexPathsForEditingRows: [IndexPath] {
+        return visibleCells.flatMap { cell -> IndexPath? in
+            guard let indexPath = indexPath(for: cell), cell.editingStyle != .none else {
+                return nil
+            }
+            return indexPath
+        }
+    }
+    
+    var indexPathForDeletingRow: IndexPath? {
+        return indexPathsForDeletingRows.first
+    }
+    
+    var indexPathsForDeletingRows: [IndexPath] {
+        return visibleCells.flatMap { cell -> IndexPath? in
+            guard let indexPath = indexPath(for: cell), cell.editingStyle == .delete else {
+                return nil
+            }
+            return indexPath
+        }
+    }
+    
+}

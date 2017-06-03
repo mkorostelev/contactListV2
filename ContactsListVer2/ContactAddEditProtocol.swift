@@ -8,18 +8,16 @@
 
 import Foundation
 
-import UIKit
-
 protocol ContactAddEditProtocol: class {
-    var phoneNumberTextField: UITextField { get }
+    var deleteContactButtonIsHidden: Bool { get set }
     
-    var firstNameTextField: UITextField { get }
+    var saveButtonIsEnabled: Bool { get set }
     
-    var lastNameTextField: UITextField { get }
+    func presentDeletionAlert(contactFullName: String, deleteAction: @escaping (() -> Void))
     
-    var emailTextField: UITextField { get }
+    func presentEmailValidationAlert(saveAction: @escaping (() -> Void))
     
-    var deleteContactButton: UIButton { get }
+    func closeView()
     
-    var saveContactButton: UIBarButtonItem { get }
+    func fillTextFieldsData(firstName: String, lastName: String, phoneNumber: String, email: String)
 }

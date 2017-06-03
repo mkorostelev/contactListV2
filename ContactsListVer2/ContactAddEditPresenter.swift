@@ -8,19 +8,19 @@
 
 import Foundation
 
-import UIKit
-
 protocol ContactAddEditPresenterProtocol {
     init(contactAddEditVC: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?)
     
     func viewDidLoad()
     
-    func checkSaveContact()
-    
     func deleteContact()
+    
+    func checkEnabledOfSaveButton(allInputedText: String, notInOutletString: String, range: NSRange?)
+    
+    func validateAndSaveContact(firstName: String, lastName: String, phoneNumber: String, email: String)
 }
 
-class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UITextFieldDelegate {
+class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
     unowned let contactAddEditVC: ContactAddEditProtocol
     
     let contactList: ContactsList?
@@ -28,22 +28,6 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
     let contactUuid: String?
     
     private let contact: Contact?
-    
-    private var viewFirstNameText: String {
-        return self.contactAddEditVC.firstNameTextField.text ?? ""
-    }
-    
-    private var viewLastNameText: String {
-        return self.contactAddEditVC.lastNameTextField.text ?? ""
-    }
-    
-    private var viewPhoneNumberText: String {
-        return self.contactAddEditVC.phoneNumberTextField.text ?? ""
-    }
-    
-    private var viewEmailText: String {
-        return self.contactAddEditVC.emailTextField.text ?? ""
-    }
     
     required init(contactAddEditVC: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?) {
         self.contactAddEditVC = contactAddEditVC
@@ -56,48 +40,18 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
     }
     
     func viewDidLoad() {
-        self.contactAddEditVC.firstNameTextField.delegate = self
-        
-        self.contactAddEditVC.lastNameTextField.delegate = self
-        
-        self.contactAddEditVC.phoneNumberTextField.delegate = self
-        
-        self.contactAddEditVC.emailTextField.delegate = self
-        
-        if self.contact != nil {
-            self.fillDataFromContact(self.contact!)
+        if let contactValue = self.contact {
+            self.contactAddEditVC.fillTextFieldsData(
+                firstName: contactValue.firstName,
+                lastName: contactValue.lastName,
+                phoneNumber: contactValue.phoneNumber,
+                email: contactValue.email)
         } else {
-            self.contactAddEditVC.deleteContactButton.isHidden = true
+            self.contactAddEditVC.deleteContactButtonIsHidden = true
         }
-        
-        self.checkEnabledOfSaveButton()
     }
-    
-    private func fillDataFromContact(_ contact: Contact) {
-        self.contactAddEditVC.firstNameTextField.text = contact.firstName
-        
-        self.contactAddEditVC.lastNameTextField.text = contact.lastName
-        
-        self.contactAddEditVC.phoneNumberTextField.text = contact.phoneNumber
-        
-        self.contactAddEditVC.emailTextField.text = contact.email
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        var result = true
-        
-        if textField == self.contactAddEditVC.phoneNumberTextField {
-            result = DataValidators.validatePhoneNumberInput(value: string)
-        }
-        
-        if result {
-            checkEnabledOfSaveButton(notInOutletString: string, range: range)
-        }
-        
-        return result
-    }
-    
-    private func checkEnabledOfSaveButton(notInOutletString: String = "", range: NSRange? = nil) {
+
+    func checkEnabledOfSaveButton(allInputedText: String, notInOutletString: String, range: NSRange?) {
         var countOfDeleted = 0
         
         if let rangeValue = range {
@@ -106,67 +60,55 @@ class ContactAddEditPresenter: NSObject, ContactAddEditPresenterProtocol, UIText
             }
         }
         
-        let saveContactOutletisEnabled = ("\(self.viewFirstNameText)\(self.viewLastNameText)\(self.viewPhoneNumberText)\(self.viewEmailText)\(notInOutletString)".characters.count - countOfDeleted) > 0
+        let saveContactOutletisEnabled = ("\(allInputedText)\(notInOutletString)".characters.count - countOfDeleted) > 0
         
-        self.contactAddEditVC.saveContactButton.isEnabled = saveContactOutletisEnabled
+        self.contactAddEditVC.saveButtonIsEnabled = saveContactOutletisEnabled
     }
     
-    func checkSaveContact() {
-        if !("\(viewFirstNameText)\(viewLastNameText)\(viewPhoneNumberText)\(viewEmailText)".isEmpty) {
-            if let view = self.contactAddEditVC as? UIViewController {
-                if DataValidators.validateEmail(value: viewEmailText) {
-                    saveContact()
-                } else {
-                    let ac = UIAlertController(title: "Email", message: "not valid", preferredStyle: .alert)
-                    
-                    ac.addAction(UIAlertAction(title: "Save", style: .cancel) { _ in self.saveContact()})
-                    
-                    ac.addAction(UIAlertAction(title: "Check", style: .destructive))
-                    
-                    view.present(ac, animated: true, completion:nil)
-                }
+    func validateAndSaveContact(firstName: String, lastName: String, phoneNumber: String, email: String) {
+        if email.isEmpty || DataValidators.validateEmail(value: email) {
+            self.saveContactConfirmed(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+        } else {
+            self.contactAddEditVC.presentEmailValidationAlert {
+                self.saveContactConfirmed(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
             }
         }
     }
     
-    private func saveContact() {
+    private func saveContactConfirmed(firstName: String, lastName: String, phoneNumber: String, email: String) {
         if let contactValue = self.contact {
             // change contact
-            if contactValue.firstName != viewFirstNameText {
-                contactValue.firstName = viewFirstNameText
+            if contactValue.firstName != firstName {
+                contactValue.firstName = firstName
             }
-            if contactValue.lastName != viewLastNameText {
-                contactValue.lastName = viewLastNameText
+            if contactValue.lastName != lastName {
+                contactValue.lastName = lastName
             }
-            if contactValue.phoneNumber != viewPhoneNumberText {
-                contactValue.phoneNumber = viewPhoneNumberText
+            if contactValue.phoneNumber != phoneNumber {
+                contactValue.phoneNumber = phoneNumber
             }
-            if contactValue.email != viewEmailText {
-                contactValue.email = viewEmailText
+            if contactValue.email != email {
+                contactValue.email = email
             }
         } else {
             // add new contact
-            contactList?.addContact(firstName: viewFirstNameText, lastName: viewLastNameText, phoneNumber: viewPhoneNumberText, email: viewEmailText)
+            contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
         }
         
-        if let view = self.contactAddEditVC as? UIViewController {
-            view.performSegueToReturnBack()
-        }
+        self.contactAddEditVC.closeView()
     }
     
     func deleteContact() {
-        if let view = self.contactAddEditVC as? UIViewController {
-            let ac = AlertsCreator.getDeleteContactAlert(contact!, deleteAction: deleteContactConfirmed)
-            
-            view.present(ac, animated: true)
+        self.contactAddEditVC.presentDeletionAlert(contactFullName: contact?.fullName ?? "Contact") {
+            self.deleteContactConfirmed()
         }
     }
     
-    private func deleteContactConfirmed(_ contact: Contact) {
-        contactList?.deleteContact(contact)
-        
-        if let view = self.contactAddEditVC as? UIViewController {
-            view.performSegueToReturnBack()
+    private func deleteContactConfirmed() {
+        if let contact = self.contact {
+            contactList?.deleteContact(contact)
+            
+            self.contactAddEditVC.closeView()
         }
     }
 }

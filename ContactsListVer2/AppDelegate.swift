@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let viewController = navigationController?.viewControllers.first as? ContactsListTVC {
             let presenter = ContactListTVCPresenter(contactsListTVC: viewController, contactList: ContactsList())
             
+            let router = ContactListTVCRouter(contactListTVCPresenter: presenter)
+            
+            presenter.router = router
+            
             viewController.presenter = presenter
         }
         

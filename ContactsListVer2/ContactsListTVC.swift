@@ -11,14 +11,6 @@ import UIKit
 class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
     var presenter: ContactListTVCPresenterProtocol!
     
-    var contactsListTV: UITableView {
-        return contactsListTableView
-    }
-    
-    var sortMethodSegmentControl: UISegmentedControl {
-        return changeSortMethodOutlet
-    }
-    
     var contactList: ContactsList?
 
     var contactListArray = [Contact]()
@@ -71,7 +63,7 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        presenter.prepare(for: segue, sender: sender)
+        presenter.router.prepare(for: segue, sender: sender)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -84,5 +76,97 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
         presenter.selectContactForRow(indexPath.row)
         
         return indexPath
+    }
+}
+
+extension ContactsListTVC {
+    var viewIsEditing: Bool {
+        get {
+            return self.isEditing
+        }
+        
+        set {
+            self.isEditing = newValue
+        }
+    }
+    
+    var viewBackButtonIsEnabled: Bool {
+        get {
+            return self.navigationItem.leftBarButtonItem == self.editButtonItem
+        }
+        
+        set {
+            if newValue {
+                self.navigationItem.leftBarButtonItem = self.editButtonItem
+            } else {
+                self.navigationItem.leftBarButtonItem = nil
+            }
+        }
+    }
+    
+    var sortMethodSegmentControlIsHidden: Bool {
+        get {
+            return self.changeSortMethodOutlet.isHidden
+        }
+        
+        set {
+            self.changeSortMethodOutlet.isHidden = newValue
+        }
+    }
+    
+    var sortMethodSegmentControlSelectedSegmentIndex: Int {
+        get {
+            return self.changeSortMethodOutlet.selectedSegmentIndex
+        }
+        
+        set {
+            self.changeSortMethodOutlet.selectedSegmentIndex = newValue
+        }
+    }
+    
+    var viewBackButtonTitle: String {
+        get {
+            return self.navigationItem.backBarButtonItem?.title ?? ""
+        }
+        
+        set {
+            self.navigationItem.backBarButtonItem?.title = newValue
+        }
+    }
+    
+    func getSelectedRow() -> Int? {
+        return contactsListTableView.indexPathForDeletingRow?.row
+    }
+    
+    func moveRow(at rowAt: Int, to rowTo: Int) {
+        let indexPathAt = IndexPath(row: rowAt, section: 0)
+        
+        let indexPathTo = IndexPath(row: rowTo, section: 0)
+        
+        self.contactsListTableView.moveRow(at: indexPathAt, to: indexPathTo)
+        
+        self.contactsListTableView.reloadRows(at: [indexPathTo], with: .bottom)
+    }
+    
+    func deleteRow(at row: Int) {
+        let indexPath = IndexPath(row: row, section: 0)
+        
+        self.contactsListTableView.deleteRows(at: [indexPath], with: .left)
+    }
+    
+    func insertRow(at row: Int) {
+        let indexPath = IndexPath(row: row, section: 0)
+        
+        self.contactsListTableView.insertRows(at: [indexPath], with: .top)
+    }
+    
+    func reloadData() {
+        self.contactsListTableView.reloadData()
+    }
+    
+    func presentDeletionAlert(contactFullName: String, deleteAction: @escaping (() -> Void)) {
+        let alertController = AlertsCreator.getDeleteContactAlert(contactFullName: contactFullName, deleteAction: deleteAction)
+        
+        self.present(alertController, animated: true)
     }
 }
