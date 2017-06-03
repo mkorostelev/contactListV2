@@ -47,8 +47,7 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
     
     var selectedContact: Contact?
     
-    private var currentSortField: AdditionalData.SortFields.Values = SaveLoadData.getUsersDefaultSortMethod()
-    {
+    private var currentSortField: AdditionalData.SortFields.Values = SaveLoadData.getUsersDefaultSortMethod() {
         didSet {
             SaveLoadData.setUsersDefaultSortMethod(currentSortField)
             
