@@ -11,7 +11,7 @@ import Foundation
 protocol ContactTVCellPresenterProtocol {
     init(contactsTVCell: ContactTVCellProtocol, contact: Contact)
     
-    func fillCellByContact()
+    func fillCellByContact(constraintsConstant: Int)
 }
 
 class ContactTVCellPresenter: ContactTVCellPresenterProtocol {
@@ -25,11 +25,14 @@ class ContactTVCellPresenter: ContactTVCellPresenterProtocol {
         self.contact = contact
     }
     
-    func fillCellByContact() {
-        let fullName = self.contact.fullName
-        
-        let phoneNumber = self.contact.phoneNumber
-        
-        contactsTVCell.fillCell(fullName: fullName, phoneNumber: phoneNumber)
+    func fillCellByContact(constraintsConstant: Int) {        
+        contactsTVCell.fillCell(
+            fullName: contact.fullName,
+            firstName: contact.firstName,
+            lastName: contact.lastName,
+            phoneNumber: contact.phoneNumber,
+            email: contact.email,
+            constraintsConstant: constraintsConstant
+        )
     }
 }

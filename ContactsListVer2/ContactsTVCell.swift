@@ -9,9 +9,15 @@
 import UIKit
 
 class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
-    @IBOutlet weak var fullName: UILabel!
+    @IBOutlet weak var firstName: UILabel!
+    
+    @IBOutlet weak var lastName: UILabel!
     
     @IBOutlet weak var phoneNumber: UILabel!
+    
+    @IBOutlet weak var email: UILabel!
+    
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,9 +30,15 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
 
 // ContactTVCellProtocol implementation
 extension ContactsTVCell {
-    func fillCell(fullName: String, phoneNumber: String) {
-        self.fullName?.text = fullName
+    func fillCell(fullName: String, firstName: String, lastName: String, phoneNumber: String, email: String, constraintsConstant: Int) {
+        leadingConstraint.constant = CGFloat(constraintsConstant)
+        
+        self.firstName?.text = firstName
+        
+        self.lastName?.text = lastName
         
         self.phoneNumber?.text = phoneNumber
+        
+        self.email?.text = email
     }
 }

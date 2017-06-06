@@ -37,6 +37,10 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        contactsListTableView.rowHeight = UITableViewAutomaticDimension
+        
+        contactsListTableView.estimatedRowHeight = 88
+        	
         presenter.viewDidLoad()
     }
 

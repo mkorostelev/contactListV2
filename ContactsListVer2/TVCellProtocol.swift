@@ -9,5 +9,5 @@
 import Foundation
 
 protocol  ContactTVCellProtocol: class {
-    func fillCell(fullName: String, phoneNumber: String)
+    func fillCell(fullName: String, firstName: String, lastName: String, phoneNumber: String, email: String, constraintsConstant: Int)
 }
