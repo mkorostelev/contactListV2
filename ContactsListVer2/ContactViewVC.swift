@@ -35,8 +35,8 @@ extension ContactViewVC {
     func fillDataFromContact(title: String, phoneNumber: String, email: String) {
         self.navigationItem.title = title
         
-        phoneNumberOutlet.text = phoneNumber
+        phoneNumberOutlet?.text = phoneNumber
         
-        emailOutlet.text = email
+        emailOutlet?.text = email
     }
 }

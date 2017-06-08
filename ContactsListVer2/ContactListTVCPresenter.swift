@@ -36,6 +36,8 @@ protocol ContactListTVCPresenterProtocol: class {
     func setViewBackButtonTitle(_ title: String)
     
     func setViewIsEditing(_ value: Bool)
+    
+    func tableViewdidSelectRow()
 }
 
 class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
@@ -154,6 +156,20 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
     
     func setViewIsEditing(_ value: Bool) {
         self.contactsListTVC.viewIsEditing = value
+    }
+    
+    func tableViewdidSelectRow() {
+        if let contact = selectedContact,
+            let cellPresenter = cellsPresentersDictionary[contact.uuid] {
+            
+            if cellPresenter.showDetailInfo{
+                self.router.showViewContact()
+            } else {
+                cellPresenter.showDetailInfo = true
+                
+                cellPresenter.contactsTVCell.reloadDataFromPresenter()
+            }
+        }
     }
 }
 

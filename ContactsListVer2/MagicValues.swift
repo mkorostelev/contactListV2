@@ -26,4 +26,10 @@ struct Constants {
     struct SomeDefaults {
         static let countOfDisplayedFullNameCharacters = 15
     }
+    
+    struct Settings {
+        static let useAlertControllerForUserAdd = false
+        
+        static let viewContactViaSecondClick = true
+    }
 }

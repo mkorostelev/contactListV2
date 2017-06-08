@@ -19,7 +19,7 @@ class ContactTVCellPresenter: ContactTVCellPresenterProtocol {
     
     var showDetailInfo = false
     
-    let contact: Contact
+    private let contact: Contact
     
     required init(contactsTVCell: ContactTVCellProtocol, contact: Contact) {
         self.contactsTVCell = contactsTVCell

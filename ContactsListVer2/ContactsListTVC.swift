@@ -70,6 +70,10 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
         presenter.router.prepare(for: segue, sender: sender)
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
+        return presenter.router.shouldPerformSegue(withIdentifier: identifier)
+    }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             presenter.deleteContactForRow(indexPath.row)
@@ -80,6 +84,12 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
         presenter.selectContactForRow(indexPath.row)
         
         return indexPath
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if Constants.Settings.viewContactViaSecondClick{
+            self.presenter.tableViewdidSelectRow()
+        }
     }
 }
 

@@ -67,6 +67,8 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
             firstNameToLastName.priority = UILayoutPriorityFittingSizeLevel
             
             lastNameToPhoneNumber.priority = UILayoutPriorityFittingSizeLevel
+            
+            self.firstName?.font = UIFont.preferredFont(forTextStyle: .headline)
         } else {
             self.firstName?.text = self.firstNameText
             
@@ -75,6 +77,8 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
             firstNameToLastName.priority = UILayoutPriorityDefaultHigh + 200
             
             lastNameToPhoneNumber.priority = UILayoutPriorityDefaultHigh + 200
+            
+            self.firstName?.font = UIFont.preferredFont(forTextStyle: .body)
         }
         
         if updateTableView {
@@ -110,5 +114,11 @@ extension ContactsTVCell {
         self.email?.text = email
         
         showDetailInfo()
+    }
+    
+    func reloadDataFromPresenter() {
+        self.detailInfoButton.isOn = self.presenter.showDetailInfo
+        
+        self.showDetailInfo(updateTableView: true)
     }
 }
