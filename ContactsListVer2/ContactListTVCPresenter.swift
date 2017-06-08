@@ -21,6 +21,8 @@ protocol ContactListTVCPresenterProtocol: class {
     
     var selectedContact: Contact? { get }
     
+    var cellsPresentersDictionary: [String: ContactTVCellPresenter] { get set }
+    
     func configureCell(_ cell: ContactsTVCell, forRow row: Int)
     
     func viewDidLoad()
@@ -46,6 +48,8 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
     var contactListArray = [Contact]()
     
     var selectedContact: Contact?
+    
+    var cellsPresentersDictionary: [String: ContactTVCellPresenter] = [:]
     
     private var currentSortField: AdditionalData.SortFields.Values = SaveLoadData.getUsersDefaultSortMethod() {
         didSet {
@@ -86,7 +90,19 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
         
         let constraintsConstant = [row % 8, 8 - row % 8].min()! * 10
         
-        let presenter = ContactTVCellPresenter(contactsTVCell: cell, contact: contact)
+        var presenter: ContactTVCellPresenter
+        
+        if let presenterValue = cellsPresentersDictionary[contact.uuid] {
+            presenter = presenterValue
+            
+            presenter.contactsTVCell = cell
+        } else {
+            presenter = ContactTVCellPresenter(contactsTVCell: cell, contact: contact)
+            
+            cellsPresentersDictionary[contact.uuid] = presenter
+        }
+        
+        cell.presenter = presenter
         
         presenter.fillCellByContact(constraintsConstant: constraintsConstant)
     }
@@ -168,6 +184,10 @@ extension ContactListTVCPresenter {
             
             if let newIndexValue = newIndex, let oldIndexValue = oldIndex {
                 self.contactsListTVC.moveRow(at: oldIndexValue, to: newIndexValue)
+                
+                if oldIndexValue != newIndexValue {
+                    self.updateContactsListFromRowToEnd([oldIndexValue, newIndexValue].min()!)
+                }
             }
         }
     }
@@ -181,6 +201,8 @@ extension ContactListTVCPresenter {
                 readContactList()
                 
                 self.contactsListTVC.deleteRow(at: indexValue)
+                
+                self.updateContactsListFromRowToEnd(indexValue)
             }
         }
         
@@ -196,6 +218,8 @@ extension ContactListTVCPresenter {
             if let indexValue = index {
                 // add cell for contact
                 self.contactsListTVC.insertRow(at: indexValue)
+                
+                self.updateContactsListFromRowToEnd(indexValue)
             }
         }
         
@@ -204,5 +228,13 @@ extension ContactListTVCPresenter {
     
     @objc func updateContactList(_ notification: NSNotification) {
         self.setAvailabilityAndReloadData()
+    }
+    
+    private func updateContactsListFromRowToEnd(_ rowFrom: Int) {
+        let rowTo = self.contactListArray.count - 1
+        
+        if rowFrom != rowTo {
+            self.contactsListTVC.updateListStartsFromRowToRow(rowFrom: rowFrom, rowTo: rowTo)
+        }
     }
 }

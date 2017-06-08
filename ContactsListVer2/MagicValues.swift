@@ -22,4 +22,8 @@ struct Constants {
     struct UsersDefaultsKeys {
         static let sortFieldCode = "sortFieldCode"
     }
+    
+    struct SomeDefaults {
+        static let countOfDisplayedFullNameCharacters = 15
+    }
 }

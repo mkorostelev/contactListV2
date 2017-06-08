@@ -59,7 +59,7 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: ContactsTVCell.reuseIdentifier, for: indexPath) as? ContactsTVCell {
             presenter.configureCell(cell, forRow: indexPath.row)
-        
+            
             return cell
         } else {
             return UITableViewCell()
@@ -172,5 +172,13 @@ extension ContactsListTVC {
         let alertController = AlertsCreator.getDeleteContactAlert(contactFullName: contactFullName, deleteAction: deleteAction)
         
         self.present(alertController, animated: true)
+    }
+    
+    func updateListStartsFromRowToRow(rowFrom: Int, rowTo: Int) {
+        let arrayOfRowsNumbers = Array(rowFrom...rowTo)
+        
+        let arrayOfIndexesPaths = arrayOfRowsNumbers.map( { IndexPath(row: $0, section: 0) } )
+        
+        self.contactsListTableView.reloadRows(at: arrayOfIndexesPaths, with: .bottom)
     }
 }

@@ -15,9 +15,11 @@ protocol ContactTVCellPresenterProtocol {
 }
 
 class ContactTVCellPresenter: ContactTVCellPresenterProtocol {
-    unowned let contactsTVCell: ContactTVCellProtocol
+    unowned var contactsTVCell: ContactTVCellProtocol
     
-    private let contact: Contact
+    var showDetailInfo = false
+    
+    let contact: Contact
     
     required init(contactsTVCell: ContactTVCellProtocol, contact: Contact) {
         self.contactsTVCell = contactsTVCell

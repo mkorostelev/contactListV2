@@ -28,4 +28,6 @@ protocol ContactListTVCProtocol: class {
     func reloadData()
     
     func presentDeletionAlert(contactFullName: String, deleteAction: @escaping (() -> Void))
+    
+    func updateListStartsFromRowToRow(rowFrom: Int, rowTo: Int)
 }
