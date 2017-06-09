@@ -33,6 +33,8 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
     
     @IBOutlet weak var detailInfoButton: UISwitch!
     
+    @IBOutlet weak var lastNameCenter: NSLayoutConstraint!
+    
     var fullNameText = ""
     
     var firstNameText = ""

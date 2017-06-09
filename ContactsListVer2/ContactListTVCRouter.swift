@@ -26,37 +26,14 @@ class ContactListTVCRouter: ContactListTVCRouterProtocol {
         
         self.navigationController = navigationController
     }
-    
+        
     func shouldPerformSegue(withIdentifier identifier: String?) -> Bool{
-        if identifier == "addContact" && Constants.Settings.useAlertControllerForUserAdd {
-            let alertController = UIAlertController(title: "New contact", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addTextField { (firstName : UITextField) -> Void in
-                firstName.placeholder = "First Name"
-            }
-            alertController.addTextField { (lastName : UITextField) -> Void in
-                lastName.placeholder = "Last Name"
-            }
-            alertController.addTextField { (phoneNumber : UITextField) -> Void in
-                phoneNumber.placeholder = "Phone Number"
-            }
-            alertController.addTextField { (email : UITextField) -> Void in
-                email.placeholder = "Email"
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
-            }
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                debugPrint("Try")
-            }
-            
-            alertController.addAction(cancelAction)
-            
-            alertController.addAction(okAction)
-            
-            if let presenter = self.contactListTVCPresenter as? ContactListTVCPresenter {
-                if let view = presenter.contactsListTVC as? UITableViewController {
-                    view.present(alertController, animated: true, completion: nil)
-                }
-            }
+        if identifier == "addContact" && Constants.Settings.useAlertControllerForUserAdd { 
+            let contactAddAlert = self.contactListTVCPresenter.getContactAddAlert()
+
+            let alertController = contactAddAlert.getAlertController()
+
+            self.navigationController.present(alertController, animated: true)
             
             return false
         } else if identifier == "viewContact" && Constants.Settings.viewContactViaSecondClick {
@@ -105,7 +82,7 @@ class ContactListTVCRouter: ContactListTVCRouterProtocol {
     }
     
     func showViewContact() {
-//        self.contactListTVCPresenter.setViewBackButtonTitle(backButtonTitle)
+        self.contactListTVCPresenter.setViewBackButtonTitle(" ")
         
         let storyBoard: UIStoryboard = UIStoryboard(name: "ContactView", bundle:nil)
         

@@ -30,50 +30,7 @@ extension UITableViewCell {
     }
 }
 
-extension UITableView {
-    var indexPathForEditingRow: IndexPath? {
-        return indexPathsForEditingRows.first
-    }
-    
-    var indexPathsForEditingRows: [IndexPath] {
-        return visibleCells.flatMap { cell -> IndexPath? in
-            guard let indexPath = indexPath(for: cell), cell.editingStyle != .none else {
-                return nil
-            }
-            return indexPath
-        }
-    }
-    
-    var indexPathForDeletingRow: IndexPath? {
-        return indexPathsForDeletingRows.first
-    }
-    
-    var indexPathsForDeletingRows: [IndexPath] {
-        return visibleCells.flatMap { cell -> IndexPath? in
-            guard let indexPath = indexPath(for: cell), cell.editingStyle == .delete else {
-                return nil
-            }
-            return indexPath
-        }
-    }
-    
-}
-
 extension String {
-    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
-        
-        return boundingBox.height
-    }
-    
-    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
-        
-        return boundingBox.width
-    }
-    
     func width(withConstrainedHeight height: CGFloat, font: UIFont, maxCountOfVisible: Int) -> CGFloat {
         var visiblePart = self + " "
         
@@ -86,22 +43,6 @@ extension String {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
         
         let boundingBox = visiblePart.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
-        
-        return boundingBox.width
-    }
-}
-
-extension NSAttributedString {
-    func height(withConstrainedWidth width: CGFloat) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
-        
-        return boundingBox.height
-    }
-    
-    func width(withConstrainedHeight height: CGFloat) -> CGFloat {
-        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
         
         return boundingBox.width
     }

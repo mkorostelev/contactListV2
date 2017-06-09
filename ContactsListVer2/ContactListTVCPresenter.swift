@@ -38,6 +38,8 @@ protocol ContactListTVCPresenterProtocol: class {
     func setViewIsEditing(_ value: Bool)
     
     func tableViewdidSelectRow()
+    
+    func getContactAddAlert() -> ContactAddAlert
 }
 
 class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
@@ -171,6 +173,16 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
             }
         }
     }
+    
+    func getContactAddAlert() -> ContactAddAlert {
+        let contactAddAlert = ContactAddAlert()
+        
+        let presenter = ContactAddAlertPresenter(contactAddAlert: contactAddAlert, contactList: self.contactList)
+        
+        contactAddAlert.presenter = presenter
+        
+        return contactAddAlert
+    }
 }
 
 // tableView functions
@@ -219,6 +231,8 @@ extension ContactListTVCPresenter {
                 self.contactsListTVC.deleteRow(at: indexValue)
                 
                 self.updateContactsListFromRowToEnd(indexValue)
+                
+                cellsPresentersDictionary[contact.uuid] = nil
             }
         }
         

@@ -175,10 +175,6 @@ extension ContactsListTVC {
         }
     }
     
-    func getSelectedRow() -> Int? {
-        return contactsListTableView.indexPathForDeletingRow?.row
-    }
-    
     func moveRow(at rowAt: Int, to rowTo: Int) {
         let indexPathAt = IndexPath(row: rowAt, section: 0)
         

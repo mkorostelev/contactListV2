@@ -30,7 +30,7 @@ struct Constants {
     }
     
     struct Settings {
-        static let useAlertControllerForUserAdd = false
+        static let useAlertControllerForUserAdd = true
         
         static let viewContactViaSecondClick = true
     }

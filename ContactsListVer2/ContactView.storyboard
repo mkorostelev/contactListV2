@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,9 +22,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Empty" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lFe-r9-RaL">
-                                <rect key="frame" x="8" y="110" width="359" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Empty" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lFe-r9-RaL">
+                                <rect key="frame" x="28.5" y="96" width="319" height="30"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                     <bool key="isElement" value="NO"/>
@@ -32,9 +32,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Empty" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1IM-X0-Hbv">
-                                <rect key="frame" x="8" y="186" width="359" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Empty" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1IM-X0-Hbv">
+                                <rect key="frame" x="28.5" y="166" width="319" height="30"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
@@ -42,22 +41,34 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z1p-cD-HVO">
-                                <rect key="frame" x="8" y="72" width="351" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z1p-cD-HVO">
+                                <rect key="frame" x="28.5" y="64" width="319" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="390-jH-N91">
-                                <rect key="frame" x="8" y="148" width="351" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="390-jH-N91">
+                                <rect key="frame" x="28.5" y="134" width="319" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lFe-r9-RaL" firstAttribute="width" secondItem="gdB-e1-eMh" secondAttribute="width" multiplier="0.85" id="0zd-YU-QiM"/>
+                            <constraint firstItem="1IM-X0-Hbv" firstAttribute="top" secondItem="390-jH-N91" secondAttribute="bottom" constant="8" id="Bf6-El-Ueb"/>
+                            <constraint firstItem="lFe-r9-RaL" firstAttribute="centerX" secondItem="gdB-e1-eMh" secondAttribute="centerX" id="PZR-2C-cgr"/>
+                            <constraint firstItem="1IM-X0-Hbv" firstAttribute="width" secondItem="gdB-e1-eMh" secondAttribute="width" multiplier="0.85" id="TDi-t8-n6s"/>
+                            <constraint firstItem="Z1p-cD-HVO" firstAttribute="centerX" secondItem="gdB-e1-eMh" secondAttribute="centerX" id="VSv-E2-YJl"/>
+                            <constraint firstItem="390-jH-N91" firstAttribute="width" secondItem="gdB-e1-eMh" secondAttribute="width" multiplier="0.85" id="WRK-gm-XQi"/>
+                            <constraint firstItem="390-jH-N91" firstAttribute="centerX" secondItem="gdB-e1-eMh" secondAttribute="centerX" id="cjD-pq-niQ"/>
+                            <constraint firstItem="Z1p-cD-HVO" firstAttribute="top" secondItem="XWc-vx-skg" secondAttribute="bottom" id="dji-ML-Z0W"/>
+                            <constraint firstItem="Z1p-cD-HVO" firstAttribute="width" secondItem="gdB-e1-eMh" secondAttribute="width" multiplier="0.85" id="h5c-tS-xVT"/>
+                            <constraint firstItem="390-jH-N91" firstAttribute="top" secondItem="lFe-r9-RaL" secondAttribute="bottom" constant="8" id="mS0-ee-Q5b"/>
+                            <constraint firstItem="lFe-r9-RaL" firstAttribute="top" secondItem="Z1p-cD-HVO" secondAttribute="bottom" constant="8" id="yu6-aS-QbE"/>
+                            <constraint firstItem="1IM-X0-Hbv" firstAttribute="centerX" secondItem="gdB-e1-eMh" secondAttribute="centerX" id="zih-dU-nOC"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="fullName" id="gbS-nB-iSc">
@@ -68,10 +79,15 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="emailCenter" destination="cjD-pq-niQ" id="LQQ-lA-eK8"/>
                         <outlet property="emailOutlet" destination="1IM-X0-Hbv" id="UmN-NJ-qaz"/>
+                        <outlet property="emailOutletCenter" destination="zih-dU-nOC" id="Gdf-Xg-HrY"/>
+                        <outlet property="phoneNumberCenter" destination="VSv-E2-YJl" id="VNE-mc-4Oq"/>
                         <outlet property="phoneNumberOutlet" destination="lFe-r9-RaL" id="tNk-Il-4NA"/>
+                        <outlet property="phoneNumberOutletCenter" destination="PZR-2C-cgr" id="wBS-90-bAT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jtv-8O-vbs" userLabel="First Responder" sceneMemberID="firstResponder"/>

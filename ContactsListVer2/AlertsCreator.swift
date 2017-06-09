@@ -26,7 +26,7 @@ struct AlertsCreator {
         
         alertController.addAction(UIAlertAction(title: "Save", style: .cancel) { _ in saveAction()})
         
-        alertController.addAction(UIAlertAction(title: "Check", style: .destructive))
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .destructive))
         
         return alertController
     }
