@@ -27,11 +27,19 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
     
     @IBOutlet weak var firstNameToPhoneNumber: NSLayoutConstraint!
     
+    @IBOutlet weak var emailWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var phoneNumberWidth: NSLayoutConstraint!
+    
     @IBOutlet weak var detailInfoButton: UISwitch!
     
     var fullNameText = ""
     
     var firstNameText = ""
+    
+    var phoneNumberText = ""
+    
+    var emailText = ""
     
     @IBAction func detailInfoValueChanged(_ sender: UISwitch) {
         showDetailInfo(updateTableView: true)
@@ -54,32 +62,7 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
         
         lastName.isHidden = value
         
-        if value {
-            let index = self.fullNameText.index(
-                self.fullNameText.startIndex,
-                offsetBy: [Constants.SomeDefaults.countOfDisplayedFullNameCharacters, self.fullNameText.characters.count].min()!
-            )
-            
-            self.firstName?.text = self.fullNameText.substring(to: index)
-            
-            firstNameToPhoneNumber.priority = UILayoutPriorityDefaultHigh + 200
-            
-            firstNameToLastName.priority = UILayoutPriorityFittingSizeLevel
-            
-            lastNameToPhoneNumber.priority = UILayoutPriorityFittingSizeLevel
-            
-            self.firstName?.font = UIFont.preferredFont(forTextStyle: .headline)
-        } else {
-            self.firstName?.text = self.firstNameText
-            
-            firstNameToPhoneNumber.priority = UILayoutPriorityFittingSizeLevel
-            
-            firstNameToLastName.priority = UILayoutPriorityDefaultHigh + 200
-            
-            lastNameToPhoneNumber.priority = UILayoutPriorityDefaultHigh + 200
-            
-            self.firstName?.font = UIFont.preferredFont(forTextStyle: .body)
-        }
+        self.configureConstraints(showDetailInfo: value)
         
         if updateTableView {
             if let tableView = self.superview?.superview as? UITableView {
@@ -94,6 +77,118 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
     }
 }
 
+// constraints configuration
+extension ContactsTVCell {
+    private enum Priorities: UILayoutPriority {
+        case high = 999
+        
+        case middle = 750
+        
+        case low = 10
+    }
+    
+    func configureConstraints(showDetailInfo: Bool) {
+        configureFirstName(showDetailInfo: showDetailInfo)
+        
+        configureEmailAndPhoneNumber(showDetailInfo: showDetailInfo)
+    }
+    
+    private func configureFirstName(showDetailInfo: Bool) {
+        let firstNameToPhoneNumberPriority: UILayoutPriority
+        
+        let firstNameToLastNamePriority: UILayoutPriority
+        
+        let lastNameToPhoneNumberPriority: UILayoutPriority
+        
+        let firstNameLabelText: String
+        
+        let firstNameFont: UIFont
+        
+        if showDetailInfo {
+            let index = self.fullNameText.index(
+                self.fullNameText.startIndex,
+                offsetBy: [Constants.SomeDefaults.countOfDisplayedFullNameCharacters, self.fullNameText.characters.count].min()!
+            )
+            
+            firstNameLabelText = self.fullNameText.substring(to: index)
+            
+            firstNameToPhoneNumberPriority = Priorities.high.rawValue
+            
+            firstNameToLastNamePriority = Priorities.low.rawValue
+            
+            lastNameToPhoneNumberPriority = Priorities.low.rawValue
+            
+            firstNameFont = UIFont.preferredFont(forTextStyle: .headline)
+        } else {
+            firstNameLabelText = self.firstNameText
+            
+            firstNameToPhoneNumberPriority = Priorities.low.rawValue
+            
+            firstNameToLastNamePriority = Priorities.high.rawValue
+            
+            lastNameToPhoneNumberPriority = Priorities.high.rawValue
+            
+            firstNameFont = UIFont.preferredFont(forTextStyle: .body)
+        }
+        
+        self.firstName?.text = firstNameLabelText
+        
+        firstNameToPhoneNumber.priority = firstNameToPhoneNumberPriority
+        
+        firstNameToLastName.priority = firstNameToLastNamePriority
+        
+        lastNameToPhoneNumber.priority = lastNameToPhoneNumberPriority
+        
+        self.firstName?.font = firstNameFont
+    }
+    
+    private func configureEmailAndPhoneNumber(showDetailInfo: Bool){
+        let emailWidthPriority: UILayoutPriority
+        
+        let phoneNumberWigthPriority: UILayoutPriority
+        
+        let emailResistancePriority: UILayoutPriority
+        
+        if showDetailInfo {
+            if phoneNumberText.characters.count <= emailText.characters.count {
+                phoneNumberWidth.constant = self.phoneNumberText.width(
+                    withConstrainedHeight: 1,
+                    font: phoneNumber.font,
+                    maxCountOfVisible: Constants.SomeDefaults.countOfDisplayedEmailOrPhoneNumberCharacters
+                )
+                
+                phoneNumberWigthPriority = Priorities.high.rawValue
+                
+                emailWidthPriority = Priorities.high.rawValue - 10
+            } else {
+                emailWidth.constant = self.emailText.width(
+                    withConstrainedHeight: 1,
+                    font: email.font,
+                    maxCountOfVisible: Constants.SomeDefaults.countOfDisplayedEmailOrPhoneNumberCharacters
+                )
+                
+                phoneNumberWigthPriority = Priorities.high.rawValue - 10
+                
+                emailWidthPriority = Priorities.high.rawValue
+            }
+            
+            emailResistancePriority = Priorities.middle.rawValue + 2
+        } else {
+            emailWidthPriority = Priorities.low.rawValue
+            
+            phoneNumberWigthPriority = Priorities.high.rawValue
+            
+            emailResistancePriority = Priorities.middle.rawValue
+        }
+        
+        emailWidth.priority = emailWidthPriority
+        
+        phoneNumberWidth.priority = phoneNumberWigthPriority
+        
+        email.setContentCompressionResistancePriority(emailResistancePriority, for: .horizontal)
+    }
+}
+
 // ContactTVCellProtocol implementation
 extension ContactsTVCell {
     func fillCell(fullName: String, firstName: String, lastName: String, phoneNumber: String, email: String, constraintsConstant: Int) {
@@ -102,6 +197,10 @@ extension ContactsTVCell {
         self.fullNameText = fullName
         
         self.firstNameText = firstName
+        
+        self.phoneNumberText = phoneNumber
+        
+        self.emailText = email
         
         leadingConstraint.constant = CGFloat(constraintsConstant)
         

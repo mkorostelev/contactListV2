@@ -25,6 +25,8 @@ struct Constants {
     
     struct SomeDefaults {
         static let countOfDisplayedFullNameCharacters = 15
+        
+        static let countOfDisplayedEmailOrPhoneNumberCharacters = 20
     }
     
     struct Settings {

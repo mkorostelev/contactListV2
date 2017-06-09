@@ -30,12 +30,22 @@ class ContactListTVCRouter: ContactListTVCRouterProtocol {
     func shouldPerformSegue(withIdentifier identifier: String?) -> Bool{
         if identifier == "addContact" && Constants.Settings.useAlertControllerForUserAdd {
             let alertController = UIAlertController(title: "New contact", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addTextField { (textField : UITextField) -> Void in
-                textField.placeholder = "Login"
+            alertController.addTextField { (firstName : UITextField) -> Void in
+                firstName.placeholder = "First Name"
+            }
+            alertController.addTextField { (lastName : UITextField) -> Void in
+                lastName.placeholder = "Last Name"
+            }
+            alertController.addTextField { (phoneNumber : UITextField) -> Void in
+                phoneNumber.placeholder = "Phone Number"
+            }
+            alertController.addTextField { (email : UITextField) -> Void in
+                email.placeholder = "Email"
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
             }
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                debugPrint("Try")
             }
             
             alertController.addAction(cancelAction)
