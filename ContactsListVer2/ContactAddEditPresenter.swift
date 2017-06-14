@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ContactAddEditPresenterProtocol {
+protocol ContactAddEditPresenterProtocol: class {
     init(contactAddEditVC: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?)
     
     func viewDidLoad()
@@ -17,7 +17,9 @@ protocol ContactAddEditPresenterProtocol {
     
     func checkEnabledOfSaveButton(allInputedText: String, notInOutletString: String, range: NSRange?)
     
-    func validateAndSaveContact(firstName: String, lastName: String, phoneNumber: String, email: String)
+    func validateAndSaveContact(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?)
+    
+    func setLocation(latitude: Double, longitude: Double)
 }
 
 class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
@@ -45,7 +47,11 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
                 firstName: contactValue.firstName,
                 lastName: contactValue.lastName,
                 phoneNumber: contactValue.phoneNumber,
-                email: contactValue.email)
+                email: contactValue.email,
+                photo: contactValue.photo,
+                latitude: contactValue.latitude,
+                longitude: contactValue.longitude
+            )
         } else {
             self.contactAddEditVC.deleteContactButtonIsHidden = true
         }
@@ -65,17 +71,17 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
         self.contactAddEditVC.saveButtonIsEnabled = saveContactOutletisEnabled
     }
     
-    func validateAndSaveContact(firstName: String, lastName: String, phoneNumber: String, email: String) {
+    func validateAndSaveContact(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?) {
         if email.isEmpty || DataValidators.validateEmail(value: email) {
-            self.saveContactConfirmed(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+            self.saveContactConfirmed(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: latitude, longitude: longitude)
         } else {
             self.contactAddEditVC.presentEmailValidationAlert {
-                self.saveContactConfirmed(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+                self.saveContactConfirmed(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: latitude, longitude: longitude)
             }
         }
     }
     
-    private func saveContactConfirmed(firstName: String, lastName: String, phoneNumber: String, email: String) {
+    private func saveContactConfirmed(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?) {
         if let contactValue = self.contact {
             // change contact
             if contactValue.firstName != firstName {
@@ -90,9 +96,21 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
             if contactValue.email != email {
                 contactValue.email = email
             }
+            
+            if contactValue.photo != photo {
+               contactValue.photo = photo
+            }
+            
+            if contactValue.latitude != latitude {
+                contactValue.latitude = latitude
+            }
+            
+            if contactValue.longitude != longitude {
+                contactValue.longitude = longitude
+            }
         } else {
             // add new contact
-            contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+            contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: latitude, longitude: longitude)
         }
         
         self.contactAddEditVC.closeView()
@@ -110,5 +128,9 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
             
             self.contactAddEditVC.closeView()
         }
+    }
+    
+    func setLocation(latitude: Double, longitude: Double) {
+        self.contactAddEditVC.setLocation(latitude: latitude, longitude: longitude)
     }
 }

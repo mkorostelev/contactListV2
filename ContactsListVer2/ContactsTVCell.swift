@@ -35,6 +35,8 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
     
     @IBOutlet weak var lastNameCenter: NSLayoutConstraint!
     
+    @IBOutlet weak var photoImage: UIImageView!
+    
     var fullNameText = ""
     
     var firstNameText = ""
@@ -68,10 +70,13 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
         
         if updateTableView {
             if let tableView = self.superview?.superview as? UITableView {
+                
                 tableView.beginUpdates()
                 tableView.endUpdates()
                 
                 if let indexPath = tableView.indexPath(for: self) {
+//                    tableView.reloadRows(at: [indexPath], with: .left)
+                    
                     tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                 }
             }
@@ -193,7 +198,7 @@ extension ContactsTVCell {
 
 // ContactTVCellProtocol implementation
 extension ContactsTVCell {
-    func fillCell(fullName: String, firstName: String, lastName: String, phoneNumber: String, email: String, constraintsConstant: Int) {
+    func fillCell(fullName: String, firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, constraintsConstant: Int) {
         detailInfoButton.isOn = presenter.showDetailInfo
         
         self.fullNameText = fullName
@@ -213,6 +218,12 @@ extension ContactsTVCell {
         self.phoneNumber?.text = phoneNumber
         
         self.email?.text = email
+        
+        if photo != nil {
+            self.photoImage.image = UIImage(data: (photo)! as Data)
+        } else {
+            self.photoImage.image = #imageLiteral(resourceName: "noPhoto")
+        }
         
         showDetailInfo()
     }

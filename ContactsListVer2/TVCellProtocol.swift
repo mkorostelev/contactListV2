@@ -9,7 +9,7 @@
 import Foundation
 
 protocol  ContactTVCellProtocol: class {
-    func fillCell(fullName: String, firstName: String, lastName: String, phoneNumber: String, email: String, constraintsConstant: Int)
+    func fillCell(fullName: String, firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, constraintsConstant: Int)
     
     func reloadDataFromPresenter()
 }

@@ -8,8 +8,6 @@
 
 import Foundation
 
-import UIKit
-
 class ContactsList: NSObject, NSCoding {
 
     enum SortField: Int{
@@ -61,12 +59,24 @@ class ContactsList: NSObject, NSCoding {
         return result.sorted(by: { isFirstSmallerThanSecond(contact1: $0, contact2: $1, currentSortField: currentSortField) })
     }
     
-    func addContact(firstName: String, lastName: String, phoneNumber: String, email: String) {
+    func addContact(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?) {
         if "\(firstName)\(lastName)\(phoneNumber)\(email)" == "" {
             return
         }
         
-        let newContact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+        let newContact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo)
+        
+        self.listOfContacts.append(newContact)
+        
+        Notifications.postAddContact(newContact)
+    }
+    
+    func addContact(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?) {
+        if "\(firstName)\(lastName)\(phoneNumber)\(email)" == "" {
+            return
+        }
+        
+        let newContact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: latitude, longitude: longitude)
         
         self.listOfContacts.append(newContact)
         

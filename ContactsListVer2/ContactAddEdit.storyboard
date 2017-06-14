@@ -23,49 +23,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qjv-XE-uJn">
-                                <rect key="frame" x="41" y="108" width="318" height="30"/>
+                                <rect key="frame" x="41" y="208" width="318" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gY9-5N-c1k">
-                                <rect key="frame" x="41" y="202" width="318" height="30"/>
+                                <rect key="frame" x="41" y="302" width="318" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kUL-Ap-ENW">
-                                <rect key="frame" x="41" y="296" width="318" height="30"/>
+                                <rect key="frame" x="41" y="396" width="318" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuE-s6-w2T">
-                                <rect key="frame" x="41" y="64" width="94" height="24"/>
+                                <rect key="frame" x="41" y="164" width="94" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQ8-98-foN">
-                                <rect key="frame" x="41" y="158" width="318" height="24"/>
+                                <rect key="frame" x="41" y="258" width="318" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uom-rl-F6q">
-                                <rect key="frame" x="41" y="252" width="318" height="24"/>
+                                <rect key="frame" x="41" y="352" width="318" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3i-WJ-15O">
-                                <rect key="frame" x="41" y="346" width="318" height="24"/>
+                                <rect key="frame" x="41" y="446" width="318" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="EMail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7DS-2a-G7E">
-                                <rect key="frame" x="41" y="390" width="318" height="30"/>
+                                <rect key="frame" x="41" y="490" width="318" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
@@ -79,32 +79,69 @@
                                     <action selector="deleteContact:" destination="QIB-Xg-eyO" eventType="touchUpInside" id="DdN-vs-sQX"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="krA-b5-T4Y">
+                                <rect key="frame" x="145" y="64" width="85" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="0Q2-xg-7UR"/>
+                                    <constraint firstAttribute="width" constant="85" id="hx1-ye-Ubf"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjU-sM-SbF">
+                                <rect key="frame" x="238" y="99" width="53" height="30"/>
+                                <state key="normal" title="Change"/>
+                                <connections>
+                                    <action selector="changePhoto:" destination="QIB-Xg-eyO" eventType="touchUpInside" id="RV9-30-F6R"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RB9-Gu-zDt">
+                                <rect key="frame" x="98" y="99" width="39" height="30"/>
+                                <state key="normal" title="Erase"/>
+                                <connections>
+                                    <action selector="erasePhoto:" destination="QIB-Xg-eyO" eventType="touchUpInside" id="nBW-A1-DOh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jc4-xd-L9N">
+                                <rect key="frame" x="157.5" y="545" width="59" height="30"/>
+                                <state key="normal" title="Location"/>
+                                <connections>
+                                    <segue destination="vJF-Th-olJ" kind="show" identifier="contactsLocation" id="mSu-hr-zJu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="gY9-5N-c1k" secondAttribute="trailing" id="2N9-7g-hFP"/>
+                            <constraint firstItem="jc4-xd-L9N" firstAttribute="centerX" secondItem="Hap-Ie-hgi" secondAttribute="centerX" id="32d-v1-XaH"/>
+                            <constraint firstItem="jc4-xd-L9N" firstAttribute="top" secondItem="7DS-2a-G7E" secondAttribute="bottom" constant="25" id="8ZL-qM-OfI"/>
                             <constraint firstItem="uom-rl-F6q" firstAttribute="leading" secondItem="RuE-s6-w2T" secondAttribute="leading" id="Bm4-tZ-gsy"/>
                             <constraint firstItem="rQ8-98-foN" firstAttribute="leading" secondItem="RuE-s6-w2T" secondAttribute="leading" id="CQI-Qd-K3a"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kUL-Ap-ENW" secondAttribute="trailing" id="CjQ-3E-atB"/>
+                            <constraint firstItem="bjU-sM-SbF" firstAttribute="top" secondItem="4hg-7B-iXk" secondAttribute="bottom" constant="35" id="EfC-95-mnW"/>
+                            <constraint firstItem="krA-b5-T4Y" firstAttribute="top" secondItem="4hg-7B-iXk" secondAttribute="bottom" id="FUu-HN-a2d"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Y3i-WJ-15O" secondAttribute="trailing" id="G9M-So-TsJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rQ8-98-foN" secondAttribute="trailing" id="HDk-5M-ZLW"/>
                             <constraint firstItem="gY9-5N-c1k" firstAttribute="top" secondItem="rQ8-98-foN" secondAttribute="bottom" constant="20" id="HrH-D5-PsL"/>
                             <constraint firstItem="Y3i-WJ-15O" firstAttribute="leading" secondItem="RuE-s6-w2T" secondAttribute="leading" id="JmF-KK-fWd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qjv-XE-uJn" secondAttribute="trailing" id="KPn-x2-VxG"/>
+                            <constraint firstItem="bjU-sM-SbF" firstAttribute="leading" secondItem="krA-b5-T4Y" secondAttribute="trailing" constant="8" id="Mu6-mr-HNu"/>
                             <constraint firstItem="kUL-Ap-ENW" firstAttribute="leading" secondItem="RuE-s6-w2T" secondAttribute="leading" id="NXA-eh-eFZ"/>
                             <constraint firstItem="kUL-Ap-ENW" firstAttribute="top" secondItem="uom-rl-F6q" secondAttribute="bottom" constant="20" id="Pny-TX-FfP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uom-rl-F6q" secondAttribute="trailing" id="Vdo-E8-ouO"/>
+                            <constraint firstItem="krA-b5-T4Y" firstAttribute="centerX" secondItem="Hap-Ie-hgi" secondAttribute="centerX" id="YZH-sz-FQd"/>
+                            <constraint firstItem="qjv-XE-uJn" firstAttribute="top" secondItem="krA-b5-T4Y" secondAttribute="bottom" constant="44" id="Zfk-6D-CmC"/>
                             <constraint firstItem="uom-rl-F6q" firstAttribute="top" secondItem="gY9-5N-c1k" secondAttribute="bottom" constant="20" id="Zw5-re-8DM"/>
                             <constraint firstItem="7DS-2a-G7E" firstAttribute="top" secondItem="Y3i-WJ-15O" secondAttribute="bottom" constant="20" id="aY9-97-luw"/>
                             <constraint firstItem="gY9-5N-c1k" firstAttribute="leading" secondItem="RuE-s6-w2T" secondAttribute="leading" id="bXn-Wn-gBS"/>
                             <constraint firstItem="qjv-XE-uJn" firstAttribute="leading" secondItem="RuE-s6-w2T" secondAttribute="leading" id="frZ-78-0Vq"/>
                             <constraint firstItem="7DS-2a-G7E" firstAttribute="leading" secondItem="RuE-s6-w2T" secondAttribute="leading" id="h6v-tP-MIV"/>
                             <constraint firstItem="rQ8-98-foN" firstAttribute="top" secondItem="qjv-XE-uJn" secondAttribute="bottom" constant="20" id="lRY-rG-hGf"/>
-                            <constraint firstItem="RuE-s6-w2T" firstAttribute="top" secondItem="4hg-7B-iXk" secondAttribute="bottom" id="n3z-kH-keu"/>
+                            <constraint firstItem="RuE-s6-w2T" firstAttribute="top" secondItem="4hg-7B-iXk" secondAttribute="bottom" constant="100" id="n3z-kH-keu"/>
                             <constraint firstItem="Y3i-WJ-15O" firstAttribute="top" secondItem="kUL-Ap-ENW" secondAttribute="bottom" constant="20" id="o6p-te-tMH"/>
                             <constraint firstItem="RuE-s6-w2T" firstAttribute="leading" secondItem="Hap-Ie-hgi" secondAttribute="leadingMargin" constant="25" id="s4r-W0-D6V"/>
+                            <constraint firstItem="RB9-Gu-zDt" firstAttribute="top" secondItem="4hg-7B-iXk" secondAttribute="bottom" constant="35" id="vDZ-ON-NRO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7DS-2a-G7E" secondAttribute="trailing" id="woO-PF-fRm"/>
                             <constraint firstItem="qjv-XE-uJn" firstAttribute="top" secondItem="RuE-s6-w2T" secondAttribute="bottom" constant="20" id="y3O-fx-dbu"/>
+                            <constraint firstItem="krA-b5-T4Y" firstAttribute="leading" secondItem="RB9-Gu-zDt" secondAttribute="trailing" constant="8" id="z1h-7r-LsA"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -123,6 +160,7 @@
                         <outlet property="firstNameOutlet" destination="qjv-XE-uJn" id="LVt-EC-R8U"/>
                         <outlet property="lastNameOutlet" destination="gY9-5N-c1k" id="9o0-BZ-gVy"/>
                         <outlet property="phoneNumberOutlet" destination="kUL-Ap-ENW" id="qAF-vl-QCR"/>
+                        <outlet property="photoImage" destination="krA-b5-T4Y" id="TUS-Yc-XPP"/>
                         <outlet property="saveContactOutlet" destination="8J7-O8-hLF" id="KXC-mG-GCQ"/>
                     </connections>
                 </viewController>
@@ -130,5 +168,16 @@
             </objects>
             <point key="canvasLocation" x="3696.8000000000002" y="-14.842578710644679"/>
         </scene>
+        <!--ContactsLocation-->
+        <scene sceneID="dD4-AK-Pr3">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ContactsLocation" id="vJF-Th-olJ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OPx-bN-iH2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4296" y="39"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="noPhoto" width="225" height="225"/>
+    </resources>
 </document>

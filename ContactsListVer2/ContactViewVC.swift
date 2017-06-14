@@ -23,6 +23,8 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
     
     @IBOutlet weak var emailOutletCenter: NSLayoutConstraint!
     
+    @IBOutlet weak var photoImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,17 +73,20 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
             self.emailOutletCenter.constant += self.view.bounds.width
             self.view.layoutIfNeeded()
         }, completion: nil)
-        
     }
 }
 
 // ContactViewProtocol implementation
 extension ContactViewVC {
-    func fillDataFromContact(title: String, phoneNumber: String, email: String) {
+    func fillDataFromContact(title: String, phoneNumber: String, email: String, photo: NSData?) {
         self.navigationItem.title = title
         
         phoneNumberOutlet?.text = phoneNumber
         
         emailOutlet?.text = email
+        
+        if photo != nil {
+            self.photoImage.image = UIImage(data: (photo)! as Data)
+        }
     }
 }

@@ -8,6 +8,8 @@
 
 import Foundation
 
+import UIKit
+
 protocol ContactAddEditProtocol: class {
     var deleteContactButtonIsHidden: Bool { get set }
     
@@ -19,5 +21,8 @@ protocol ContactAddEditProtocol: class {
     
     func closeView()
     
-    func fillTextFieldsData(firstName: String, lastName: String, phoneNumber: String, email: String)
+    func fillTextFieldsData(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?,
+                            longitude: Double?)
+    
+    func setLocation(latitude: Double, longitude: Double)
 }

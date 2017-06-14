@@ -27,6 +27,12 @@
 		A02DB40D1EDF2D0500A96299 /* ContactListTVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02DB40C1EDF2D0500A96299 /* ContactListTVCPresenter.swift */; };
 		A031DAB61EDDA105006170C4 /* ContactAddEditProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031DAB51EDDA105006170C4 /* ContactAddEditProtocol.swift */; };
 		A031DAB81EDDA375006170C4 /* ContactAddEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031DAB71EDDA375006170C4 /* ContactAddEditPresenter.swift */; };
+		A034E6EB1EF16EE500AABE95 /* DSCameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A034E6EA1EF16EE500AABE95 /* DSCameraHandler.swift */; };
+		A034E6EE1EF180FB00AABE95 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A034E6ED1EF180FB00AABE95 /* MapKit.framework */; };
+		A034E6F01EF181CD00AABE95 /* ContactsLocation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A034E6EF1EF181CD00AABE95 /* ContactsLocation.storyboard */; };
+		A034E6F21EF183CC00AABE95 /* ContactsLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A034E6F11EF183CC00AABE95 /* ContactsLocationVC.swift */; };
+		A034E6F41EF189CB00AABE95 /* ContactsLocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A034E6F31EF189CB00AABE95 /* ContactsLocationPresenter.swift */; };
+		A034E6F61EF18A0300AABE95 /* ContactsLocationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A034E6F51EF18A0300AABE95 /* ContactsLocationProtocol.swift */; };
 		A03B8E371EE06DC80025EFC4 /* AlertsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B8E361EE06DC80025EFC4 /* AlertsCreator.swift */; };
 		A0422C941EE1B22B001B7012 /* ContactView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0422C931EE1B22B001B7012 /* ContactView.storyboard */; };
 		A0495B421EEB0C2B00584736 /* ContactAddAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0495B411EEB0C2B00584736 /* ContactAddAlert.swift */; };
@@ -64,6 +70,12 @@
 		A02DB40C1EDF2D0500A96299 /* ContactListTVCPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTVCPresenter.swift; sourceTree = "<group>"; };
 		A031DAB51EDDA105006170C4 /* ContactAddEditProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditProtocol.swift; sourceTree = "<group>"; };
 		A031DAB71EDDA375006170C4 /* ContactAddEditPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditPresenter.swift; sourceTree = "<group>"; };
+		A034E6EA1EF16EE500AABE95 /* DSCameraHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSCameraHandler.swift; sourceTree = "<group>"; };
+		A034E6ED1EF180FB00AABE95 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		A034E6EF1EF181CD00AABE95 /* ContactsLocation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ContactsLocation.storyboard; sourceTree = "<group>"; };
+		A034E6F11EF183CC00AABE95 /* ContactsLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsLocationVC.swift; sourceTree = "<group>"; };
+		A034E6F31EF189CB00AABE95 /* ContactsLocationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsLocationPresenter.swift; sourceTree = "<group>"; };
+		A034E6F51EF18A0300AABE95 /* ContactsLocationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsLocationProtocol.swift; sourceTree = "<group>"; };
 		A03B8E361EE06DC80025EFC4 /* AlertsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertsCreator.swift; sourceTree = "<group>"; };
 		A0422C931EE1B22B001B7012 /* ContactView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ContactView.storyboard; sourceTree = "<group>"; };
 		A0495B411EEB0C2B00584736 /* ContactAddAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddAlert.swift; sourceTree = "<group>"; };
@@ -83,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A034E6EE1EF180FB00AABE95 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +119,7 @@
 				8435F6CA1EDD6FEA00A26A3E /* ContactViewProtocol.swift */,
 				A031DAB51EDDA105006170C4 /* ContactAddEditProtocol.swift */,
 				A02DB40A1EDF2CD900A96299 /* ContactListTVCProtocol.swift */,
+				A034E6F51EF18A0300AABE95 /* ContactsLocationProtocol.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -118,6 +132,7 @@
 				A0F049461ECDD43A00E5CF40 /* ContactAddEditVC.swift */,
 				A01ACC8F1ECCAF5200AB61BB /* ContactsListTVC.swift */,
 				A0495B411EEB0C2B00584736 /* ContactAddAlert.swift */,
+				A034E6F11EF183CC00AABE95 /* ContactsLocationVC.swift */,
 			);
 			name = "MVP Views";
 			sourceTree = "<group>";
@@ -130,6 +145,7 @@
 				A031DAB71EDDA375006170C4 /* ContactAddEditPresenter.swift */,
 				A02DB40C1EDF2D0500A96299 /* ContactListTVCPresenter.swift */,
 				A0495B431EEB0CFB00584736 /* ContactAddAlertPresenter.swift */,
+				A034E6F31EF189CB00AABE95 /* ContactsLocationPresenter.swift */,
 			);
 			name = Presenters;
 			sourceTree = "<group>";
@@ -139,6 +155,7 @@
 			children = (
 				A01ACC751ECCAE7400AB61BB /* ContactsListVer2 */,
 				A01ACC741ECCAE7400AB61BB /* Products */,
+				A034E6EC1EF180FB00AABE95 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -196,15 +213,24 @@
 		A01ACC941ECCB99400AB61BB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				A0F0494B1ECDDEC200E5CF40 /* CommonExtensions.swift */,
-				A0F0494D1ECDE49400E5CF40 /* MagicValues.swift */,
-				A0F0494F1ECDE8C200E5CF40 /* SaveLoadData.swift */,
-				A0F049521ECDEDAE00E5CF40 /* Notifications.swift */,
 				A0A903D71ED323690037E2F1 /* AdditionalDataStruct.swift */,
-				84207B311EE01F4D004BE838 /* DataValidators.swift */,
 				A03B8E361EE06DC80025EFC4 /* AlertsCreator.swift */,
+				A0F0494B1ECDDEC200E5CF40 /* CommonExtensions.swift */,
+				84207B311EE01F4D004BE838 /* DataValidators.swift */,
+				A0F0494D1ECDE49400E5CF40 /* MagicValues.swift */,
+				A0F049521ECDEDAE00E5CF40 /* Notifications.swift */,
+				A0F0494F1ECDE8C200E5CF40 /* SaveLoadData.swift */,
+				A034E6EA1EF16EE500AABE95 /* DSCameraHandler.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		A034E6EC1EF180FB00AABE95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A034E6ED1EF180FB00AABE95 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A0422C921EE1B1CB001B7012 /* Storyboards */ = {
@@ -213,6 +239,7 @@
 				A01ACC7A1ECCAE7400AB61BB /* Main.storyboard */,
 				A0422C931EE1B22B001B7012 /* ContactView.storyboard */,
 				A04E42311EE1B60A00BA84B4 /* ContactAddEdit.storyboard */,
+				A034E6EF1EF181CD00AABE95 /* ContactsLocation.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -250,6 +277,11 @@
 					A01ACC721ECCAE7400AB61BB = {
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -280,6 +312,7 @@
 				A01ACC811ECCAE7400AB61BB /* LaunchScreen.storyboard in Resources */,
 				A01ACC7E1ECCAE7400AB61BB /* Assets.xcassets in Resources */,
 				A0422C941EE1B22B001B7012 /* ContactView.storyboard in Resources */,
+				A034E6F01EF181CD00AABE95 /* ContactsLocation.storyboard in Resources */,
 				A01ACC7C1ECCAE7400AB61BB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,12 +330,15 @@
 				84207B321EE01F4D004BE838 /* DataValidators.swift in Sources */,
 				842CCAA11EE2D00500A3E6EF /* ContactListTVCRouter.swift in Sources */,
 				8435F6CF1EDD72A500A26A3E /* ContactViewPresenter.swift in Sources */,
+				A034E6EB1EF16EE500AABE95 /* DSCameraHandler.swift in Sources */,
 				A0F0494C1ECDDEC200E5CF40 /* CommonExtensions.swift in Sources */,
 				A02DB40D1EDF2D0500A96299 /* ContactListTVCPresenter.swift in Sources */,
 				8435F6C81EDD672A00A26A3E /* ContactTVCellPresenter.swift in Sources */,
 				A03B8E371EE06DC80025EFC4 /* AlertsCreator.swift in Sources */,
 				A0A903D81ED323690037E2F1 /* AdditionalDataStruct.swift in Sources */,
 				A01ACC8B1ECCAEB800AB61BB /* ContactClass.swift in Sources */,
+				A034E6F21EF183CC00AABE95 /* ContactsLocationVC.swift in Sources */,
+				A034E6F61EF18A0300AABE95 /* ContactsLocationProtocol.swift in Sources */,
 				84CD7A971ECEFBF70039CFA3 /* ContactViewVC.swift in Sources */,
 				A0F049501ECDE8C200E5CF40 /* SaveLoadData.swift in Sources */,
 				A01ACC771ECCAE7400AB61BB /* AppDelegate.swift in Sources */,
@@ -315,6 +351,7 @@
 				A01ACC901ECCAF5200AB61BB /* ContactsListTVC.swift in Sources */,
 				A0495B421EEB0C2B00584736 /* ContactAddAlert.swift in Sources */,
 				8435F6C31EDD54DF00A26A3E /* TVCellProtocol.swift in Sources */,
+				A034E6F41EF189CB00AABE95 /* ContactsLocationPresenter.swift in Sources */,
 				A031DAB61EDDA105006170C4 /* ContactAddEditProtocol.swift in Sources */,
 				A02DB40B1EDF2CD900A96299 /* ContactListTVCProtocol.swift in Sources */,
 				8435F6CB1EDD6FEA00A26A3E /* ContactViewProtocol.swift in Sources */,

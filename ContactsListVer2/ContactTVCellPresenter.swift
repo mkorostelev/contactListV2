@@ -34,6 +34,7 @@ class ContactTVCellPresenter: ContactTVCellPresenterProtocol {
             lastName: contact.lastName,
             phoneNumber: contact.phoneNumber,
             email: contact.email,
+            photo: contact.photo,
             constraintsConstant: constraintsConstant
         )
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditProtocol {
+class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditProtocol, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     var presenter: ContactAddEditPresenterProtocol!
         
     @IBOutlet weak var firstNameOutlet: UITextField!
@@ -22,6 +22,8 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
     @IBOutlet weak var deleteContactOutlet: UIButton!
     
     @IBOutlet weak var saveContactOutlet: UIBarButtonItem!
+    
+    @IBOutlet weak var photoImage: UIImageView!
     
     var firstName: String {
         get {
@@ -63,6 +65,10 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         }
     }
     
+    var latitude: Double?
+    
+    var longitude: Double?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,11 +98,63 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
     }
     
     @IBAction func saveContact(_ sender: UIBarButtonItem) {
-        presenter.validateAndSaveContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+        let photo = self.photoImage.image != #imageLiteral(resourceName: "noPhoto") ? UIImagePNGRepresentation(self.photoImage.image!) as NSData? : nil
+        
+        presenter.validateAndSaveContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: self.latitude, longitude: self.longitude)
     }
     
     @IBAction func deleteContact(_ sender: UIButton) {
         presenter.deleteContact()
+    }
+    
+    
+    @IBAction func changePhoto(_ sender: UIButton) {
+        let camera = DSCameraHandler(delegate_: self as UIImagePickerControllerDelegate & UINavigationControllerDelegate)
+        
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        optionMenu.popoverPresentationController?.sourceView = self.view
+        
+        let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { (alert : UIAlertAction!) in
+            camera.getCameraOn(self, canEdit: true)
+        }
+        let sharePhoto = UIAlertAction(title: "Photo Library", style: .default) { (alert : UIAlertAction!) in
+            camera.getPhotoLibraryOn(self, canEdit: true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert : UIAlertAction!) in
+        }
+        optionMenu.addAction(takePhoto)
+        optionMenu.addAction(sharePhoto)
+        optionMenu.addAction(cancelAction)
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        self.photoImage.image = info[UIImagePickerControllerEditedImage] as? UIImage
+        
+        // image is our desired image
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    @IBAction func erasePhoto(_ sender: UIButton) {
+        self.photoImage.image = #imageLiteral(resourceName: "noPhoto")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "contactsLocation" {
+            if let toViewController = segue.destination as? ContactsLocationVC {
+                let presenter = ContactsLocationPresenter(
+                    contactsLocationVC: toViewController,
+                    contactAddEditPresenter: self.presenter,
+                    fullName: "\(self.firstName) \(self.lastName)",
+                    phoneNumber: self.phoneNumber,
+                    latitude: self.latitude,
+                    longitude: self.longitude
+                )
+                
+                toViewController.presenter = presenter
+            }
+        }
     }
 }
 
@@ -141,7 +199,8 @@ extension ContactAddEditVC {
         }
     }
     
-    func fillTextFieldsData(firstName: String, lastName: String, phoneNumber: String, email: String) {
+    func fillTextFieldsData(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?,
+        longitude: Double?) {
         self.firstName = firstName
         
         self.lastName = lastName
@@ -149,6 +208,14 @@ extension ContactAddEditVC {
         self.phoneNumber = phoneNumber
         
         self.email = email
+        
+        if photo != nil {
+            self.photoImage.image = UIImage(data: (photo)! as Data)
+        }
+        
+        self.latitude = latitude
+        
+        self.longitude = longitude
     }
     
     func presentDeletionAlert(contactFullName: String, deleteAction: @escaping (() -> Void)) {
@@ -164,6 +231,12 @@ extension ContactAddEditVC {
     }
     
     func closeView() {
-        self.performSegueToReturnBack()
+        self.performSegueToRootViewController()
+    }
+    
+    func setLocation(latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        
+        self.longitude = longitude
     }
 }

@@ -29,7 +29,7 @@ class ContactAddAlertPresenter: ContactAddAlertPresenterProtocol {
     
     func checkAndSaveContactFromAlert(firstName: String, lastName: String, phoneNumber: String, email: String) {
         if !"\(firstName)\(lastName)\(phoneNumber)\(email)".isEmpty {
-            self.contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email)
+            self.contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: nil)
         }
     }
     
