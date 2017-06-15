@@ -34,10 +34,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This info is required to show your location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This info is required to show locations</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -45,5 +41,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>L1</string>
+	<key>NSLocationUsageDescription</key>
+	<string>L2</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>L3</string>
 </dict>
 </plist>
