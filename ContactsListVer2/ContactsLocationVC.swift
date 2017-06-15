@@ -63,8 +63,11 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
     
     func setDestinationPointAndDrowRoute(coordinate: CLLocationCoordinate2D) {
         annotation.title = fullName
+        
         annotation.subtitle = phoneNumber
+        
         annotation.coordinate = coordinate
+        
         mapView.addAnnotation(annotation)
         
         let destinationPlacemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
@@ -97,7 +100,9 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
             let coordinate = CLLocationCoordinate2D(latitude: latitudeValue, longitude: longitudeValue)
             
             let span = MKCoordinateSpanMake(0.05, 0.05)
+            
             let region = MKCoordinateRegion(center: coordinate, span: span)
+            
             mapView.setRegion(region, animated: true)
             
             setDestinationPointAndDrowRoute(coordinate: coordinate)
@@ -109,8 +114,11 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
     func determineCurrentLocation()
     {
         locationManager = CLLocationManager()
+        
         locationManager.delegate = self
+        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
         locationManager.requestAlwaysAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
@@ -126,6 +134,7 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
         manager.stopUpdatingLocation()
         
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
         sleep(1)
@@ -134,8 +143,11 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
         
         // Drop a pin at user's Current Location
         let myAnnotation: MKPointAnnotation = MKPointAnnotation()
+        
         let location = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+        
         myAnnotation.coordinate = location
+        
         myAnnotation.title = "Current location"
         
         mapView.addAnnotation(myAnnotation)
@@ -146,8 +158,11 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
             let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
             
             let directionRequest = MKDirectionsRequest()
+            
             directionRequest.source = sourceMapItem
+            
             directionRequest.destination = destinationMapItemValue
+            
             directionRequest.transportType = .automobile
             
             // Calculate the direction
@@ -165,9 +180,11 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
                 }
                 
                 let route = response.routes[0]
+                
                 self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
                 
                 let rect = route.polyline.boundingMapRect
+                
                 self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
             }
         }
@@ -180,7 +197,9 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
+        
         renderer.strokeColor = UIColor.red
+        
         renderer.lineWidth = 4.0
         
         return renderer
