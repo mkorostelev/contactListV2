@@ -39,8 +39,11 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
         mapView.showsUserLocation = true
         
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action:#selector(longPress))
-        gestureRecognizer.minimumPressDuration = 2.0
+        
+        gestureRecognizer.minimumPressDuration = 1.0
+        
         gestureRecognizer.delegate = self
+        
         mapView.addGestureRecognizer(gestureRecognizer)
     }
     
@@ -50,8 +53,15 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
         mapView.removeOverlays(mapView.overlays)
         
         let location = gestureRecognizer.location(in: mapView)
+        
         let coordinate = mapView.convert(location,toCoordinateFrom: mapView)
         
+        setDestinationPointAndDrowRoute(coordinate: coordinate)
+        
+        determineCurrentLocation()
+    }
+    
+    func setDestinationPointAndDrowRoute(coordinate: CLLocationCoordinate2D) {
         annotation.title = fullName
         annotation.subtitle = phoneNumber
         annotation.coordinate = coordinate
@@ -60,8 +70,6 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
         let destinationPlacemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
         
         destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-        
-        determineCurrentLocation()
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,38 +77,33 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
     }
     
     @IBAction func saveLocation(_ sender: UIBarButtonItem) {
+        saveLocationAction()
+    }
+    
+    private func saveLocationAction() {
         self.presenter.setLocation(latitude: self.annotation.coordinate.latitude, longitude: self.annotation.coordinate.longitude)
         
         self.performSegueToReturnBack()
     }
     
     func fillDataFromContact(fullName: String, phoneNumber: String, latitude: Double?, longitude: Double?) {
-        self.navigationController?.title = fullName
+        self.navigationItem.title = fullName
         
         self.fullName = fullName
         
         self.phoneNumber = phoneNumber
         
         if let latitudeValue = latitude, let longitudeValue = longitude {
-            let location = CLLocationCoordinate2D(latitude: latitudeValue, longitude: longitudeValue)
+            let coordinate = CLLocationCoordinate2D(latitude: latitudeValue, longitude: longitudeValue)
             
             let span = MKCoordinateSpanMake(0.05, 0.05)
-            let region = MKCoordinateRegion(center: location, span: span)
+            let region = MKCoordinateRegion(center: coordinate, span: span)
             mapView.setRegion(region, animated: true)
             
-            
-            annotation.title = fullName
-            annotation.subtitle = phoneNumber
-            annotation.coordinate = location
-            
-            mapView.addAnnotation(annotation)
-            
-            let destinationPlacemark = MKPlacemark(coordinate: location, addressDictionary: nil)
-            
-            destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-        } //else {
-            determineCurrentLocation()
-        //}
+            setDestinationPointAndDrowRoute(coordinate: coordinate)
+        }
+        
+        determineCurrentLocation()
     }
     
     func determineCurrentLocation()
@@ -124,6 +127,8 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
         
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        
+        sleep(1)
         
         mapView.setRegion(region, animated: true)
         

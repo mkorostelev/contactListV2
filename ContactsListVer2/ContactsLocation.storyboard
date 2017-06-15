@@ -21,16 +21,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ex2-fZ-UIb">
-                                <rect key="frame" x="0.0" y="20" width="375" height="603"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qEy-bU-oNx">
+                                <rect key="frame" x="0.0" y="20" width="375" height="595"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ex2-fZ-UIb" firstAttribute="leading" secondItem="boQ-8F-vHx" secondAttribute="leading" id="hsn-Yx-7M5"/>
-                            <constraint firstAttribute="trailing" secondItem="ex2-fZ-UIb" secondAttribute="trailing" id="qSV-aw-1h1"/>
-                            <constraint firstItem="phW-as-nEy" firstAttribute="top" secondItem="ex2-fZ-UIb" secondAttribute="bottom" id="xzt-y0-cLp"/>
-                            <constraint firstItem="ex2-fZ-UIb" firstAttribute="top" secondItem="cpI-Hh-oyU" secondAttribute="bottom" id="yyL-ju-JfC"/>
+                            <constraint firstItem="phW-as-nEy" firstAttribute="top" secondItem="qEy-bU-oNx" secondAttribute="bottom" constant="8" id="Hkg-qL-IzW"/>
+                            <constraint firstAttribute="trailing" secondItem="qEy-bU-oNx" secondAttribute="trailing" id="cA8-BZ-7oi"/>
+                            <constraint firstItem="qEy-bU-oNx" firstAttribute="top" secondItem="cpI-Hh-oyU" secondAttribute="bottom" id="u5C-8b-k7t"/>
+                            <constraint firstItem="qEy-bU-oNx" firstAttribute="leading" secondItem="boQ-8F-vHx" secondAttribute="leading" id="v72-gc-G5G"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -43,7 +43,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="mapView" destination="ex2-fZ-UIb" id="D9R-WD-bgn"/>
+                        <outlet property="mapView" destination="qEy-bU-oNx" id="7YQ-wt-QB1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FqP-IF-s2m" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -55,10 +55,13 @@ class ContactListTVCRouter: ContactListTVCRouterProtocol {
                     contactUuid: nil
                 )
                 
+                let router = ContactAddEditRouter(contactAddEditPresenter: presenter)
+                
+                presenter.router = router
+                
                 toViewController.presenter = presenter
             }
-        }
-        else {
+        } else {
             if segue.identifier == "viewContact" {
                 if let toViewController = segue.destination as? ContactViewVC {
                     let presenter = ContactViewPresenter(

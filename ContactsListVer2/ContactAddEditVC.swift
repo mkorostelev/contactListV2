@@ -23,7 +23,9 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
     
     @IBOutlet weak var saveContactOutlet: UIBarButtonItem!
     
-    @IBOutlet weak var photoImage: UIImageView!
+    @IBOutlet weak var clearLocationButton: UIButton!
+    
+    @IBOutlet weak var viewLocationButton: UIButton!
     
     var firstName: String {
         get {
@@ -98,7 +100,7 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
     }
     
     @IBAction func saveContact(_ sender: UIBarButtonItem) {
-        let photo = self.photoImage.image != #imageLiteral(resourceName: "noPhoto") ? UIImagePNGRepresentation(self.photoImage.image!) as NSData? : nil
+        let photo = getPhotoNSData()
         
         presenter.validateAndSaveContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: self.latitude, longitude: self.longitude)
     }
@@ -107,8 +109,17 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         presenter.deleteContact()
     }
     
+    @IBOutlet weak var photoButton: UIButton!
     
-    @IBAction func changePhoto(_ sender: UIButton) {
+    @IBAction func clickOnPhoto(_ sender: UIButton) {
+        selectPhoto()
+    }
+    
+    func getPhotoNSData() -> NSData? {
+        return photoButton.image(for: .normal) != #imageLiteral(resourceName: "noPhoto") ? UIImagePNGRepresentation(photoButton.image(for: .normal)!) as NSData? : nil
+    }
+    
+    func selectPhoto() {
         let camera = DSCameraHandler(delegate_: self as UIImagePickerControllerDelegate & UINavigationControllerDelegate)
         
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -117,44 +128,52 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { (alert : UIAlertAction!) in
             camera.getCameraOn(self, canEdit: true)
         }
+        
         let sharePhoto = UIAlertAction(title: "Photo Library", style: .default) { (alert : UIAlertAction!) in
             camera.getPhotoLibraryOn(self, canEdit: true)
         }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert : UIAlertAction!) in
         }
+        
         optionMenu.addAction(takePhoto)
         optionMenu.addAction(sharePhoto)
+        
+        if photoButton.image(for: .normal) != #imageLiteral(resourceName: "noPhoto") {
+            let erasePhoto = UIAlertAction(title: "Erase", style: .default) { (alert : UIAlertAction!) in
+                self.setPhoto(image: #imageLiteral(resourceName: "noPhoto"))
+            }
+            
+            optionMenu.addAction(erasePhoto)
+        }
+        
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        self.photoImage.image = info[UIImagePickerControllerEditedImage] as? UIImage
+        let image = info[UIImagePickerControllerEditedImage] as? UIImage
         
+        self.setPhoto(image: image)
         // image is our desired image
         
         picker.dismiss(animated: true, completion: nil)
     }
-    @IBAction func erasePhoto(_ sender: UIButton) {
-        self.photoImage.image = #imageLiteral(resourceName: "noPhoto")
+    
+    func setPhoto(image: UIImage?) {
+        photoButton.setImage(image, for: .normal)
+    }
+    
+    @IBAction func eraseLocation(_ sender: UIButton) {
+        self.setLocation(latitude: nil, longitude: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "contactsLocation" {
-            if let toViewController = segue.destination as? ContactsLocationVC {
-                let presenter = ContactsLocationPresenter(
-                    contactsLocationVC: toViewController,
-                    contactAddEditPresenter: self.presenter,
-                    fullName: "\(self.firstName) \(self.lastName)",
-                    phoneNumber: self.phoneNumber,
-                    latitude: self.latitude,
-                    longitude: self.longitude
-                )
-                
-                toViewController.presenter = presenter
-            }
-        }
+        self.presenter.router.prepare(
+            for: segue,
+            sender: sender
+        )
     }
 }
 
@@ -210,12 +229,31 @@ extension ContactAddEditVC {
         self.email = email
         
         if photo != nil {
-            self.photoImage.image = UIImage(data: (photo)! as Data)
+            let image = UIImage(data: (photo)! as Data)
+            
+            self.setPhoto(image: image)
         }
         
         self.latitude = latitude
         
         self.longitude = longitude
+        
+        fillContactsLocation()
+    }
+    
+    func fillContactsLocation() {
+        var text: String = "no location"
+        
+        var clearButtonIsHidden = true
+        
+        if let latitudeValue = self.latitude, let longitudeValue = self.longitude {
+            text = "\(latitudeValue) \(longitudeValue)"
+            
+            clearButtonIsHidden = false
+        }
+        viewLocationButton.setTitle(text, for: .normal)
+        
+        clearLocationButton.isHidden = clearButtonIsHidden
     }
     
     func presentDeletionAlert(contactFullName: String, deleteAction: @escaping (() -> Void)) {
@@ -234,9 +272,15 @@ extension ContactAddEditVC {
         self.performSegueToRootViewController()
     }
     
-    func setLocation(latitude: Double, longitude: Double) {
+    func setLocation(latitude: Double?, longitude: Double?) {
         self.latitude = latitude
         
         self.longitude = longitude
+        
+        fillContactsLocation()
+    }
+    
+    func getLocationInfo() -> (fullName: String, phoneNumber: String, latitude: Double?, longitude: Double?) {
+        return (fullName: "\(self.firstName) \(self.lastName)", phoneNumber: self.phoneNumber, latitude: self.latitude, longitude: self.longitude)
     }
 }

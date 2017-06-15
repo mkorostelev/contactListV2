@@ -27,6 +27,10 @@ class ContactViewRouter: ContactViewRouterProtocol {
                     contactList: contactViewPresenter.contactList,
                     contactUuid: contactViewPresenter.contactUuid)
                 
+                let router = ContactAddEditRouter(contactAddEditPresenter: presenter)
+                
+                presenter.router = router
+                
                 toViewController.presenter = presenter
             }
         }

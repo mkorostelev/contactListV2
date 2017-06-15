@@ -19,11 +19,17 @@ protocol ContactAddEditPresenterProtocol: class {
     
     func validateAndSaveContact(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?)
     
-    func setLocation(latitude: Double, longitude: Double)
+    func setLocation(latitude: Double?, longitude: Double?)
+    
+    var router: ContactAddEditRouterProtocol! { get set }
+    
+    func getLocationInfo() -> (fullName: String, phoneNumber: String, latitude: Double?, longitude: Double?)
 }
 
 class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
     unowned let contactAddEditVC: ContactAddEditProtocol
+    
+    var router: ContactAddEditRouterProtocol!
     
     let contactList: ContactsList?
     
@@ -54,6 +60,8 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
             )
         } else {
             self.contactAddEditVC.deleteContactButtonIsHidden = true
+            
+            self.contactAddEditVC.fillContactsLocation()
         }
     }
 
@@ -130,7 +138,11 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
         }
     }
     
-    func setLocation(latitude: Double, longitude: Double) {
+    func setLocation(latitude: Double?, longitude: Double?) {
         self.contactAddEditVC.setLocation(latitude: latitude, longitude: longitude)
+    }
+    
+    func getLocationInfo() -> (fullName: String, phoneNumber: String, latitude: Double?, longitude: Double?) {
+        return self.contactAddEditVC.getLocationInfo()
     }
 }

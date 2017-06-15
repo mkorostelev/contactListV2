@@ -24,5 +24,9 @@ protocol ContactAddEditProtocol: class {
     func fillTextFieldsData(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?,
                             longitude: Double?)
     
-    func setLocation(latitude: Double, longitude: Double)
+    func setLocation(latitude: Double?, longitude: Double?)
+    
+    func getLocationInfo() -> (fullName: String, phoneNumber: String, latitude: Double?, longitude: Double?)
+    
+    func fillContactsLocation()
 }
