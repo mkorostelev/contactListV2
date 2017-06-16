@@ -23,8 +23,6 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
     
     @IBOutlet weak var saveContactOutlet: UIBarButtonItem!
     
-    @IBOutlet weak var clearLocationButton: UIButton!
-    
     @IBOutlet weak var viewLocationButton: UIButton!
     
     var firstName: String {
@@ -140,7 +138,7 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         optionMenu.addAction(sharePhoto)
         
         if photoButton.image(for: .normal) != #imageLiteral(resourceName: "noPhoto") {
-            let erasePhoto = UIAlertAction(title: "Erase", style: .default) { (alert : UIAlertAction!) in
+            let erasePhoto = UIAlertAction(title: "Erase", style: .destructive) { (alert : UIAlertAction!) in
                 self.setPhoto(image: #imageLiteral(resourceName: "noPhoto"))
             }
             
@@ -165,15 +163,15 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         photoButton.setImage(image, for: .normal)
     }
     
-    @IBAction func eraseLocation(_ sender: UIButton) {
-        self.setLocation(latitude: nil, longitude: nil)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.presenter.router.prepare(
             for: segue,
             sender: sender
         )
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
+        return self.presenter.router.shouldPerformSegue(withIdentifier: identifier)
     }
 }
 
@@ -244,16 +242,11 @@ extension ContactAddEditVC {
     func fillContactsLocation() {
         var text: String = "no location"
         
-        var clearButtonIsHidden = true
-        
         if let latitudeValue = self.latitude, let longitudeValue = self.longitude {
             text = "\(latitudeValue) \(longitudeValue)"
-            
-            clearButtonIsHidden = false
         }
-        viewLocationButton.setTitle(text, for: .normal)
         
-        clearLocationButton.isHidden = clearButtonIsHidden
+        viewLocationButton.setTitle(text, for: .normal)
     }
     
     func presentDeletionAlert(contactFullName: String, deleteAction: @escaping (() -> Void)) {

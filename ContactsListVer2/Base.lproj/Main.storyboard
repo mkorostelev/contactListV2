@@ -27,7 +27,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="firstName" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWL-Wf-Bh3">
-                                            <rect key="frame" x="58" y="11" width="227" height="21"/>
+                                            <rect key="frame" x="78" y="11" width="207" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lastName" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYb-6M-Whs">
-                                            <rect key="frame" x="58" y="55" width="276" height="70.5"/>
+                                            <rect key="frame" x="78" y="55" width="256" height="70.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -63,10 +63,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="aId-mJ-vQo">
-                                            <rect key="frame" x="8" y="0.0" width="40" height="50"/>
+                                            <rect key="frame" x="8" y="0.0" width="60" height="75"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="PIR-37-FHj"/>
-                                                <constraint firstAttribute="width" constant="40" id="eZ8-OM-6fL"/>
+                                                <constraint firstAttribute="height" constant="75" id="PIR-37-FHj"/>
+                                                <constraint firstAttribute="width" constant="60" id="eZ8-OM-6fL"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
@@ -74,11 +74,10 @@
                                         <constraint firstItem="YIK-iB-Wp8" firstAttribute="top" secondItem="0lJ-Z5-wlg" secondAttribute="topMargin" constant="3" id="06o-Yd-qxR"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="YIK-iB-Wp8" secondAttribute="trailing" id="4xG-An-Qrj"/>
                                         <constraint firstItem="uWL-Wf-Bh3" firstAttribute="trailing" secondItem="YIK-iB-Wp8" secondAttribute="leading" id="7Fd-jP-fgN"/>
-                                        <constraint firstItem="uWL-Wf-Bh3" firstAttribute="leading" secondItem="0lJ-Z5-wlg" secondAttribute="leadingMargin" constant="50" id="Bt0-7B-YL7"/>
                                         <constraint firstItem="vYb-6M-Whs" firstAttribute="leading" secondItem="uWL-Wf-Bh3" secondAttribute="leading" id="FJm-1Q-5bs"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="vYb-6M-Whs" secondAttribute="trailing" id="HKF-Dm-jkZ"/>
                                         <constraint firstItem="SXV-Hs-Heh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="uWL-Wf-Bh3" secondAttribute="bottom" priority="999" constant="10" id="MEl-hF-TF9"/>
-                                        <constraint firstItem="aId-mJ-vQo" firstAttribute="top" secondItem="0lJ-Z5-wlg" secondAttribute="topMargin" constant="-8" id="Qq3-0B-xjX"/>
+                                        <constraint firstAttribute="topMargin" secondItem="aId-mJ-vQo" secondAttribute="top" constant="8" id="Qq3-0B-xjX"/>
                                         <constraint firstItem="Sch-Wc-9SG" firstAttribute="top" secondItem="uWL-Wf-Bh3" secondAttribute="bottom" priority="10" constant="20" id="WFa-nJ-AQb"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="SXV-Hs-Heh" secondAttribute="trailing" id="WG0-0X-P33"/>
                                         <constraint firstItem="uWL-Wf-Bh3" firstAttribute="top" secondItem="0lJ-Z5-wlg" secondAttribute="topMargin" constant="3" id="Y4H-fl-Kzp"/>
@@ -88,6 +87,7 @@
                                         <constraint firstItem="vYb-6M-Whs" firstAttribute="top" secondItem="uWL-Wf-Bh3" secondAttribute="bottom" priority="999" constant="23" id="jQI-rB-jJu"/>
                                         <constraint firstItem="Sch-Wc-9SG" firstAttribute="leading" secondItem="0lJ-Z5-wlg" secondAttribute="leadingMargin" id="tCy-KF-aD0"/>
                                         <constraint firstItem="Sch-Wc-9SG" firstAttribute="baseline" secondItem="SXV-Hs-Heh" secondAttribute="baseline" id="wLl-nm-NKN"/>
+                                        <constraint firstItem="uWL-Wf-Bh3" firstAttribute="leading" secondItem="aId-mJ-vQo" secondAttribute="trailing" constant="10" id="xSD-If-qM5"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Sch-Wc-9SG" secondAttribute="bottom" constant="10" id="zf3-YY-4bm"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -103,7 +103,9 @@
                                     <outlet property="leadingConstraint" destination="tCy-KF-aD0" id="dIo-tp-ap2"/>
                                     <outlet property="phoneNumber" destination="Sch-Wc-9SG" id="kcl-1K-pKd"/>
                                     <outlet property="phoneNumberWidth" destination="zWp-ge-hiY" id="Sm7-iM-GiI"/>
+                                    <outlet property="photoHeight" destination="PIR-37-FHj" id="A2V-QP-J42"/>
                                     <outlet property="photoImage" destination="aId-mJ-vQo" id="1tC-Pq-poT"/>
+                                    <outlet property="photoWidth" destination="eZ8-OM-6fL" id="qgU-pT-V5u"/>
                                     <segue destination="va7-IL-JEW" kind="show" identifier="viewContact" id="ogi-cO-fhY"/>
                                 </connections>
                             </tableViewCell>

@@ -31,9 +31,11 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
     
     @IBOutlet weak var phoneNumberWidth: NSLayoutConstraint!
     
-    @IBOutlet weak var detailInfoButton: UISwitch!
+    @IBOutlet weak var photoWidth: NSLayoutConstraint!
     
-    @IBOutlet weak var lastNameCenter: NSLayoutConstraint!
+    @IBOutlet weak var photoHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var detailInfoButton: UISwitch!
     
     @IBOutlet weak var photoImage: UIImageView!
     
@@ -98,6 +100,24 @@ extension ContactsTVCell {
         configureFirstName(showDetailInfo: showDetailInfo)
         
         configureEmailAndPhoneNumber(showDetailInfo: showDetailInfo)
+        
+        configurePhotoSize(showDetailInfo: showDetailInfo)
+    }
+    
+    private func configurePhotoSize(showDetailInfo: Bool) {
+        var width: CGFloat = 60
+        
+        var height: CGFloat = 75
+        
+        if showDetailInfo {
+            width = 40
+            
+            height = 50
+        }
+        
+        photoWidth.constant = width
+        
+        photoHeight.constant = height
     }
     
     private func configureFirstName(showDetailInfo: Bool) {

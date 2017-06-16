@@ -11,6 +11,8 @@ protocol ContactAddEditRouterProtocol {
     init(contactAddEditPresenter: ContactAddEditPresenter)
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    
+    func shouldPerformSegue(withIdentifier identifier: String?) -> Bool
 }
 
 class ContactAddEditRouter: ContactAddEditRouterProtocol {
@@ -18,6 +20,23 @@ class ContactAddEditRouter: ContactAddEditRouterProtocol {
     
     required init(contactAddEditPresenter: ContactAddEditPresenter) {
         self.contactAddEditPresenter = contactAddEditPresenter
+    }
+    
+    func shouldPerformSegue(withIdentifier identifier: String?) -> Bool{
+        if identifier == "contactsLocation" {
+            // TODO
+            // add nc to router
+            if let view = self.contactAddEditPresenter.contactAddEditVC as? UIViewController {
+                if let navigationController = view.navigationController {
+                    let alertController = self.getLocationAlert(navigationController: navigationController)
+                    
+                    navigationController.present(alertController, animated: true)
+                    
+                    return false
+                }
+            }
+        }
+        return true
     }
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -37,5 +56,54 @@ class ContactAddEditRouter: ContactAddEditRouterProtocol {
                 toViewController.presenter = presenter
             }
         }
+    }
+    
+    private func getLocationAlert(navigationController: UINavigationController) -> UIAlertController {
+        let (fullName, phoneNumber, latitude, longitude) = self.contactAddEditPresenter.getLocationInfo()
+        
+        let locationIsFilled = latitude != nil && longitude != nil
+        
+        var setOrChangeText = "Set location"
+        
+        if locationIsFilled {
+            setOrChangeText = "Change / View"
+        }
+        
+        let alertController = UIAlertController(title: "Contact`s location", message: "", preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        let setOrChangeAction = UIAlertAction(title: setOrChangeText, style: .default) { _ in
+            let storyBoard: UIStoryboard = UIStoryboard(name: "ContactsLocation", bundle: nil)
+            
+            let toViewController = storyBoard.instantiateViewController(withIdentifier: "ContactsLocationVC") as! ContactsLocationVC
+            
+            let presenter = ContactsLocationPresenter(
+                contactsLocationVC: toViewController,
+                contactAddEditPresenter: self.contactAddEditPresenter,
+                fullName: fullName,
+                phoneNumber: phoneNumber,
+                latitude: latitude,
+                longitude: longitude
+            )
+            
+            toViewController.presenter = presenter
+            
+            navigationController.pushViewController(toViewController, animated: true)
+        }
+        
+        alertController.addAction(setOrChangeAction)
+        
+        if locationIsFilled {
+            let eraseAction = UIAlertAction(title: "Erase", style: .destructive) { _ in
+                self.contactAddEditPresenter.setLocation(latitude: nil, longitude: nil)
+            }
+            
+            alertController.addAction(eraseAction)
+        }
+        
+        alertController.addAction(cancelAction)
+        
+        return alertController
     }
 }

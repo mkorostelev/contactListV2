@@ -12,7 +12,7 @@
         <!--Title-->
         <scene sceneID="9DN-Yh-IC3">
             <objects>
-                <viewController id="Tvt-4j-nRE" customClass="ContactsLocationVC" customModule="ContactsListVer2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactsLocationVC" id="Tvt-4j-nRE" customClass="ContactsLocationVC" customModule="ContactsListVer2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cpI-Hh-oyU"/>
                         <viewControllerLayoutGuide type="bottom" id="phW-as-nEy"/>

@@ -86,13 +86,6 @@
                                     <segue destination="vJF-Th-olJ" kind="show" identifier="contactsLocation" id="mSu-hr-zJu"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z3r-tr-pAB">
-                                <rect key="frame" x="169" y="585" width="36" height="30"/>
-                                <state key="normal" title="Clear"/>
-                                <connections>
-                                    <action selector="eraseLocation:" destination="QIB-Xg-eyO" eventType="touchUpInside" id="324-1e-9nY"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HmP-1a-LHG">
                                 <rect key="frame" x="158" y="64" width="85" height="100"/>
                                 <constraints>
@@ -129,14 +122,12 @@
                             <constraint firstItem="qjv-XE-uJn" firstAttribute="leading" secondItem="RuE-s6-w2T" secondAttribute="leading" id="frZ-78-0Vq"/>
                             <constraint firstItem="7DS-2a-G7E" firstAttribute="leading" secondItem="RuE-s6-w2T" secondAttribute="leading" id="h6v-tP-MIV"/>
                             <constraint firstItem="rQ8-98-foN" firstAttribute="top" secondItem="qjv-XE-uJn" secondAttribute="bottom" constant="20" id="lRY-rG-hGf"/>
-                            <constraint firstItem="z3r-tr-pAB" firstAttribute="top" secondItem="jc4-xd-L9N" secondAttribute="bottom" constant="10" id="n3W-1g-tR2"/>
                             <constraint firstItem="RuE-s6-w2T" firstAttribute="top" secondItem="4hg-7B-iXk" secondAttribute="bottom" constant="100" id="n3z-kH-keu"/>
                             <constraint firstItem="Y3i-WJ-15O" firstAttribute="top" secondItem="kUL-Ap-ENW" secondAttribute="bottom" constant="20" id="o6p-te-tMH"/>
                             <constraint firstItem="RuE-s6-w2T" firstAttribute="leading" secondItem="Hap-Ie-hgi" secondAttribute="leadingMargin" constant="25" id="s4r-W0-D6V"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7DS-2a-G7E" secondAttribute="trailing" id="woO-PF-fRm"/>
                             <constraint firstItem="qjv-XE-uJn" firstAttribute="top" secondItem="RuE-s6-w2T" secondAttribute="bottom" constant="20" id="y3O-fx-dbu"/>
                             <constraint firstItem="HmP-1a-LHG" firstAttribute="top" secondItem="4hg-7B-iXk" secondAttribute="bottom" id="yv6-yi-9PD"/>
-                            <constraint firstItem="z3r-tr-pAB" firstAttribute="centerX" secondItem="Hap-Ie-hgi" secondAttribute="centerX" id="z5R-j4-u9z"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -150,7 +141,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="clearLocationButton" destination="z3r-tr-pAB" id="THz-tr-e7N"/>
                         <outlet property="deleteContactOutlet" destination="yhz-Lg-7rD" id="oGM-Ck-uk4"/>
                         <outlet property="emailOutlet" destination="7DS-2a-G7E" id="R4W-RM-Tms"/>
                         <outlet property="firstNameOutlet" destination="qjv-XE-uJn" id="LVt-EC-R8U"/>
