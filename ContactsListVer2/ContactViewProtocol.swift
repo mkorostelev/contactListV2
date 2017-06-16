@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ContactViewProtocol: class {
-    func fillDataFromContact(title: String, phoneNumber: String, email: String, photo: NSData?)
+    func fillDataFromContact(title: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?)
 }

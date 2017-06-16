@@ -8,6 +8,8 @@
 
 import UIKit
 
+import MapKit
+
 class ContactViewVC: UIViewController, ContactViewProtocol {
     var presenter: ContactViewPresenterProtocol!
     
@@ -24,6 +26,8 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
     @IBOutlet weak var emailOutletCenter: NSLayoutConstraint!
     
     @IBOutlet weak var photoImage: UIImageView!
+    
+    @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +82,7 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
 
 // ContactViewProtocol implementation
 extension ContactViewVC {
-    func fillDataFromContact(title: String, phoneNumber: String, email: String, photo: NSData?) {
+    func fillDataFromContact(title: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?) {
         self.navigationItem.title = title
         
         phoneNumberOutlet?.text = phoneNumber
@@ -87,6 +91,28 @@ extension ContactViewVC {
         
         if photo != nil {
             self.photoImage.image = UIImage(data: (photo)! as Data)
+        }
+        
+        if let latitudeValue = latitude, let longitudeValue = longitude {
+            let coordinate = CLLocationCoordinate2D(latitude: latitudeValue, longitude: longitudeValue)
+            
+            let span = MKCoordinateSpanMake(0.05, 0.05)
+            
+            let region = MKCoordinateRegion(center: coordinate, span: span)
+            
+            mapView.setRegion(region, animated: true)
+            
+            let annotation = MKPointAnnotation()
+            
+            annotation.title = title
+            
+            annotation.subtitle = phoneNumber
+            
+            annotation.coordinate = coordinate
+            
+            mapView.addAnnotation(annotation)
+        } else {
+            mapView.isHidden = true
         }
     }
 }

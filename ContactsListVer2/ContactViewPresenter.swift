@@ -49,7 +49,14 @@ class ContactViewPresenter: ContactViewPresenterProtocol {
             
             let email = contact.email
             
-            self.contactViewVC.fillDataFromContact(title: title, phoneNumber: phoneNumber, email: email, photo: contact.photo)
+            self.contactViewVC.fillDataFromContact(
+                title: title,
+                phoneNumber: phoneNumber,
+                email: email,
+                photo: contact.photo,
+                latitude: contact.latitude,
+                longitude: contact.longitude
+            )
         }
     }
 }
