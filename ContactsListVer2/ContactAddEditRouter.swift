@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ContactAddEditRouterProtocol {
-    init(contactAddEditPresenter: ContactAddEditPresenter)
+    init(contactAddEditPresenter: ContactAddEditPresenter, navigationController: UINavigationController)
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?)
     
@@ -18,23 +18,21 @@ protocol ContactAddEditRouterProtocol {
 class ContactAddEditRouter: ContactAddEditRouterProtocol {
     unowned let contactAddEditPresenter: ContactAddEditPresenter
     
-    required init(contactAddEditPresenter: ContactAddEditPresenter) {
+    unowned let navigationController: UINavigationController
+    
+    required init(contactAddEditPresenter: ContactAddEditPresenter, navigationController: UINavigationController) {
         self.contactAddEditPresenter = contactAddEditPresenter
+        
+        self.navigationController = navigationController
     }
     
     func shouldPerformSegue(withIdentifier identifier: String?) -> Bool{
         if identifier == "contactsLocation" {
-            // TODO
-            // add nc to router
-            if let view = self.contactAddEditPresenter.contactAddEditVC as? UIViewController {
-                if let navigationController = view.navigationController {
-                    let alertController = self.getLocationAlert(navigationController: navigationController)
-                    
-                    navigationController.present(alertController, animated: true)
-                    
-                    return false
-                }
-            }
+            let alertController = self.getLocationAlert(navigationController: navigationController)
+            
+            navigationController.present(alertController, animated: true)
+            
+            return false
         }
         return true
     }

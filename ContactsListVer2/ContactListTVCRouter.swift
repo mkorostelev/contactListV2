@@ -55,7 +55,7 @@ class ContactListTVCRouter: ContactListTVCRouterProtocol {
                     contactUuid: nil
                 )
                 
-                let router = ContactAddEditRouter(contactAddEditPresenter: presenter)
+                let router = ContactAddEditRouter(contactAddEditPresenter: presenter, navigationController: self.navigationController)
                 
                 presenter.router = router
                 
@@ -70,7 +70,7 @@ class ContactListTVCRouter: ContactListTVCRouterProtocol {
                         contactUuid: contactListTVCPresenter.selectedContact?.uuid
                     )
                     
-                    let router = ContactViewRouter(contactViewPresenter: presenter)
+                    let router = ContactViewRouter(contactViewPresenter: presenter, navigationController: self.navigationController)
                     
                     presenter.router = router
                     
@@ -97,7 +97,7 @@ class ContactListTVCRouter: ContactListTVCRouterProtocol {
             contactUuid: self.contactListTVCPresenter.selectedContact?.uuid
         )
         
-        let router = ContactViewRouter(contactViewPresenter: presenter)
+        let router = ContactViewRouter(contactViewPresenter: presenter, navigationController: self.navigationController)
         
         presenter.router = router
         

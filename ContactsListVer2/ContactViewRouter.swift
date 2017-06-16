@@ -9,14 +9,18 @@
 import UIKit
 
 protocol ContactViewRouterProtocol: ViewRouterProtocol {
-    init(contactViewPresenter: ContactViewPresenterProtocol)
+    init(contactViewPresenter: ContactViewPresenterProtocol, navigationController: UINavigationController)
 }
 
 class ContactViewRouter: ContactViewRouterProtocol {
     unowned let contactViewPresenter: ContactViewPresenterProtocol
     
-    required init(contactViewPresenter: ContactViewPresenterProtocol) {
+    unowned let navigationController: UINavigationController
+    
+    required init(contactViewPresenter: ContactViewPresenterProtocol, navigationController: UINavigationController) {
         self.contactViewPresenter = contactViewPresenter
+        
+        self.navigationController = navigationController
     }
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -27,7 +31,7 @@ class ContactViewRouter: ContactViewRouterProtocol {
                     contactList: contactViewPresenter.contactList,
                     contactUuid: contactViewPresenter.contactUuid)
                 
-                let router = ContactAddEditRouter(contactAddEditPresenter: presenter)
+                let router = ContactAddEditRouter(contactAddEditPresenter: presenter, navigationController: self.navigationController)
                 
                 presenter.router = router
                 
