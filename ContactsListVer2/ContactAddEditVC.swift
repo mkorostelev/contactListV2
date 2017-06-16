@@ -195,6 +195,7 @@ extension ContactAddEditVC {
     }
 }
 
+// ContactAddEditProtocol implementation
 extension ContactAddEditVC {
     var deleteContactButtonIsHidden: Bool {
         get {
