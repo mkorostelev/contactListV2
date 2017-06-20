@@ -82,13 +82,10 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         
         presenter.checkEnabledOfSaveButton(allInputedText: self.allInputedText, notInOutletString: "", range: nil)
         
-        //
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        //
     }
 
-    //
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -132,7 +129,7 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         
         self.scrollView.scrollIndicatorInsets = contentInsets
     }
-    //
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
