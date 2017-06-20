@@ -35,6 +35,8 @@ class ContactViewPresenter: ContactViewPresenterProtocol {
         self.contactList = contactList
         
         self.contactUuid = contactUuid
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateContact(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
     }
 
     func viewDidLoad() {
@@ -57,6 +59,14 @@ class ContactViewPresenter: ContactViewPresenterProtocol {
                 latitude: contact.latitude,
                 longitude: contact.longitude
             )
+        }
+    }
+    
+    @objc func updateContact(_ notification: NSNotification) {
+        if let contact = notification.userInfo?["contact"] as? Contact {
+            if contact.uuid == self.contactUuid {
+                self.fillDataFromContact()
+            }
         }
     }
 }

@@ -83,6 +83,8 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
         NotificationCenter.default.addObserver(self, selector: #selector(updateContact(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateContactList(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.changedSortFild), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateContactList(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     deinit {

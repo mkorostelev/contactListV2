@@ -93,9 +93,12 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        animateTable()
+        self.animateTable()
     }
-    
+}
+
+//animation
+extension ContactsListTVC {
     func animateTable() {
         contactsListTableView.reloadData()
         
@@ -120,6 +123,7 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
     }
 }
 
+//ContactListTVCProtocol
 extension ContactsListTVC {
     var viewIsEditing: Bool {
         get {
@@ -198,7 +202,9 @@ extension ContactsListTVC {
     }
     
     func reloadData() {
-        self.contactsListTableView.reloadData()
+        if self.contactsListTableView != nil {
+            self.contactsListTableView.reloadData()
+        }
     }
     
     func presentDeletionAlert(contactFullName: String, deleteAction: @escaping (() -> Void)) {

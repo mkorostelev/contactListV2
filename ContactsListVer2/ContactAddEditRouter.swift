@@ -64,7 +64,7 @@ class ContactAddEditRouter: ContactAddEditRouterProtocol {
         var setOrChangeText = "Set location"
         
         if locationIsFilled {
-            setOrChangeText = "Change / View"
+            setOrChangeText = "Edit / View"
         }
         
         let alertController = UIAlertController(title: "Contact`s location", message: "", preferredStyle: .actionSheet)
@@ -82,7 +82,7 @@ class ContactAddEditRouter: ContactAddEditRouterProtocol {
                 fullName: fullName,
                 phoneNumber: phoneNumber,
                 latitude: latitude,
-                longitude: longitude
+                longitude: longitude	
             )
             
             toViewController.presenter = presenter

@@ -14,9 +14,9 @@ import UIKit
 class DSCameraHandler: NSObject {
     
     private let imagePicker = UIImagePickerController()
-    private let isPhotoLibraryAvailable = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
-    private let isSavedPhotoAlbumAvailable = UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum)
-    private let isCameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
+    let isPhotoLibraryAvailable = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+    let isSavedPhotoAlbumAvailable = UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum)
+    let isCameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
     private let isRearCameraAvailable = UIImagePickerController.isCameraDeviceAvailable(.rear)
     private let isFrontCameraAvailable = UIImagePickerController.isCameraDeviceAvailable(.front)
     private let sourceTypeCamera = UIImagePickerControllerSourceType.camera
@@ -29,8 +29,8 @@ class DSCameraHandler: NSObject {
     }
     
     func getPhotoLibraryOn(_ onVC: UIViewController, canEdit: Bool) {
+        if !isPhotoLibraryAvailable { return }
         
-        if !isPhotoLibraryAvailable && !isSavedPhotoAlbumAvailable { return }
         let type = kUTTypeImage as String
         
         if isPhotoLibraryAvailable {
@@ -41,7 +41,21 @@ class DSCameraHandler: NSObject {
                     imagePicker.allowsEditing = canEdit
                 }
             }
-        } else if isPhotoLibraryAvailable {
+        } else {
+            return
+        }
+        
+        imagePicker.allowsEditing = false
+        imagePicker.delegate = delegate
+        onVC.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func getSavedPhotosAlbumOn(_ onVC: UIViewController, canEdit: Bool) {
+        if !isSavedPhotoAlbumAvailable { return }
+        
+        let type = kUTTypeImage as String
+        
+        if isSavedPhotoAlbumAvailable {
             imagePicker.sourceType = .savedPhotosAlbum
             if let availableTypes = UIImagePickerController.availableMediaTypes(for: .savedPhotosAlbum) {
                 if availableTypes.contains(type) {
@@ -52,7 +66,7 @@ class DSCameraHandler: NSObject {
             return
         }
         
-        imagePicker.allowsEditing = canEdit
+        imagePicker.allowsEditing = false
         imagePicker.delegate = delegate
         onVC.present(imagePicker, animated: true, completion: nil)
     }
@@ -79,7 +93,7 @@ class DSCameraHandler: NSObject {
             return
         }
         
-        imagePicker.allowsEditing = canEdit
+        imagePicker.allowsEditing = false
         imagePicker.showsCameraControls = true
         imagePicker.delegate = delegate
         onVC.present(imagePicker, animated: true, completion: nil)

@@ -116,12 +116,14 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
             if contactValue.longitude != longitude {
                 contactValue.longitude = longitude
             }
+            
+            self.contactAddEditVC.closeViewAndGoBack()
         } else {
             // add new contact
             contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: latitude, longitude: longitude)
+            
+            self.contactAddEditVC.closeViewAndGoToRoot()
         }
-        
-        self.contactAddEditVC.closeView()
     }
     
     func deleteContact() {
@@ -134,7 +136,7 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
         if let contact = self.contact {
             contactList?.deleteContact(contact)
             
-            self.contactAddEditVC.closeView()
+            self.contactAddEditVC.closeViewAndGoToRoot()
         }
     }
     

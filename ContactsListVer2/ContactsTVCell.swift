@@ -31,13 +31,13 @@ class ContactsTVCell: UITableViewCell, ContactTVCellProtocol {
     
     @IBOutlet weak var phoneNumberWidth: NSLayoutConstraint!
     
-    @IBOutlet weak var photoWidth: NSLayoutConstraint!
-    
-    @IBOutlet weak var photoHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var detailInfoButton: UISwitch!
     
     @IBOutlet weak var photoImage: UIImageView!
+    
+    @IBOutlet weak var photoWidthLarge: NSLayoutConstraint!
+    
+    @IBOutlet weak var photoWidthSmall: NSLayoutConstraint!
     
     var fullNameText = ""
     
@@ -105,19 +105,16 @@ extension ContactsTVCell {
     }
     
     private func configurePhotoSize(showDetailInfo: Bool) {
-        var width: CGFloat = 60
-        
-        var height: CGFloat = 75
         
         if showDetailInfo {
-            width = 40
+            photoWidthLarge.priority = Priorities.low.rawValue
             
-            height = 50
+            photoWidthSmall.priority = Priorities.high.rawValue
+        } else {
+            photoWidthLarge.priority = Priorities.high.rawValue
+            
+            photoWidthSmall.priority = Priorities.low.rawValue
         }
-        
-        photoWidth.constant = width
-        
-        photoHeight.constant = height
     }
     
     private func configureFirstName(showDetailInfo: Bool) {

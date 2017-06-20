@@ -19,7 +19,9 @@ protocol ContactAddEditProtocol: class {
     
     func presentEmailValidationAlert(saveAction: @escaping (() -> Void))
     
-    func closeView()
+    func closeViewAndGoBack()
+    
+    func closeViewAndGoToRoot()
     
     func fillTextFieldsData(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?,
                             longitude: Double?)

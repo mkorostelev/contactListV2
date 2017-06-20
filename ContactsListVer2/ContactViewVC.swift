@@ -19,11 +19,7 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
     
     @IBOutlet weak var phoneNumberCenter: NSLayoutConstraint!
     
-    @IBOutlet weak var phoneNumberOutletCenter: NSLayoutConstraint!
-    
     @IBOutlet weak var emailCenter: NSLayoutConstraint!
-    
-    @IBOutlet weak var emailOutletCenter: NSLayoutConstraint!
     
     @IBOutlet weak var photoImage: UIImageView!
     
@@ -47,12 +43,6 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
         super.viewWillAppear(animated)
         
         phoneNumberCenter.constant -= view.bounds.width
-        
-        phoneNumberOutletCenter.constant -= view.bounds.width
-        
-        emailCenter.constant -= view.bounds.width
-        
-        emailOutletCenter.constant -= view.bounds.width
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,27 +52,14 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
             self.phoneNumberCenter.constant += self.view.bounds.width
             self.view.layoutIfNeeded()
         }, completion: nil)
-        
-        UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveEaseOut, animations: {
-            self.phoneNumberOutletCenter.constant += self.view.bounds.width
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-        
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.emailCenter.constant += self.view.bounds.width
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-        
-        UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveEaseOut, animations: {
-            self.emailOutletCenter.constant += self.view.bounds.width
-            self.view.layoutIfNeeded()
-        }, completion: nil)
     }
 }
 
 // ContactViewProtocol implementation
 extension ContactViewVC {
     func fillDataFromContact(title: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?) {
+        mapView.removeAnnotations(mapView.annotations)
+        
         self.navigationItem.title = title
         
         phoneNumberOutlet?.text = phoneNumber
@@ -94,6 +71,8 @@ extension ContactViewVC {
         }
         
         if let latitudeValue = latitude, let longitudeValue = longitude {
+            mapView.isHidden = false
+            
             let coordinate = CLLocationCoordinate2D(latitude: latitudeValue, longitude: longitudeValue)
             
             let span = MKCoordinateSpanMake(0.05, 0.05)

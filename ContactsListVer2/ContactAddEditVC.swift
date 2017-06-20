@@ -25,6 +25,10 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
     
     @IBOutlet weak var viewLocationButton: UIButton!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    weak var activeField: UITextField?
+    
     var firstName: String {
         get {
             return firstNameOutlet?.text ?? ""
@@ -77,8 +81,58 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         presenter.viewDidLoad()
         
         presenter.checkEnabledOfSaveButton(allInputedText: self.allInputedText, notInOutletString: "", range: nil)
+        
+        //
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        //
     }
 
+    //
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.activeField = nil
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.activeField = textField
+    }
+    
+    func keyboardDidShow(_ notification: Notification) {
+        if let activeField = self.activeField, let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            let contentInsets = UIEdgeInsets(
+                top: self.navigationController?.navigationBar.bounds.height ?? 0 + UIApplication.shared.statusBarFrame.height,
+                left: 0.0,
+                bottom: keyboardSize.height,
+                right: 0.0
+            )
+            
+            self.scrollView.contentInset = contentInsets
+            
+            self.scrollView.scrollIndicatorInsets = contentInsets
+            
+            var aRect = self.view.frame
+            
+            aRect.size.height -= keyboardSize.size.height
+            
+            if (!aRect.contains(activeField.frame.origin)) {
+                self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+            }
+        }
+    }
+    
+    func keyboardWillBeHidden(_ notification: Notification) {
+        let contentInsets = UIEdgeInsets.zero
+        
+        self.scrollView.contentInset = contentInsets
+        
+        self.scrollView.scrollIndicatorInsets = contentInsets
+    }
+    //
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -113,56 +167,6 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         selectPhoto()
     }
     
-    func getPhotoNSData() -> NSData? {
-        return photoButton.image(for: .normal) != #imageLiteral(resourceName: "noPhoto") ? UIImagePNGRepresentation(photoButton.image(for: .normal)!) as NSData? : nil
-    }
-    
-    func selectPhoto() {
-        let camera = DSCameraHandler(delegate_: self as UIImagePickerControllerDelegate & UINavigationControllerDelegate)
-        
-        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        optionMenu.popoverPresentationController?.sourceView = self.view
-        
-        let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { (alert : UIAlertAction!) in
-            camera.getCameraOn(self, canEdit: true)
-        }
-        
-        let sharePhoto = UIAlertAction(title: "Photo Library", style: .default) { (alert : UIAlertAction!) in
-            camera.getPhotoLibraryOn(self, canEdit: true)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert : UIAlertAction!) in
-        }
-        
-        optionMenu.addAction(takePhoto)
-        optionMenu.addAction(sharePhoto)
-        
-        if photoButton.image(for: .normal) != #imageLiteral(resourceName: "noPhoto") {
-            let erasePhoto = UIAlertAction(title: "Erase", style: .destructive) { (alert : UIAlertAction!) in
-                self.setPhoto(image: #imageLiteral(resourceName: "noPhoto"))
-            }
-            
-            optionMenu.addAction(erasePhoto)
-        }
-        
-        optionMenu.addAction(cancelAction)
-        self.present(optionMenu, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        let image = info[UIImagePickerControllerEditedImage] as? UIImage
-        
-        self.setPhoto(image: image)
-        // image is our desired image
-        
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
-    func setPhoto(image: UIImage?) {
-        photoButton.setImage(image, for: .normal)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         self.presenter.router.prepare(
             for: segue,
@@ -175,6 +179,75 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
     }
 }
 
+// work with photo
+extension ContactAddEditVC {
+    func getPhotoNSData() -> NSData? {
+        return photoButton.image(for: .normal) != #imageLiteral(resourceName: "noPhoto") ? UIImagePNGRepresentation(photoButton.image(for: .normal)!) as NSData? : nil
+    }
+    
+    func selectPhoto() {
+        let camera = DSCameraHandler(delegate_: self as UIImagePickerControllerDelegate & UINavigationControllerDelegate)
+        
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        optionMenu.popoverPresentationController?.sourceView = self.view
+        
+        if camera.isCameraAvailable {
+            let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { (alert : UIAlertAction!) in
+                camera.getCameraOn(self, canEdit: true)
+            }
+            
+            optionMenu.addAction(takePhoto)
+        }
+        
+        if camera.isPhotoLibraryAvailable {
+            let sharePhoto = UIAlertAction(title: "Photo Library", style: .default) { (alert : UIAlertAction!) in
+                camera.getPhotoLibraryOn(self, canEdit: true)
+            }
+            
+            optionMenu.addAction(sharePhoto)
+        }
+        
+        if camera.isSavedPhotoAlbumAvailable {
+            let savedPhotosAlbum = UIAlertAction(title: "Saved Photos Album", style: .default) { (alert : UIAlertAction!) in
+                camera.getSavedPhotosAlbumOn(self, canEdit: true)
+            }
+            
+            optionMenu.addAction(savedPhotosAlbum)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert : UIAlertAction!) in
+        }
+        
+        if photoButton.image(for: .normal) != #imageLiteral(resourceName: "noPhoto") {
+            let erasePhoto = UIAlertAction(title: "Erase", style: .destructive) { (alert : UIAlertAction!) in
+                self.setPhoto(image: #imageLiteral(resourceName: "noPhoto"))
+            }
+            
+            optionMenu.addAction(erasePhoto)
+        }
+        
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        self.setPhoto(image: image)
+        // image is our desired image
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func setPhoto(image: UIImage?) {
+        photoButton.setImage(image, for: .normal)
+        
+        photoButton.imageView?.contentMode = .scaleAspectFit
+    }
+}
+
+// textField delegates
 extension ContactAddEditVC {
     var allInputedText: String {
         return "\(self.firstName)\(self.lastName)\(self.phoneNumber)\(self.email)"
@@ -262,8 +335,12 @@ extension ContactAddEditVC {
         self.present(alertController, animated: true)
     }
     
-    func closeView() {
+    func closeViewAndGoToRoot() {
         self.performSegueToRootViewController()
+    }
+    
+    func closeViewAndGoBack() {
+        self.performSegueToReturnBack()
     }
     
     func setLocation(latitude: Double?, longitude: Double?) {

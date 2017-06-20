@@ -56,12 +56,12 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
         
         let coordinate = mapView.convert(location,toCoordinateFrom: mapView)
         
-        setDestinationPointAndDrowRoute(coordinate: coordinate)
+        setDestinationPoint(coordinate: coordinate)
         
         determineCurrentLocation()
     }
     
-    func setDestinationPointAndDrowRoute(coordinate: CLLocationCoordinate2D) {
+    private func setDestinationPoint(coordinate: CLLocationCoordinate2D) {
         annotation.title = fullName
         
         annotation.subtitle = phoneNumber
@@ -105,13 +105,13 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
             
             mapView.setRegion(region, animated: true)
             
-            setDestinationPointAndDrowRoute(coordinate: coordinate)
+            setDestinationPoint(coordinate: coordinate)
         }
         
         determineCurrentLocation()
     }
     
-    func determineCurrentLocation()
+    private func determineCurrentLocation()
     {
         locationManager = CLLocationManager()
         
@@ -122,7 +122,9 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
         locationManager.requestAlwaysAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
+            DispatchQueue.main.async {
+                self.locationManager.startUpdatingLocation()
+            }
         }
     }
     
