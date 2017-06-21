@@ -42,6 +42,10 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
         contactsListTableView.estimatedRowHeight = 88
         	
         presenter.viewDidLoad()
+        
+        contactsListTableView.tableHeaderView = UIView()
+        
+        contactsListTableView.tableFooterView = UIView()
     }
 
     override func didReceiveMemoryWarning() {

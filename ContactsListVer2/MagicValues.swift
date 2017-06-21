@@ -8,6 +8,8 @@
 
 import Foundation
 
+import UIKit
+
 struct Constants {
     struct NotificationsNames {
         static let addContact = "addContact"
@@ -27,6 +29,8 @@ struct Constants {
         static let countOfDisplayedFullNameCharacters = 15
         
         static let countOfDisplayedEmailOrPhoneNumberCharacters = 20
+        
+        static let accessoryButtons = [#imageLiteral(resourceName: "button_0"), #imageLiteral(resourceName: "button_1"), #imageLiteral(resourceName: "button_2")]
     }
     
     struct Settings {

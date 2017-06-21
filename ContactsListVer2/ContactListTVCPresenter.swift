@@ -93,7 +93,7 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
     
     func configureCell(_ cell: ContactsTVCell, forRow row: Int) {
         let contact = contactListArray[row]
-        
+
         let constraintsConstant = [row % 8, 8 - row % 8].min()! * 10
         
         var presenter: ContactTVCellPresenter
@@ -102,8 +102,10 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
             presenter = presenterValue
             
             presenter.contactsTVCell = cell
+            
+            presenter.row = row
         } else {
-            presenter = ContactTVCellPresenter(contactsTVCell: cell, contact: contact)
+            presenter = ContactTVCellPresenter(contactsTVCell: cell, contact: contact, row: row)
             
             cellsPresentersDictionary[contact.uuid] = presenter
         }

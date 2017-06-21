@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ContactTVCellPresenterProtocol {
-    init(contactsTVCell: ContactTVCellProtocol, contact: Contact)
+    init(contactsTVCell: ContactTVCellProtocol, contact: Contact, row: Int)
     
     func fillCellByContact(constraintsConstant: Int)
 }
@@ -19,12 +19,16 @@ class ContactTVCellPresenter: ContactTVCellPresenterProtocol {
     
     var showDetailInfo = false
     
+    var row: Int
+    
     private let contact: Contact
     
-    required init(contactsTVCell: ContactTVCellProtocol, contact: Contact) {
+    required init(contactsTVCell: ContactTVCellProtocol, contact: Contact, row: Int) {
         self.contactsTVCell = contactsTVCell
         
         self.contact = contact
+        
+        self.row = row
     }
     
     func fillCellByContact(constraintsConstant: Int) {        

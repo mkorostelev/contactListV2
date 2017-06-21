@@ -26,6 +26,8 @@ class DSCameraHandler: NSObject {
     var delegate: UINavigationControllerDelegate & UIImagePickerControllerDelegate
     init(delegate_: UINavigationControllerDelegate & UIImagePickerControllerDelegate) {
         delegate = delegate_
+        
+        imagePicker.modalPresentationStyle = .overCurrentContext
     }
     
     func getPhotoLibraryOn(_ onVC: UIViewController, canEdit: Bool) {
@@ -100,4 +102,14 @@ class DSCameraHandler: NSObject {
     }
 }
 
+//extension UIImagePickerController
+//{
+//    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        return .all
+//    }
+//    
+//    override open var shouldAutorotate: Bool {
+//        return true
+//    }
+//}
 

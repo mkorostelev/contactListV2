@@ -243,6 +243,12 @@ extension ContactsTVCell {
         }
         
         showDetailInfo()
+        
+        let image = Constants.SomeDefaults.accessoryButtons[self.presenter.row % 3]
+        
+        let imageView = UIImageView(image: image)
+
+        self.accessoryView = imageView
     }
     
     func reloadDataFromPresenter() {
