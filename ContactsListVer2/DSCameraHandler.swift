@@ -11,7 +11,7 @@ import Foundation
 import MobileCoreServices
 import UIKit
 
-class DSCameraHandler: NSObject {
+class DSCameraHandler {
     
     private let imagePicker = UIImagePickerController()
     let isPhotoLibraryAvailable = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
@@ -102,6 +102,7 @@ class DSCameraHandler: NSObject {
     }
 }
 
+// second variant of rotating Gallery
 //extension UIImagePickerController
 //{
 //    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {

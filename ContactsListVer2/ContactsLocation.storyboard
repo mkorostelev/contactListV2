@@ -35,7 +35,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="jaW-YP-Oqa">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="52x-dy-k8e">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="52x-dy-k8e">
                             <connections>
                                 <action selector="saveLocation:" destination="Tvt-4j-nRE" id="ht0-Ta-fYa"/>
                             </connections>
@@ -44,6 +44,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="qEy-bU-oNx" id="7YQ-wt-QB1"/>
+                        <outlet property="saveButtonOutlet" destination="52x-dy-k8e" id="Sc1-xt-KJg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FqP-IF-s2m" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -10,10 +10,8 @@ import Foundation
 
 import UIKit
 
-protocol ContactAddEditProtocol: class {
+protocol ContactAddEditProtocol: class, ControllerWithSaveButton {
     var deleteContactButtonIsHidden: Bool { get set }
-    
-    var saveButtonIsEnabled: Bool { get set }
     
     func presentDeletionAlert(contactFullName: String, deleteAction: @escaping (() -> Void))
     
@@ -26,7 +24,7 @@ protocol ContactAddEditProtocol: class {
     func fillTextFieldsData(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?,
                             longitude: Double?)
     
-    func setLocation(latitude: Double?, longitude: Double?)
+    func setLocation(latitude: Double?, longitude: Double?, address: String?)
     
     func getLocationInfo() -> (fullName: String, phoneNumber: String, latitude: Double?, longitude: Double?)
     

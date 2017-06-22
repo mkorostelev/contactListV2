@@ -94,7 +94,7 @@ class ContactAddEditRouter: ContactAddEditRouterProtocol {
         
         if locationIsFilled {
             let eraseAction = UIAlertAction(title: "Erase", style: .destructive) { _ in
-                self.contactAddEditPresenter.setLocation(latitude: nil, longitude: nil)
+                self.contactAddEditPresenter.setLocation(latitude: nil, longitude: nil, address: nil)
             }
             
             alertController.addAction(eraseAction)

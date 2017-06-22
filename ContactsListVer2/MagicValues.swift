@@ -34,8 +34,10 @@ struct Constants {
     }
     
     struct Settings {
-        static let useAlertControllerForUserAdd = true
+        static let useAlertControllerForUserAdd = false
         
         static let viewContactViaSecondClick = true
+        
+        static let useApiForStorageData = true
     }
 }

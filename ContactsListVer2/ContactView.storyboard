@@ -47,7 +47,7 @@
                                             <constraint firstAttribute="height" constant="120" id="09Q-va-Coi"/>
                                         </constraints>
                                     </imageView>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Dd7-8I-8br">
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dd7-8I-8br">
                                         <rect key="frame" x="19.5" y="276" width="337.5" height="280"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="280" id="2y0-Wt-SYG"/>

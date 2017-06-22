@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactAddAlert: NSObject, UITextFieldDelegate {
+class ContactAddAlert: NSObject, UITextFieldDelegate, ControllerWithSaveButton {
     var alertController: UIAlertController? = nil
     
     var presenter: ContactAddAlertPresenterProtocol!
@@ -23,7 +23,7 @@ class ContactAddAlert: NSObject, UITextFieldDelegate {
     
     var okAlertAction: UIAlertAction?
     
-    var okAlertActionIsEnabled: Bool {
+    var saveButtonIsEnabled: Bool {
         get {
             return self.okAlertAction?.isEnabled ?? false
         }
@@ -113,10 +113,10 @@ class ContactAddAlert: NSObject, UITextFieldDelegate {
             let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
             
             self.okAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { _ in
-                self.presenter?.checkAndSaveContactFromAlert(firstName: self.firstName, lastName: self.lastName, phoneNumber: self.phoneNumber, email: self.email)
+                self.presenter?.validateAndSaveContact(firstName: self.firstName, lastName: self.lastName, phoneNumber: self.phoneNumber, email: self.email, photo: nil, latitude: nil, longitude: nil)
             }
             
-            self.okAlertActionIsEnabled = false
+            self.saveButtonIsEnabled = false
             
             alertController.addAction(cancelAction)
             
@@ -153,7 +153,7 @@ class ContactAddAlert: NSObject, UITextFieldDelegate {
                 
                 emailIsValid = false
                 
-                self.okAlertActionIsEnabled = false
+                self.saveButtonIsEnabled = false
             }
             textField.backgroundColor = backgroundColor
         }

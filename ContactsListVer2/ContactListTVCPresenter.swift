@@ -25,7 +25,7 @@ protocol ContactListTVCPresenterProtocol: class {
     
     func configureCell(_ cell: ContactsTVCell, forRow row: Int)
     
-    func viewDidLoad()
+    func onViewDidLoad()
     
     func changeSortMethod()
     
@@ -76,15 +76,15 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
         
         self.contactsListTVC = contactsListTVC
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addContact(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.addContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(addContact(_:)), name: Notification.Name(rawValue: Constants.NotificationsNames.addContact), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(deleteContact(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.removeContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteContact(_:)), name: Notification.Name(rawValue: Constants.NotificationsNames.removeContact), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateContact(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateContact(_:)), name: Notification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateContactList(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.changedSortFild), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateContactList(_:)), name: Notification.Name(rawValue: Constants.NotificationsNames.changedSortFild), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateContactList(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateContactList(_:)), name: Notification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     deinit {
@@ -115,7 +115,7 @@ class ContactListTVCPresenter: ContactListTVCPresenterProtocol {
         presenter.fillCellByContact(constraintsConstant: constraintsConstant)
     }
     
-    func viewDidLoad() {
+    func onViewDidLoad() {
         self.contactsListTVC.sortMethodSegmentControlSelectedSegmentIndex = currentSortField.rawValue
         
         readContactList()
@@ -206,7 +206,7 @@ extension ContactListTVCPresenter {
 
 // observers functions
 extension ContactListTVCPresenter {
-    @objc func updateContact(_ notification: NSNotification) {
+    @objc func updateContact(_ notification: Notification) {
         if let contact = notification.userInfo?["contact"] as? Contact {
             let oldIndex = contactListArray.index(of: contact)
             
@@ -224,7 +224,7 @@ extension ContactListTVCPresenter {
         }
     }
     
-    @objc func deleteContact(_ notification: NSNotification) {
+    @objc func deleteContact(_ notification: Notification) {
         if let contact = notification.userInfo?["contact"] as? Contact {
             let index = contactListArray.index(of: contact)
             
@@ -243,7 +243,7 @@ extension ContactListTVCPresenter {
         self.setAvailability()
     }
     
-    @objc func addContact(_ notification: NSNotification) {
+    @objc func addContact(_ notification: Notification) {
         readContactList()
         
         if let contact = notification.userInfo?["contact"] as? Contact {
@@ -260,7 +260,7 @@ extension ContactListTVCPresenter {
         self.setAvailability()
     }
     
-    @objc func updateContactList(_ notification: NSNotification) {
+    @objc func updateContactList(_ notification: Notification) {
         self.setAvailabilityAndReloadData()
     }
     

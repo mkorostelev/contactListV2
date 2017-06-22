@@ -41,7 +41,7 @@ class ContactsListTVC: UITableViewController, ContactListTVCProtocol {
         
         contactsListTableView.estimatedRowHeight = 88
         	
-        presenter.viewDidLoad()
+        presenter.onViewDidLoad()
         
         contactsListTableView.tableHeaderView = UIView()
         

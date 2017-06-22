@@ -28,7 +28,7 @@ class ContactViewVC: UIViewController, ContactViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter.viewDidLoad()
+        presenter.onViewDidLoad()
     }
 
     override func didReceiveMemoryWarning() {

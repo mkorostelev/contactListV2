@@ -58,6 +58,8 @@ class Contact: NSObject, NSCoding{
         }
     }
     
+    var address: String?
+    
     private(set) var uuid: String
     
     var searchString: String {

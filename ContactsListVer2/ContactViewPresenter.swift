@@ -11,7 +11,7 @@ import Foundation
 protocol ContactViewPresenterProtocol: class {
     init(contactViewVC: ContactViewProtocol, contactList: ContactsList?, contactUuid: String?)
     
-    func viewDidLoad()
+    func onViewDidLoad()
     
     var contactList: ContactsList? { get }
     
@@ -36,10 +36,10 @@ class ContactViewPresenter: ContactViewPresenterProtocol {
         
         self.contactUuid = contactUuid
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateContact(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateContact(_:)), name: Notification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
     }
 
-    func viewDidLoad() {
+    func onViewDidLoad() {
         self.fillDataFromContact()
     }
     
@@ -62,7 +62,7 @@ class ContactViewPresenter: ContactViewPresenterProtocol {
         }
     }
     
-    @objc func updateContact(_ notification: NSNotification) {
+    @objc func updateContact(_ notification: Notification) {
         if let contact = notification.userInfo?["contact"] as? Contact {
             if contact.uuid == self.contactUuid {
                 self.fillDataFromContact()

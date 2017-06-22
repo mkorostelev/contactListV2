@@ -8,18 +8,14 @@
 
 import Foundation
 
-protocol ContactAddEditPresenterProtocol: class {
+protocol ContactAddEditPresenterProtocol: class, ContactAddBaseProtocol {
     init(contactAddEditVC: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?)
     
-    func viewDidLoad()
+    func onViewDidLoad()
     
     func deleteContact()
     
-    func checkEnabledOfSaveButton(allInputedText: String, notInOutletString: String, range: NSRange?)
-    
-    func validateAndSaveContact(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?)
-    
-    func setLocation(latitude: Double?, longitude: Double?)
+    func setLocation(latitude: Double?, longitude: Double?, address: String?)
     
     var router: ContactAddEditRouterProtocol! { get set }
     
@@ -27,7 +23,9 @@ protocol ContactAddEditPresenterProtocol: class {
 }
 
 class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
-    unowned let contactAddEditVC: ContactAddEditProtocol
+    unowned var connectedController: ControllerWithSaveButton
+
+    unowned var connectedController1: ContactAddEditProtocol
     
     var router: ContactAddEditRouterProtocol!
     
@@ -38,7 +36,9 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
     private let contact: Contact?
     
     required init(contactAddEditVC: ContactAddEditProtocol, contactList: ContactsList?, contactUuid: String?) {
-        self.contactAddEditVC = contactAddEditVC
+        self.connectedController1 = contactAddEditVC
+        
+        self.connectedController = contactAddEditVC
         
         self.contactList = contactList
         
@@ -47,9 +47,9 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
         self.contact = contactList?.getByUuid(contactUuid)
     }
     
-    func viewDidLoad() {
+    func onViewDidLoad() {
         if let contactValue = self.contact {
-            self.contactAddEditVC.fillTextFieldsData(
+            self.connectedController1.fillTextFieldsData(
                 firstName: contactValue.firstName,
                 lastName: contactValue.lastName,
                 phoneNumber: contactValue.phoneNumber,
@@ -59,31 +59,17 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
                 longitude: contactValue.longitude
             )
         } else {
-            self.contactAddEditVC.deleteContactButtonIsHidden = true
+            self.connectedController1.deleteContactButtonIsHidden = true
             
-            self.contactAddEditVC.fillContactsLocation()
+            self.connectedController1.fillContactsLocation()
         }
-    }
-
-    func checkEnabledOfSaveButton(allInputedText: String, notInOutletString: String, range: NSRange?) {
-        var countOfDeleted = 0
-        
-        if let rangeValue = range {
-            if notInOutletString.isEmpty {
-                countOfDeleted = rangeValue.length - rangeValue.location
-            }
-        }
-        
-        let saveContactOutletisEnabled = ("\(allInputedText)\(notInOutletString)".characters.count - countOfDeleted) > 0
-        
-        self.contactAddEditVC.saveButtonIsEnabled = saveContactOutletisEnabled
     }
     
     func validateAndSaveContact(firstName: String, lastName: String, phoneNumber: String, email: String, photo: NSData?, latitude: Double?, longitude: Double?) {
         if email.isEmpty || DataValidators.validateEmail(value: email) {
             self.saveContactConfirmed(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: latitude, longitude: longitude)
         } else {
-            self.contactAddEditVC.presentEmailValidationAlert {
+            self.connectedController1.presentEmailValidationAlert {
                 self.saveContactConfirmed(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: latitude, longitude: longitude)
             }
         }
@@ -117,17 +103,17 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
                 contactValue.longitude = longitude
             }
             
-            self.contactAddEditVC.closeViewAndGoBack()
+            self.connectedController1.closeViewAndGoBack()
         } else {
             // add new contact
             contactList?.addContact(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, photo: photo, latitude: latitude, longitude: longitude)
             
-            self.contactAddEditVC.closeViewAndGoToRoot()
+            self.connectedController1.closeViewAndGoToRoot()
         }
     }
     
     func deleteContact() {
-        self.contactAddEditVC.presentDeletionAlert(contactFullName: contact?.fullName ?? "Contact") {
+        self.connectedController1.presentDeletionAlert(contactFullName: contact?.fullName ?? "Contact") {
             self.deleteContactConfirmed()
         }
     }
@@ -136,15 +122,15 @@ class ContactAddEditPresenter: ContactAddEditPresenterProtocol {
         if let contact = self.contact {
             contactList?.deleteContact(contact)
             
-            self.contactAddEditVC.closeViewAndGoToRoot()
+            self.connectedController1.closeViewAndGoToRoot()
         }
     }
     
-    func setLocation(latitude: Double?, longitude: Double?) {
-        self.contactAddEditVC.setLocation(latitude: latitude, longitude: longitude)
+    func setLocation(latitude: Double?, longitude: Double?, address: String?) {
+        self.connectedController1.setLocation(latitude: latitude, longitude: longitude, address: address)
     }
     
     func getLocationInfo() -> (fullName: String, phoneNumber: String, latitude: Double?, longitude: Double?) {
-        return self.contactAddEditVC.getLocationInfo()
+        return self.connectedController1.getLocationInfo()
     }
 }

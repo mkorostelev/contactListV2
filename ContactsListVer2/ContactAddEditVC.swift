@@ -78,12 +78,13 @@ class ContactAddEditVC: UIViewController, UITextFieldDelegate, ContactAddEditPro
         
         setDelegates()
 
-        presenter.viewDidLoad()
+        presenter.onViewDidLoad()
         
         presenter.checkEnabledOfSaveButton(allInputedText: self.allInputedText, notInOutletString: "", range: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: Notification.Name.UIKeyboardDidShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -340,7 +341,7 @@ extension ContactAddEditVC {
         self.performSegueToReturnBack()
     }
     
-    func setLocation(latitude: Double?, longitude: Double?) {
+    func setLocation(latitude: Double?, longitude: Double?, address: String?) {
         self.latitude = latitude
         
         self.longitude = longitude

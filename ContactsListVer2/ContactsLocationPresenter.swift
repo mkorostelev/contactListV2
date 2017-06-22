@@ -11,9 +11,9 @@ import Foundation
 protocol ContactsLocationPresenterProtocol: class {
     init(contactsLocationVC: ContactsLocationProtocol, contactAddEditPresenter: ContactAddEditPresenterProtocol, fullName: String, phoneNumber: String, latitude: Double?, longitude: Double?)
     
-    func setLocation(latitude: Double, longitude: Double)
+    func setLocation(latitude: Double?, longitude: Double?, address: String?)
     
-    func viewDidLoad()
+    func onViewDidLoad()
 }
 
 class ContactsLocationPresenter: ContactsLocationPresenterProtocol {
@@ -43,11 +43,11 @@ class ContactsLocationPresenter: ContactsLocationPresenterProtocol {
         self.longitude = longitude
     }
 
-    func setLocation(latitude: Double, longitude: Double) {
-        self.contactAddEditPresenter.setLocation(latitude: latitude, longitude: longitude)
+    func setLocation(latitude: Double?, longitude: Double?, address: String?) {
+        self.contactAddEditPresenter.setLocation(latitude: latitude, longitude: longitude, address: address)
     }
     
-    func viewDidLoad() {
+    func onViewDidLoad() {
         self.contactsLocationVC.fillDataFromContact(fullName: self.fullName, phoneNumber: self.phoneNumber, latitude: self.latitude, longitude: self.longitude)
     }
 }

@@ -17,6 +17,8 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
     
     var annotation = MKPointAnnotation()
     
+    var address: String?
+    
     var fullName: String = ""
     
     var phoneNumber: String = ""
@@ -27,10 +29,12 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
     
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var saveButtonOutlet: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.presenter.viewDidLoad()
+        self.presenter.onViewDidLoad()
         
         mapView.delegate = self
         
@@ -84,7 +88,7 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
     }
     
     private func saveLocationAction() {
-        self.presenter.setLocation(latitude: self.annotation.coordinate.latitude, longitude: self.annotation.coordinate.longitude)
+        self.presenter.setLocation(latitude: self.annotation.coordinate.latitude, longitude: self.annotation.coordinate.longitude, address: self.address)
         
         self.performSegueToReturnBack()
     }
@@ -185,9 +189,30 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
                 
                 self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
                 
+                for step in route.steps {
+                    print(step.instructions)
+                }
+
                 let rect = route.polyline.boundingMapRect
                 
                 self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+             
+                self.saveButtonOutlet.isEnabled = true
+
+                let destinationLocation = CLLocation(latitude: destinationMapItemValue.placemark.coordinate.latitude, longitude: destinationMapItemValue.placemark.coordinate.longitude)
+
+                self.getPlacemark(forLocation: destinationLocation) {
+                    (originPlacemark, error) in
+                    if let err = error {
+                        self.address = nil
+                        
+                        debugPrint(err)
+                    } else if let placemark = originPlacemark {
+                        if let address = placemark.addressDictionary?["FormattedAddressLines"] as? [String] {
+                            self.address = address.joined(separator: ", ")
+                        }
+                    }
+                }
             }
         }
     }
@@ -205,6 +230,26 @@ class ContactsLocationVC: UIViewController, MKMapViewDelegate, ContactsLocationP
         renderer.lineWidth = 4.0
         
         return renderer
+    }
+    
+    func getPlacemark(forLocation location: CLLocation, completionHandler: @escaping (CLPlacemark?, String?) -> ()) {
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(location, completionHandler: {
+            placemarks, error in
+            
+            if let err = error {
+                completionHandler(nil, err.localizedDescription)
+            } else if let placemarkArray = placemarks {
+                if let placemark = placemarkArray.first {
+                    completionHandler(placemark, nil)
+                } else {
+                    completionHandler(nil, "Placemark was nil")
+                }
+            } else {
+                completionHandler(nil, "Unknown error")
+            }
+        })
     }
     
 }

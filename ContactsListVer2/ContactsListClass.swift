@@ -27,14 +27,14 @@ class ContactsList: NSObject, NSCoding {
     override init() {
         super.init()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.contactWasUpdated(_:)), name: NSNotification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.contactWasUpdated(_:)), name: Notification.Name(rawValue: Constants.NotificationsNames.updateContact), object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc private func contactWasUpdated(_ notification: NSNotification) {
+    @objc private func contactWasUpdated(_ notification: Notification) {
         self.saveData()
     }
     
